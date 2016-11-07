@@ -1,0 +1,216 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.udacity.capstone.fragment.AddProductFragment">
+
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_main"/>
+
+    <ScrollView
+        android:id="@+id/scrollParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_main">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/title_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
+                android:layout_marginTop="@dimen/marginLargeTopAndBottom"
+                android:contentDescription="Title"
+                android:spinnerMode="dialog"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                >
+
+            </Spinner>
+
+            <EditText
+                android:id="@+id/lbl_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_spinner"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="First Name"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
+
+            <TextView
+                android:id="@+id/hnt_fname"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/lbl_firstname"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/lbl_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hnt_fname"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Last Name"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
+
+            <TextView
+                android:id="@+id/hnt_lname"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/lbl_lastname"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/lbl_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hnt_lname"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Email"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:id="@+id/hnt_email"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/lbl_email"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/lbl_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hnt_email"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Password"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:id="@+id/hnt_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/lbl_pwd"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/lbl_confirmpwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hnt_pwd"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:singleLine="true"
+
+                android:hint="Confirm Password"
+                android:focusable="false"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:enabled="false"/>
+
+
+            <TextView
+                android:id="@+id/hnt_confirmpwd"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/lbl_confirmpwd"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/lbl_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hnt_confirmpwd"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:singleLine="true"
+                android:hint="Mobile"
+                android:inputType="number"
+                android:maxLength="10"
+                android:imeOptions="actionDone"/>
+
+            <TextView
+                android:id="@+id/hnt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/lbl_mobile"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+
+                android:textSize="12dp"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/gender_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lbl_mobile"
+                android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dialog"
+                android:focusable="true"
+                android:focusableInTouchMode="true"/>
+
+            <LinearLayout
+                android:id="@+id/containerButtonRegister"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/gender_spinner"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/buttonMainHeight"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/marginLargeLeftAndRight"
+                    android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+                    android:gravity="center"
+                    android:paddingRight="30dp"
+                    android:paddingLeft="30dp"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</LinearLayout>
