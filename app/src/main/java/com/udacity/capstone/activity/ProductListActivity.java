@@ -25,6 +25,7 @@ public class ProductListActivity extends AppCompatActivity implements AddProduct
         ButterKnife.bind(this);
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setTitle("Products");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mtoolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 
@@ -43,6 +44,7 @@ public class ProductListActivity extends AppCompatActivity implements AddProduct
                 AddProductFragment addProductFragment=AddProductFragment.newInstance("1","2");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AddProductFragment())
+                        .addToBackStack("products")
                         .commit();
                 return true;
 
