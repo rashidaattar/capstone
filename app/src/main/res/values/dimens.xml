@@ -83,4 +83,10 @@
     <!--added to handle the vertical divider of product listing screen-->
     <dimen name="productListingHeight">240dp</dimen>
 
+
+
+    <dimen name="fab_elevation">2dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+
 </resources>
