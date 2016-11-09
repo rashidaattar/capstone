@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/cordinator_main"
+    tools:context="com.udacity.capstone.activity.CustomerListActivity">
+
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_main1"/>
+
+    <android.support.v7.widget.RecyclerView
+
+        android:id="@+id/customers_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:paddingBottom="28dp"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container"
+        ></FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/customer_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:contentDescription="Add"
+        android:elevation="@dimen/fab_elevation"
+        android:src="@drawable/ic_add_white_24dp"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -21,7 +21,8 @@
             android:authorities="com.udacity.capstone"
             android:exported="true" />
 
-        <activity android:name=".activity.ProductListActivity"></activity>
+        <activity android:name=".activity.ProductListActivity" />
+        <activity android:name=".activity.CustomerListActivity"></activity>
     </application>
 
 </manifest>

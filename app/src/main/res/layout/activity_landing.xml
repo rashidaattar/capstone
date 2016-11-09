@@ -14,7 +14,7 @@
         android:id="@+id/toolbar_main"/>
 
     <Button
-        android:text="Button"
+        android:text="Products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -31,4 +31,14 @@
         android:layout_alignEnd="@+id/prod_button"
         android:layout_marginTop="36dp"
         android:id="@+id/order_button" />
+
+    <Button
+        android:text="Customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_button"
+        android:layout_alignRight="@+id/prod_button"
+        android:layout_alignEnd="@+id/prod_button"
+        android:layout_marginTop="36dp"
+        android:id="@+id/customer_button" />
 </RelativeLayout>

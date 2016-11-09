@@ -19,5 +19,9 @@ public class InventoryDatabase {
 
     @Table(ProductTable.class) public static final String PRODUCTS = "products";
 
+    @Table(PersonTable.class) public static final String PERSONS = "persons";
+
+    @Table(AddressTable.class) public static final String ADRESSES = "addresses";
+
 }
 
