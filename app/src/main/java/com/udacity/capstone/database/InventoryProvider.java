@@ -76,16 +76,12 @@ public class InventoryProvider {
             return buildUri(Path.PERSONS, type);
         }*/
 
-        @InexactContentUri(
+        @ContentUri(
                 path = Path.PERSONS + "/*",
-                name = "CUSTOMER_ADDRESS_JOIN",
                 type = "vnd.example.dir.item/persons" ,
-                join = "JOIN "+ InventoryDatabase.PERSONS + " ON " + InventoryDatabase.PERSONS + "." + PersonTable._ID + " = " + InventoryDatabase.ADRESSES + "." + AddressTable.PERSON_ID,
-                whereColumn = PersonTable._ID,
-                pathSegment = 1)
-        public static Uri customJoin(int id){
-            return buildUri(Path.PERSONS, String.valueOf(id));
-        }
+                join = "JOIN "+ InventoryDatabase.ADRESSES + " ON " + InventoryDatabase.PERSONS + "." + PersonTable._ID + " = "
+                        + InventoryDatabase.ADRESSES + "." + AddressTable.PERSON_ID)
+        public static final Uri PERSONS_JOIN_URI = buildUri(Path.PERSONS);
 
     }
 

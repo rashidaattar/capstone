@@ -74,11 +74,11 @@ public class LandingActivity extends AppCompatActivity {
 
     @OnClick(R.id.customer_button)
     public void viewCustomers(){
-        int i=0;
+        /*int i=0;
         ContentValues contentValues = new ContentValues();
         contentValues.put(PersonTable.COMPANY_NAME,"abc");
         contentValues.put(PersonTable.CONTACT_NO,"9876543210");
-        contentValues.put(PersonTable.PERSON_NAME,"rashida");
+        contentValues.put(PersonTable.PERSON_NAME,"rashida"+ ++i);
         contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
         getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
 
@@ -86,7 +86,7 @@ public class LandingActivity extends AppCompatActivity {
         contentValues1.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_BILLING);
         contentValues1.put(AddressTable.ADDRESS_LINE1,"Mumbai baka");
         contentValues1.put(AddressTable.PERSON_ID,++i);
-        getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues1);
+        getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues1)*/;
 
         Intent intent=new Intent(this,CustomerListActivity.class);
         startActivity(intent);

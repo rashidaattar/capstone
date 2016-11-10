@@ -1,0 +1,138 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.udacity.capstone.fragment.CustomerInfoTabFragment"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <TextView
+        android:id="@+id/hnt_fname"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/lbl_firstname"
+        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+        android:text="@string/firstname_label"
+         />
+
+    <EditText
+        android:id="@+id/lbl_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_spinner"
+        android:inputType="textNoSuggestions|textVisiblePassword"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:hint="First Name"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        />
+
+    <TextView
+        android:id="@+id/hnt_lname"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/lbl_lastname"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+         android:text="@string/lastname_label"/>
+
+
+    <EditText
+        android:id="@+id/lbl_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hnt_fname"
+        android:inputType="textNoSuggestions|textVisiblePassword"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:hint="Last Name"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        />
+
+
+    <TextView
+        android:id="@+id/hnt_company"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/lbl_email"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+        android:text="@string/companyname_label"
+        />
+
+    <EditText
+        android:id="@+id/lbl_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hnt_lname"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:hint="Email"
+        android:singleLine="true"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"/>
+
+
+    <TextView
+        android:id="@+id/hnt_email"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/lbl_email"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+        android:text="@string/email_label" />
+
+    <EditText
+        android:id="@+id/lbl_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hnt_lname"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:hint="Email"
+        android:singleLine="true"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"/>
+
+    <TextView
+        android:id="@+id/hnt_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/lbl_email"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
+        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+        android:text="@string/mobile_label"
+         />
+
+    <EditText
+        android:id="@+id/lbl_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hnt_confirmpwd"
+        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+        android:singleLine="true"
+        android:hint="Mobile"
+        android:inputType="number"
+        android:maxLength="10"
+        android:imeOptions="actionDone"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_customer"
+        android:text="@string/save_label"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

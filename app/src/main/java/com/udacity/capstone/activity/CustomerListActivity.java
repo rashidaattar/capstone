@@ -1,5 +1,6 @@
 package com.udacity.capstone.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
@@ -20,6 +21,7 @@ import com.udacity.capstone.database.ProductTable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CustomerListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -54,8 +56,8 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, InventoryProvider.Persons.customJoin(1),
-                new String[]{PersonTable.PERSON_NAME},null,null,null);
+        return new CursorLoader(this, InventoryProvider.Persons.PERSONS_JOIN_URI,
+                new String[]{PersonTable._ID,PersonTable.PERSON_NAME},null,null,null);
     }
 
     @Override
@@ -68,6 +70,14 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCustomersCursorAdapter.swapCursor(null);
+
+    }
+
+    @OnClick(R.id.customer_fab)
+    public void addCustomer(){
+
+        Intent intent=new Intent(this,AddEditCustomerActivity.class);
+        startActivity(intent);
 
     }
 }

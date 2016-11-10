@@ -21,7 +21,7 @@ public interface AddressTable {
 
 
     @DataType(INTEGER) @AutoIncrement @PrimaryKey
-    String _ID = "address_id";
+    String _ID = "_id";
 
     @NotNull @DataType(TEXT)
     String ADDRESS_LINE1 = "address_line1";
@@ -34,6 +34,9 @@ public interface AddressTable {
 
     @DataType(TEXT)
     String STATE = "state";
+
+    @DataType(TEXT)
+    String PINCODE = "pincode";
 
     @DataType(TEXT)
     String CONTACT_NO = "contact_no";

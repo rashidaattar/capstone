@@ -22,7 +22,8 @@
             android:exported="true" />
 
         <activity android:name=".activity.ProductListActivity" />
-        <activity android:name=".activity.CustomerListActivity"></activity>
+        <activity android:name=".activity.CustomerListActivity" />
+        <activity android:name=".activity.AddEditCustomerActivity"></activity>
     </application>
 
 </manifest>
