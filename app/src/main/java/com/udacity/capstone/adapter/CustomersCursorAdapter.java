@@ -2,6 +2,7 @@ package com.udacity.capstone.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,13 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)));
+        viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.COMPANY_NAME)));
+        viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -42,6 +50,12 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.customer_name)
         TextView customer_name;
+
+        @BindView(R.id.company_name)
+        TextView company_name;
+
+        @BindView(R.id.card_view)
+        CardView card_view;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -46,6 +46,7 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
         viewPager.setAdapter(adapter);
     }
 
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 

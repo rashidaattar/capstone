@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.AddressTable;
@@ -21,7 +23,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class AddressInfoTabFragment extends Fragment {
+public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabFragment.OnFragmentInteractionListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -29,6 +31,7 @@ public class AddressInfoTabFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,6 +57,8 @@ public class AddressInfoTabFragment extends Fragment {
     Button button;
 
     private Unbinder unbinder;
+
+    private String personId;
 
     public static AddressInfoTabFragment newInstance() {
         AddressInfoTabFragment fragment = new AddressInfoTabFragment();
@@ -94,15 +99,22 @@ public class AddressInfoTabFragment extends Fragment {
 
     @OnClick(R.id.save_address)
     public void saveAddress(){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(AddressTable.ADDRESS_LINE1,address_line1.getText().toString());
-        contentValues.put(AddressTable.ADDRESS_LINE2,address_line2.getText().toString());
-        contentValues.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_BILLING);
-        contentValues.put(AddressTable.CITY,city.getText().toString());
-        contentValues.put(AddressTable.STATE,state.getText().toString());
-        contentValues.put(AddressTable.CONTACT_NO,mobile.getText().toString());
-        contentValues.put(AddressTable.PERSON_ID,1);
-        getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+        if(personId!=null && personId.length()>0){
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(AddressTable.ADDRESS_LINE1,address_line1.getText().toString());
+            contentValues.put(AddressTable.ADDRESS_LINE2,address_line2.getText().toString());
+            contentValues.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_BILLING);
+            contentValues.put(AddressTable.CITY,city.getText().toString());
+            contentValues.put(AddressTable.STATE,state.getText().toString());
+            contentValues.put(AddressTable.CONTACT_NO,mobile.getText().toString());
+            contentValues.put(AddressTable.PERSON_ID, Integer.parseInt(personId));
+            getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+        }
+        else{
+            Toast.makeText(this.getActivity(),"Kindly insert the customer information first",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,6 +135,14 @@ public class AddressInfoTabFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+        uri.getPath().toString();
+        String id[] = uri.getPath().toString().split("/");
+        personId =id[2];
+
+    }
 
 
     public interface OnFragmentInteractionListener {

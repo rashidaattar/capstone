@@ -57,7 +57,7 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this, InventoryProvider.Persons.PERSONS_JOIN_URI,
-                new String[]{PersonTable._ID,PersonTable.PERSON_NAME},null,null,null);
+                new String[]{PersonTable._ID,PersonTable.PERSON_NAME,PersonTable.COMPANY_NAME},null,null,null);
     }
 
     @Override

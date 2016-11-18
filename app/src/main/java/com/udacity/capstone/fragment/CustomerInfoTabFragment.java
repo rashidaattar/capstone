@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,8 @@ public class CustomerInfoTabFragment extends Fragment {
         contentValues.put(PersonTable.EMAIL,email.getText().toString());
         contentValues.put(PersonTable.CONTACT_NO,mobile.getText().toString());
         contentValues.put(PersonTable.COMPANY_NAME,companyName.getText().toString());
-        getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
+        Uri uri =getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
+       onCustomerInserted(uri);
     }
 
     @Override
@@ -109,7 +111,7 @@ public class CustomerInfoTabFragment extends Fragment {
 
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onCustomerInserted(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
