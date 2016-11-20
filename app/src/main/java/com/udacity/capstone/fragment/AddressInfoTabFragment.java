@@ -35,23 +35,23 @@ public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabF
 
     private OnFragmentInteractionListener mListener;
 
-    @BindView(R.id.lbl_address_line1)
-    EditText address_line1;
+    @BindView(R.id.txt_addressline1)
+    EditText address_line1_txt;
 
-    @BindView(R.id.lbl_address_line2)
-    EditText address_line2;
+    @BindView(R.id.txt_addressline2)
+    EditText address_line2_txt;
 
-    @BindView(R.id.lbl_city)
-    EditText city;
+    @BindView(R.id.txt_city)
+    EditText city_txt;
 
-    @BindView(R.id.lbl_state)
-    EditText state;
+    @BindView(R.id.txt_state)
+    EditText state_txt;
 
-    @BindView(R.id.lbl_pincode)
-    EditText pincode;
+    @BindView(R.id.txt_pincode)
+    EditText pincode_txt;
 
-    @BindView(R.id.lbl_contactno)
-    EditText mobile;
+    @BindView(R.id.txt_contact)
+    EditText contact_txt;
 
     @BindView(R.id.save_address)
     Button button;
@@ -102,12 +102,12 @@ public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabF
         if(personId!=null && personId.length()>0){
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(AddressTable.ADDRESS_LINE1,address_line1.getText().toString());
-            contentValues.put(AddressTable.ADDRESS_LINE2,address_line2.getText().toString());
+            contentValues.put(AddressTable.ADDRESS_LINE1,address_line1_txt.getText().toString());
+            contentValues.put(AddressTable.ADDRESS_LINE2,address_line2_txt.getText().toString());
             contentValues.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_BILLING);
-            contentValues.put(AddressTable.CITY,city.getText().toString());
-            contentValues.put(AddressTable.STATE,state.getText().toString());
-            contentValues.put(AddressTable.CONTACT_NO,mobile.getText().toString());
+            contentValues.put(AddressTable.CITY,city_txt.getText().toString());
+            contentValues.put(AddressTable.STATE,state_txt.getText().toString());
+            contentValues.put(AddressTable.CONTACT_NO,contact_txt.getText().toString());
             contentValues.put(AddressTable.PERSON_ID, Integer.parseInt(personId));
             getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
         }

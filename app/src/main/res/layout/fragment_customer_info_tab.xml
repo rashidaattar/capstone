@@ -11,126 +11,102 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-    <TextView
-        android:id="@+id/hnt_fname"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_firstname"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/firstname_label"
-         />
+            android:orientation="vertical"
+            android:layout_margin="@dimen/marginSmallTopAndBottom"
+           >
 
-    <EditText
-        android:id="@+id/lbl_firstname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_spinner"
-        android:inputType="textNoSuggestions|textVisiblePassword"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="First Name"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/import_contacts"
+                android:text="Import from Contacts"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                android:clickable="true"
+                android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:layout_marginTop="110dp"/>
 
-    <TextView
-        android:id="@+id/hnt_lname"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_lastname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-         android:text="@string/lastname_label"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_firstname"
+                android:text="@string/firstname_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_fname"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_lastname"
+                android:text="@string/lastname_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_lname"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                />
 
-    <EditText
-        android:id="@+id/lbl_lastname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_fname"
-        android:inputType="textNoSuggestions|textVisiblePassword"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Last Name"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_mobile"
+                android:text="@string/mobile_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_mobile"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_company"
+                android:text="@string/companyname_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_company"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
-    <TextView
-        android:id="@+id/hnt_company"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/companyname_label"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_email"
+                android:text="@string/email_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_email"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
-    <EditText
-        android:id="@+id/lbl_company"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_lname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Email"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionNext"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/save_customer"
+                android:text="SAVE"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
-
-    <TextView
-        android:id="@+id/hnt_email"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/email_label" />
-
-    <EditText
-        android:id="@+id/lbl_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_lname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Email"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionNext"/>
-
-    <TextView
-        android:id="@+id/hnt_mobile"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/mobile_label"
-         />
-
-    <EditText
-        android:id="@+id/lbl_mobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_confirmpwd"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:singleLine="true"
-        android:hint="Mobile"
-        android:inputType="number"
-        android:maxLength="10"
-        android:imeOptions="actionDone"/>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/save_customer"
-        android:text="@string/save_label"/>
 
         </LinearLayout>
     </ScrollView>

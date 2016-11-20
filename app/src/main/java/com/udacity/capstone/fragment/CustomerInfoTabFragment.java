@@ -1,16 +1,25 @@
 package com.udacity.capstone.fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.InventoryProvider;
@@ -21,35 +30,49 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import android.provider.ContactsContract.CommonDataKinds.*;
+import android.widget.Toast;
+
 
 public class CustomerInfoTabFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final int PICK_CONTACT = 1;
 
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    @BindView(R.id.lbl_firstname)
-    EditText firstName;
+    private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
+    private boolean isContactsPermission = false;
 
-    @BindView(R.id.lbl_lastname)
-    EditText lastName;
+    private String fname;
+    private String lname;
+    private String company_name;
+    private String mobile;
+    private String email;
 
-    @BindView(R.id.lbl_company)
-    EditText companyName;
+    @BindView(R.id.txt_fname)
+    EditText firstName_text;
 
-    @BindView(R.id.lbl_email)
-    EditText email;
+    @BindView(R.id.txt_lname)
+    EditText lastName_text;
 
-    @BindView(R.id.lbl_mobile)
-    EditText mobile;
+    @BindView(R.id.txt_company)
+    EditText companyName_text;
 
-    @BindView(R.id.save_customer)
-    Button saveButton;
+    @BindView(R.id.txt_email)
+    EditText email_text;
+
+    @BindView(R.id.txt_mobile)
+    EditText mobile_text;
+
+   /* @BindView(R.id.save_customer)
+    Button saveButton;*/
+
 
     private Unbinder unbinder;
     public CustomerInfoTabFragment() {
@@ -87,11 +110,11 @@ public class CustomerInfoTabFragment extends Fragment {
     @OnClick(R.id.save_customer)
     public void addCustomer(){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(PersonTable.PERSON_NAME,firstName.getText().toString() + "_" + lastName.getText().toString() );
+        contentValues.put(PersonTable.PERSON_NAME,firstName_text.getText().toString() + "_" + lastName_text.getText().toString() );
         contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
-        contentValues.put(PersonTable.EMAIL,email.getText().toString());
-        contentValues.put(PersonTable.CONTACT_NO,mobile.getText().toString());
-        contentValues.put(PersonTable.COMPANY_NAME,companyName.getText().toString());
+        contentValues.put(PersonTable.EMAIL,email_text.getText().toString());
+        contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText().toString());
+        contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText().toString());
         Uri uri =getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
        onCustomerInserted(uri);
     }
@@ -125,6 +148,112 @@ public class CustomerInfoTabFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @OnClick(R.id.import_contacts)
+    public void getContacts(View v){
+        if(!isContactsPermission)
+        getPermissionToReadUserContacts();
+        if(isContactsPermission){
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, PICK_CONTACT);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_CONTACT)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+               Uri contacts_id_uri = data.getData();
+                //String projection[] = {Phone.DATA1, Phone.DATA, Phone.DISPLAY_NAME, Phone.PHOTO_URI};
+                Cursor c= getActivity().getContentResolver().query(contacts_id_uri,null,null,null,null);
+                if(c.getCount()>0){
+                    while(c.moveToNext()){
+                      //  String email = c.getString(c.getColumnIndex(Email.ADDRESS));
+                         mobile = "";
+                         email= "";
+                         fname = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        String has_phone_no = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        String contactsID = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+                        if(has_phone_no.equals("1")){
+                           mobile =  getMobileNumber(contactsID);
+                        }
+                        email = getEmailId(contactsID);
+
+                    }
+                }
+                updateUI();
+            }
+
+        }
+    }
+
+    private void updateUI() {
+
+        firstName_text.setText(fname!=null?fname:"");
+        lastName_text.setText(lname!=null?lname:"");
+        companyName_text.setText(company_name!=null?company_name:"");
+        mobile_text.setText(mobile!=null?mobile:"");
+        email_text.setText(email!=null?email:"");
+    }
+
+    private String getEmailId(String contactsID) {
+        Cursor c = getActivity().getContentResolver().query(Email.CONTENT_URI,null,Email.CONTACT_ID + "=" + contactsID,null,null);
+        String email = "";
+        if(c.getCount()>0){
+            while (c.moveToNext()){
+                email =  c.getString(c.getColumnIndex(Email.DATA));
+            }
+        }
+        return email;
+    }
+
+    private String getMobileNumber(String contactsID) {
+        Cursor c = getActivity().getContentResolver().query(Phone.CONTENT_URI,null,Phone.CONTACT_ID + "=" + contactsID,null,null);
+        String mobile = "";
+        if(c.getCount()>0){
+            while(c.moveToNext()){
+                mobile =  c.getString(c.getColumnIndex(Phone.NUMBER));
+            }
+        }
+        return mobile;
+    }
+
+    public void getPermissionToReadUserContacts() {
+
+        if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                // Show our own UI to explain to the user why we need to read the contacts
+                // before actually requesting the permission and showing the default UI
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                    READ_CONTACTS_PERMISSIONS_REQUEST);
+        }
+        else{
+            isContactsPermission=true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == READ_CONTACTS_PERMISSIONS_REQUEST) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this.getActivity(), "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
+                isContactsPermission=true;
+            } else {
+                Toast.makeText(this.getActivity(), "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
+                isContactsPermission=false;
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

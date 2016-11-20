@@ -12,150 +12,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <TextView
-        android:id="@+id/address_line1"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_firstname"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/firstname_label"
-        />
 
-    <EditText
-        android:id="@+id/lbl_address_line1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_spinner"
-        android:inputType="textNoSuggestions|textVisiblePassword"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="First Name"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_addressline1"
+                android:text="@string/address1_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_addressline1"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
-    <TextView
-        android:id="@+id/address_line2"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_lastname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/lastname_label"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_addressline2"
+                android:text="@string/address2_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_addressline2"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_city"
+                android:text="@string/city_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_city"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_state"
+                android:text="@string/state_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_state"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_pincode"
+                android:text="@string/pincode_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_pincode"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/label_contact"
+                android:text="@string/contact_label"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_contact"
+                android:layout_marginStart="@dimen/marginLargeLeftAndRight"
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 
 
-    <EditText
-        android:id="@+id/lbl_address_line2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_fname"
-        android:inputType="textNoSuggestions|textVisiblePassword"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Last Name"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        />
-
-<!--
-
-    <TextView
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/companyname_label"
-        />
--->
-
-    <EditText
-        android:id="@+id/lbl_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_lname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Email"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionNext"/>
-
-
-  <!--  <TextView
-        android:id="@+id/state"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/email_label" />-->
-
-    <EditText
-        android:id="@+id/lbl_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_lname"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:hint="Email"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"
-        android:imeOptions="actionNext"/>
-
-  <!--  <TextView
-        android:id="@+id/pincode"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/mobile_label"
-        />-->
-
-    <EditText
-        android:id="@+id/lbl_pincode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_confirmpwd"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:singleLine="true"
-        android:hint="Mobile"
-        android:inputType="number"
-        android:maxLength="10"
-        android:imeOptions="actionDone"/>
-
-<!--
-    <TextView
-        android:id="@+id/contact_no"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/lbl_email"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-        android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-        android:text="@string/mobile_label"
-        />-->
-
-    <EditText
-        android:id="@+id/lbl_contactno"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hnt_confirmpwd"
-        android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-        android:singleLine="true"
-        android:hint="Mobile"
-        android:inputType="number"
-        android:maxLength="10"
-        android:imeOptions="actionDone"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/save_address"
-        android:text="@string/save_label"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/save_address"
+                android:text="@string/save_label"/>
 
             </LinearLayout>
     </ScrollView>

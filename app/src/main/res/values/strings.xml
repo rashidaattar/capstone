@@ -13,4 +13,11 @@
     <string name="email_label">E-mail</string>
 
     <string name="save_label">SAVE</string>
+
+    <string name="address1_label">Address Line 1</string>
+    <string name="address2_label">Address Line 2</string>
+    <string name="city_label">City</string>
+    <string name="state_label">State</string>
+    <string name="pincode_label">Pincode</string>
+    <string name="contact_label">Contact Number</string>
 </resources>

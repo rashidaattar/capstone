@@ -1,6 +1,7 @@
 package com.udacity.capstone.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.udacity.capstone.R;
+import com.udacity.capstone.activity.AddEditCustomerActivity;
+import com.udacity.capstone.activity.CustomerListActivity;
 import com.udacity.capstone.database.PersonTable;
 
 import butterknife.BindView;
@@ -21,21 +24,34 @@ import butterknife.ButterKnife;
 
 public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCursorAdapter.ViewHolder> {
 
+    private Context mContext;
 
     public CustomersCursorAdapter(Context context, Cursor cursor) {
+
         super(context, cursor);
+        mContext= context;
     }
 
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)));
         viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.COMPANY_NAME)));
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(mContext, AddEditCustomerActivity.class);
 
+            }
+
+        });
+        viewHolder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                CustomerListActivity customerListActivity= new CustomerListActivity();
+                customerListActivity.longClickListener(viewHolder.getAdapterPosition());
+                return true;
             }
         });
     }
