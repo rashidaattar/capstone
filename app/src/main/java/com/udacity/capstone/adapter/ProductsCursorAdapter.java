@@ -31,7 +31,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, int position) {
 
         viewHolder.product_name.setText(cursor.getString(cursor.getColumnIndex(ProductTable._ID)));
     }

@@ -2,10 +2,13 @@ package com.udacity.capstone.fragment;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +26,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabFragment.OnFragmentInteractionListener {
+public class AddressInfoTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -99,6 +102,8 @@ public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabF
 
     @OnClick(R.id.save_address)
     public void saveAddress(){
+        personId=getPersonId();
+
         if(personId!=null && personId.length()>0){
 
             ContentValues contentValues = new ContentValues();
@@ -117,11 +122,11 @@ public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabF
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public String getPersonId() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            return mListener.onFragmentInteractionAddress();
         }
+        return null;
     }
 
     @Override
@@ -136,17 +141,23 @@ public class AddressInfoTabFragment extends Fragment implements CustomerInfoTabF
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
 
-        uri.getPath().toString();
-        String id[] = uri.getPath().toString().split("/");
-        personId =id[2];
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        String onFragmentInteractionAddress();
     }
 }

@@ -76,6 +76,7 @@ public class InventoryProvider {
             return buildUri(Path.PERSONS, type);
         }*/
 
+
         @ContentUri(
                 path = Path.PERSONS + "/*",
                 type = "vnd.example.dir.item/persons" ,

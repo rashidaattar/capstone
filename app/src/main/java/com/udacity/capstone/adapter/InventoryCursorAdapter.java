@@ -50,7 +50,7 @@ public abstract class InventoryCursorAdapter <VH extends RecyclerView.ViewHolder
         super.setHasStableIds(true);
     }
 
-    public abstract void onBindViewHolder(VH viewHolder, Cursor cursor);
+    public abstract void onBindViewHolder(VH viewHolder, Cursor cursor,int position);
 
     @Override
     public void onBindViewHolder(VH viewHolder, int position) {
@@ -61,7 +61,7 @@ public abstract class InventoryCursorAdapter <VH extends RecyclerView.ViewHolder
             throw new IllegalStateException("Could not move Cursor to position: " + position);
         }
 
-        onBindViewHolder(viewHolder, mCursor);
+        onBindViewHolder(viewHolder, mCursor,position);
     }
 
     public Cursor swapCursor(Cursor newCursor){

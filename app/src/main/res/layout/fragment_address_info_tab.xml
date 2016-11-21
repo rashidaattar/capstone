@@ -19,7 +19,8 @@
                 android:id="@+id/label_addressline1"
                 android:text="@string/address1_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:layout_marginTop="110dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

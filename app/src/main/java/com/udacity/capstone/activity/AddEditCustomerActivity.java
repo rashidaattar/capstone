@@ -26,13 +26,14 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
+    public String personID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_customer);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -48,7 +49,17 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteractionCustomer(Uri uri) {
+
+        uri.getPath().toString();
+        String id[] = uri.getPath().toString().split("/");
+        personID =id[2];
+
+    }
+
+    @Override
+    public String onFragmentInteractionAddress() {
+        return personID;
 
     }
 }

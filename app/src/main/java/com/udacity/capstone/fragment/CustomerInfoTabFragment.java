@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,7 @@ import android.provider.ContactsContract.CommonDataKinds.*;
 import android.widget.Toast;
 
 
-public class CustomerInfoTabFragment extends Fragment {
+public class CustomerInfoTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -126,17 +128,32 @@ public class CustomerInfoTabFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteractionCustomer(Uri uri);
     }
 
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onCustomerInserted(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteractionCustomer(uri);
         }
     }
 
