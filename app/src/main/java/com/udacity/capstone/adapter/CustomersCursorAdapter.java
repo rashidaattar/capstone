@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.activity.AddEditCustomerActivity;
+import com.udacity.capstone.activity.CustomerDetailActivity;
 import com.udacity.capstone.activity.CustomerListActivity;
 import com.udacity.capstone.database.AddressTable;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
+import com.udacity.capstone.util.Constants;
 import com.udacity.capstone.util.Utility;
 
 import java.util.ArrayList;
@@ -50,20 +52,28 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
-        viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.COMPANY_NAME)));
+        viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(AddressTable._ID)));
+        mCursor=getCursor(); //obtain cursor with updated data
+        mCursor.moveToPosition(position); //move cursor to the current position selected
+        final String personID = mCursor.getString(mCursor.getColumnIndex(PersonTable._ID));
+        final String addressID = mCursor.getString(mCursor.getColumnIndex(AddressTable._ID));
+        final String personName = mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME));
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddEditCustomerActivity.class);
+                Intent intent = new Intent(mContext, CustomerDetailActivity.class);
+                intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL,personID);
+                intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME,personName);
+                mContext.startActivity(intent);
 
             }
 
         });
+
         viewHolder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View v) {
-                mCursor=getCursor(); //obtain cursor with updated data
-                mCursor.moveToPosition(position); //move cursor to the current position selected
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                     mActionMode=v.startActionMode(new ActionMode.Callback() {
@@ -83,6 +93,11 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.edit_button:
+                                    Intent intent = new Intent(mContext,AddEditCustomerActivity.class);
+                                    intent.putExtra(Constants.EDIT_CUSTOMER_BOOLEAN,true);
+                                    intent.putExtra(Constants.EDIT_CUSTOMER_CUSTOMERID,personID);
+                                    intent.putExtra(Constants.EDIT_CUSTOMER_ADDRESSID,addressID);
+                                    mContext.startActivity(intent);
                                     mode.finish();
                                     return true;
                                 case R.id.delete_button:
@@ -114,6 +129,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
 
 
                         }
+
                     },ActionMode.TYPE_FLOATING);
                 }
                 return true;

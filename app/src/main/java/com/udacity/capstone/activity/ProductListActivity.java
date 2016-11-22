@@ -27,7 +27,7 @@ import butterknife.OnClick;
 
 public class ProductListActivity extends AppCompatActivity implements AddProductFragment.OnFragmentInteractionListener, LoaderManager.LoaderCallbacks<Cursor>  {
 
-    @BindView(R.id.toolbar_main1)
+    @BindView(R.id.toolbar)
     Toolbar mtoolbar;
 
     @BindView(R.id.add_fab)

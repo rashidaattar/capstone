@@ -28,7 +28,7 @@ public class LandingActivity extends AppCompatActivity {
     @BindView(R.id.order_button)
     Button orderButton;
 
-    @BindView(R.id.toolbar_main)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.CustomersCursorAdapter;
+import com.udacity.capstone.database.InventoryDatabase;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
 
@@ -25,8 +26,10 @@ import butterknife.OnClick;
 
 public class CustomerListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    @BindView(R.id.toolbar_main1)
+    @BindView(R.id.toolbar)
     Toolbar mtoolbar;
+    InventoryDatabase inventoryDatabase;
+
 
     @BindView(R.id.customer_fab)
     FloatingActionButton customer_fab;
@@ -53,8 +56,6 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
         mCustomersCursorAdapter = new CustomersCursorAdapter(this,mCursor);
         customersList.setLayoutManager(new LinearLayoutManager(this));
         customersList.setAdapter(mCustomersCursorAdapter);
-
-
     }
 
     @Override

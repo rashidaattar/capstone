@@ -67,22 +67,22 @@ public class InventoryProvider {
 
 
        /* @InexactContentUri(
-                name = "TYPE_OF_PERSON",
-                path = Path.PERSONS + "*//*",
+                name = "PERSON_ID",
+                path = Path.PERSONS + "id",
                 type = "vnd.android.cursor.item/persons",
-                whereColumn = PersonTable.PERSON_TYPE,
+                whereColumn = PersonTable._ID,
                 pathSegment = 1)
-        public static Uri forPersonType(String type) {
-            return buildUri(Path.PERSONS, type);
+        public static Uri forPersonType(String id) {
+            return buildUri(Path.PERSONS, id);
         }*/
 
 
         @ContentUri(
-                path = Path.PERSONS + "/*",
-                type = "vnd.example.dir.item/persons" ,
+                path = Path.PERSONS + Path.ADDRESSES,
+                type = "vnd.example.dir" ,
                 join = "JOIN "+ InventoryDatabase.ADRESSES + " ON " + InventoryDatabase.PERSONS + "." + PersonTable._ID + " = "
                         + InventoryDatabase.ADRESSES + "." + AddressTable.PERSON_ID)
-        public static final Uri PERSONS_JOIN_URI = buildUri(Path.PERSONS);
+        public static final Uri PERSONS_JOIN_URI = buildUri(Path.PERSONS+Path.ADDRESSES);
 
     }
 
@@ -90,7 +90,7 @@ public class InventoryProvider {
 
         @ContentUri(
                 path = Path.ADDRESSES,
-                type = "vnd.android.cursor.dir/persons",
+                type = "vnd.android.cursor.dir/addresses",
                 defaultSort = AddressTable._ID + " ASC")
         public static final Uri ADDRESSES_URI = buildUri(Path.ADDRESSES);
 

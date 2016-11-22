@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +38,7 @@ import android.provider.ContactsContract.CommonDataKinds.*;
 import android.widget.Toast;
 
 
-public class CustomerInfoTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class CustomerInfoTabFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,6 +52,8 @@ public class CustomerInfoTabFragment extends Fragment implements LoaderManager.L
 
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
     private boolean isContactsPermission = false;
+    private static final int CURSOR_LOADER_ID = 0;
+    private Cursor mCursor;
 
     private String fname;
     private String lname;
@@ -83,12 +87,12 @@ public class CustomerInfoTabFragment extends Fragment implements LoaderManager.L
 
 
 
-    public static CustomerInfoTabFragment newInstance() {
+    public static CustomerInfoTabFragment newInstance(String customerID) {
         CustomerInfoTabFragment fragment = new CustomerInfoTabFragment();
-       /* Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);*/
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, customerID);
+      //  args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -97,15 +101,20 @@ public class CustomerInfoTabFragment extends Fragment implements LoaderManager.L
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mCursor = getActivity().getContentResolver().query(InventoryProvider.Persons.PERSONS_URI,null,PersonTable._ID+"="+Integer.parseInt(mParam1),null,null);
+           // mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_customer_info_tab, container, false);
         unbinder = ButterKnife.bind(this,view);
+        if(mCursor!=null)
+            populateData();
         return view;
     }
 
@@ -117,8 +126,15 @@ public class CustomerInfoTabFragment extends Fragment implements LoaderManager.L
         contentValues.put(PersonTable.EMAIL,email_text.getText().toString());
         contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText().toString());
         contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText().toString());
-        Uri uri =getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
-       onCustomerInserted(uri);
+        if(mParam1!=null){
+            int inserted_rows =getActivity().getContentResolver().update(InventoryProvider.Persons.PERSONS_URI,contentValues,PersonTable._ID+"="+Integer.parseInt(mParam1),null);
+            Log.d("customerinsert","Updated customers : "+inserted_rows);
+        }
+        else{
+            Uri uri =getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
+            onCustomerInserted(uri);
+        }
+
     }
 
     @Override
@@ -128,29 +144,38 @@ public class CustomerInfoTabFragment extends Fragment implements LoaderManager.L
         unbinder.unbind();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    private void populateData() {
+        if(mCursor.getCount()>0){
+            while (mCursor.moveToNext()){
 
-    }
+                if(mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)).contains("_")){
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+                    String[] personName = mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)).split("_");
+                    fname = personName[0];
+                    if(personName.length==2)
+                    lname = personName[1];
+                }
+                else{
+                    fname =  mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME));
+                    lname = "";
+                }
 
+                email = mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL));
+                company_name=mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME));
+                mobile = mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO));
+                updateUI();
+            }
+        }
     }
 
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteractionCustomer(Uri uri);
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onCustomerInserted(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteractionCustomer(uri);

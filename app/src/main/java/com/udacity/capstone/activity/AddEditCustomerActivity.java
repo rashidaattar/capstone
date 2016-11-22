@@ -11,6 +11,7 @@ import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.ViewPagerAdapter;
 import com.udacity.capstone.fragment.AddressInfoTabFragment;
 import com.udacity.capstone.fragment.CustomerInfoTabFragment;
+import com.udacity.capstone.util.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,11 +29,21 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
 
     public String personID;
 
+    public String personIDEdit;
+    public String addressIDEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_customer);
         ButterKnife.bind(this);
+        if(getIntent()!=null){ //coming from edit action mode
+            if(getIntent().hasExtra(Constants.EDIT_CUSTOMER_BOOLEAN) && getIntent().getBooleanExtra(Constants.EDIT_CUSTOMER_BOOLEAN,false)){
+
+                personIDEdit = getIntent().getStringExtra(Constants.EDIT_CUSTOMER_CUSTOMERID);
+                addressIDEdit = getIntent().getStringExtra(Constants.EDIT_CUSTOMER_ADDRESSID);
+            }
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupViewPager(viewPager);
@@ -42,8 +53,15 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CustomerInfoTabFragment(), "ONE");
-        adapter.addFragment(new AddressInfoTabFragment(), "TWO");
+        if(getIntent().getBooleanExtra(Constants.EDIT_CUSTOMER_BOOLEAN,false)){
+            adapter.addFragment(CustomerInfoTabFragment.newInstance(personIDEdit), "ONE");
+            adapter.addFragment(AddressInfoTabFragment.newInstance(addressIDEdit,personIDEdit), "TWO");
+        }
+        else{
+            adapter.addFragment(new CustomerInfoTabFragment(),"ONE");
+            adapter.addFragment(new AddressInfoTabFragment(),"TWO");
+        }
+
         viewPager.setAdapter(adapter);
     }
 
@@ -61,5 +79,12 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
     public String onFragmentInteractionAddress() {
         return personID;
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        personIDEdit=null;
+        addressIDEdit=null;
     }
 }

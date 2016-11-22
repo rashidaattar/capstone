@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.udacity.capstone">
 
-    <uses-permission android:name="android.permission.READ_CONTACTS" /><!--add request permission for this in customer info tab fragment-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- add request permission for this in customer info tab fragment -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +26,8 @@
 
         <activity android:name=".activity.ProductListActivity" />
         <activity android:name=".activity.CustomerListActivity" />
-        <activity android:name=".activity.AddEditCustomerActivity"></activity>
+        <activity android:name=".activity.AddEditCustomerActivity" />
+        <activity android:name=".activity.CustomerDetailActivity"></activity>
     </application>
 
 </manifest>

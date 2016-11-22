@@ -9,7 +9,7 @@
     tools:context="com.udacity.capstone.activity.ProductListActivity">
 
     <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbar_main1"/>
+        android:id="@+id/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
 

@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class AddressInfoTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AddressInfoTabFragment extends Fragment  {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -34,6 +34,16 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
 
     private String mParam1;
     private String mParam2;
+
+    private Cursor mCursor;
+
+    private String addline1;
+    private String addline2;
+    private String city;
+    private String state;
+    private String pincode;
+    private String conatct;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -63,12 +73,12 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
 
     private String personId;
 
-    public static AddressInfoTabFragment newInstance() {
+    public static AddressInfoTabFragment newInstance(String addressID,String personID) {
         AddressInfoTabFragment fragment = new AddressInfoTabFragment();
-       /* Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);*/
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, addressID);
+        args.putString(ARG_PARAM2, personID);
+        fragment.setArguments(args);
         return fragment;
     }
     public AddressInfoTabFragment() {
@@ -81,6 +91,9 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            personId = mParam2; //coming from edit
+            mCursor = getActivity().getContentResolver().query(InventoryProvider.Addreses.ADDRESSES_URI,null,AddressTable._ID+"="+Integer.parseInt(mParam1),null,null);
+            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -89,7 +102,34 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_address_info_tab, container, false);
         unbinder= ButterKnife.bind(this,view);
+        if(mCursor!=null){
+            populateData();
+        }
         return view;
+    }
+
+    private void populateData() {
+        if(mCursor.getCount()>0){
+            while(mCursor.moveToNext()){
+                addline1 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1));
+                addline2 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2));
+                city = mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY));
+                state = mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE));
+                pincode = mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE));
+                conatct = mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO));
+                updateUI();
+            }
+        }
+    }
+
+    private void updateUI() {
+
+        address_line1_txt.setText(addline1);
+        address_line2_txt.setText(addline2);
+        city_txt.setText(city);
+        state_txt.setText(state);
+        pincode_txt.setText(pincode);
+        contact_txt.setText(conatct);
     }
 
 
@@ -102,6 +142,7 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
 
     @OnClick(R.id.save_address)
     public void saveAddress(){
+        if(personId==null) //not coming from edit
         personId=getPersonId();
 
         if(personId!=null && personId.length()>0){
@@ -113,8 +154,15 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
             contentValues.put(AddressTable.CITY,city_txt.getText().toString());
             contentValues.put(AddressTable.STATE,state_txt.getText().toString());
             contentValues.put(AddressTable.CONTACT_NO,contact_txt.getText().toString());
+            contentValues.put(AddressTable.PINCODE,pincode_txt.getText().toString());
             contentValues.put(AddressTable.PERSON_ID, Integer.parseInt(personId));
-            getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+            if(mParam1!=null){
+                getActivity().getContentResolver().update(InventoryProvider.Addreses.ADDRESSES_URI,contentValues,AddressTable._ID+"="+Integer.parseInt(mParam1),null);
+            }
+            else{
+                Uri uri=getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+
+            }
         }
         else{
             Toast.makeText(this.getActivity(),"Kindly insert the customer information first",Toast.LENGTH_SHORT).show();
@@ -140,24 +188,7 @@ public class AddressInfoTabFragment extends Fragment implements LoaderManager.Lo
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
-
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         String onFragmentInteractionAddress();
     }
 }
