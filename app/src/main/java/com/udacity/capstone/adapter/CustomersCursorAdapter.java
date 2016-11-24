@@ -39,17 +39,19 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public Context mContext;
     public ActionMode mActionMode;
     public Cursor mCursor;
+    private boolean isCustomer;
 
 
-    public CustomersCursorAdapter(Context context, Cursor cursor) {
+    public CustomersCursorAdapter(Context context, Cursor cursor, boolean isCustomer) {
         super(context, cursor);
         mContext= context;
         mCursor = cursor;
+        this.isCustomer = isCustomer;
     }
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
+    public void onBindViewHolder( ViewHolder viewHolder, Cursor cursor,  int position) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
         viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(AddressTable._ID)));
@@ -61,11 +63,16 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CustomerDetailActivity.class);
-                intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL,personID);
-                intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME,personName);
-                mContext.startActivity(intent);
+                if(mActionMode!=null){
+                    mActionMode.finish();
+                }
+                else{
+                    Intent intent = new Intent(mContext, CustomerDetailActivity.class);
+                    intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL,personID);
+                    intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME,personName);
+                    mContext.startActivity(intent);
 
+                }
             }
 
         });
@@ -97,19 +104,12 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                                     intent.putExtra(Constants.EDIT_CUSTOMER_BOOLEAN,true);
                                     intent.putExtra(Constants.EDIT_CUSTOMER_CUSTOMERID,personID);
                                     intent.putExtra(Constants.EDIT_CUSTOMER_ADDRESSID,addressID);
+                                    intent.putExtra(Constants.PERSON_TYPE_LABEL,isCustomer);
                                     mContext.startActivity(intent);
                                     mode.finish();
                                     return true;
                                 case R.id.delete_button:
                                     deleteCustomer();
-                                    mode.finish();
-                                    return true;
-                                case R.id.call_button:
-                                    Utility.callPerson(mContext,mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
-                                    mode.finish();
-                                    return true;
-                                case R.id.mail_button:
-                                    Utility.emailPerson(mContext,mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
                                     mode.finish();
                                     return true;
                                 default:
@@ -123,7 +123,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                             if(mActionMode!=null){
                                 mActionMode=null;
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    v.setBackgroundColor(mContext.getColor(R.color.cardview_light_background));
+                                    v.setBackgroundColor(mContext.getColor(R.color.bgColor));
                                 }
                             }
 
@@ -167,5 +167,9 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
         mContext.getContentResolver().delete(InventoryProvider.Addreses.ADDRESSES_URI, AddressTable.PERSON_ID +
                 "="+ mCursor.getString(mCursor.getColumnIndex(PersonTable._ID)),null);
         notifyDataSetChanged();
+        mContext.getContentResolver().notifyChange(InventoryProvider.Persons.PERSONS_URI, null);
+        mContext.getContentResolver().notifyChange(InventoryProvider.Addreses.ADDRESSES_URI,null);
+        mContext.getContentResolver().notifyChange(InventoryProvider.Persons.PERSONS_JOIN_URI,null);
+      //  notifyItemRemoved(position);
     }
 }

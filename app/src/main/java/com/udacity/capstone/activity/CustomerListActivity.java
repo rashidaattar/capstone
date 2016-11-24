@@ -9,6 +9,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.udacity.capstone.adapter.CustomersCursorAdapter;
 import com.udacity.capstone.database.InventoryDatabase;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
+import com.udacity.capstone.util.Constants;
 
 
 import butterknife.BindView;
@@ -43,24 +45,40 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
 
     private CustomersCursorAdapter mCustomersCursorAdapter;
 
+    private boolean isCustomer = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_list);
         ButterKnife.bind(this);
+        if(getIntent().hasExtra(Constants.PERSON_TYPE_LABEL)){
+            if(getIntent().getStringExtra(Constants.PERSON_TYPE_LABEL).equals(Constants.CUSTOMER_TYPE)){
+                isCustomer = true;
+            }
+            else{
+                isCustomer = false;
+            }
+        }
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setTitle("Customers");
+        if(isCustomer)
+            getSupportActionBar().setTitle("Customers");
+        else
+            getSupportActionBar().setTitle("Vendors");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mtoolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
-        mCustomersCursorAdapter = new CustomersCursorAdapter(this,mCursor);
-        customersList.setLayoutManager(new LinearLayoutManager(this));
+        mCustomersCursorAdapter = new CustomersCursorAdapter(this,mCursor,isCustomer);
+        customersList.setLayoutManager(new GridLayoutManager(this,2));
         customersList.setAdapter(mCustomersCursorAdapter);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, InventoryProvider.Persons.PERSONS_JOIN_URI, null,null,null,null);
+        if(isCustomer)
+            return new CursorLoader(this, InventoryProvider.Persons.PERSONS_JOIN_URI, null,PersonTable.PERSON_TYPE+" LIKE '"+PersonTable.CUSTOMER_PERSON+"'",null,null);
+        else
+            return new CursorLoader(this, InventoryProvider.Persons.PERSONS_JOIN_URI, null,PersonTable.PERSON_TYPE+" LIKE '"+PersonTable.VENDOR_PERSON+"'",null,null);
     }
 
     @Override
@@ -80,8 +98,14 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
     public void addCustomer(){
 
         Intent intent=new Intent(this,AddEditCustomerActivity.class);
+        intent.putExtra(Constants.PERSON_TYPE_LABEL,isCustomer);
         startActivity(intent);
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID,null,this);
+    }
 }

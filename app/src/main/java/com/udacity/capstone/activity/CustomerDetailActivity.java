@@ -1,9 +1,11 @@
 package com.udacity.capstone.activity;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.udacity.capstone.R;
@@ -12,6 +14,7 @@ import com.udacity.capstone.database.InventoryDatabase;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
 import com.udacity.capstone.util.Constants;
+import com.udacity.capstone.util.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,17 +52,21 @@ public class CustomerDetailActivity extends AppCompatActivity {
     Toolbar toolbar_customer;
     @BindView(R.id.toolbar_address)
     Toolbar toolbar_adress;
+
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_detail);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+        mContext = this;
         toolbar_adress.setTitle("BILLING ADDRESS");
-        toolbar_customer.setTitle("PERSONAL DETAILS");
+        getSupportActionBar().setTitle("DETAILS");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent()!=null){
             personID = getIntent().getStringExtra(Constants.VIEW_CUSTOMER_DETAIL);
-            getSupportActionBar().setTitle(getIntent().getStringExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME));
+            toolbar_customer.setTitle(getIntent().getStringExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME));
         }
         if(personID!=null){
             mCursor = getContentResolver().query(InventoryProvider.Persons.PERSONS_JOIN_URI,null, InventoryDatabase.PERSONS+"."+PersonTable._ID+"="+Integer.parseInt(personID)+" and "
@@ -68,12 +75,30 @@ public class CustomerDetailActivity extends AppCompatActivity {
                 updateUI();
             }
         }
+        toolbar_customer.inflateMenu(R.menu.call_email_contextmenu);
+        toolbar_customer.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.call_button:
+                        Utility.callPerson(mContext,mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
+                        return true;
+
+                    case R.id.mail_button:
+                        Utility.emailPerson(mContext,mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     private void updateUI() {
-        while (mCursor.moveToNext()){
 
-            name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)));
+            mCursor.moveToNext();
+         //   name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)));
             mobile.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
             email.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
             company_name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)));
@@ -84,6 +109,6 @@ public class CustomerDetailActivity extends AppCompatActivity {
             state.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
             pincode.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)));
             company_number.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
-        }
+
     }
 }

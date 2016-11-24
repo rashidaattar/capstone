@@ -2,19 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/edit_button"
-        android:title="Edit"
+        android:id="@+id/call_button"
+        android:title="Call"
         android:showAsAction="always"
         app:showAsAction="always"
-        />
+        android:icon="@drawable/ic_call_white_24dp"/>
 
     <item
-        android:id="@+id/delete_button"
-        android:title="Delete"
+        android:id="@+id/mail_button"
+        android:title="E=mail"
         android:showAsAction="always"
         app:showAsAction="always"
-        />
-
+        android:icon="@drawable/ic_email_white_24dp"/>
 
 
 </menu>

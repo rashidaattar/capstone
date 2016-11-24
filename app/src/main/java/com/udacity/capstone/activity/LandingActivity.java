@@ -15,6 +15,7 @@ import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.OrdersTable;
 import com.udacity.capstone.database.PersonTable;
 import com.udacity.capstone.database.ProductTable;
+import com.udacity.capstone.util.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +61,6 @@ public class LandingActivity extends AppCompatActivity {
 
     @OnClick(R.id.order_button)
     public void orderClick(){
-
         int i=1;
         ContentValues contentValues= new ContentValues();
         contentValues.put(OrdersTable.ORDER_NUMBER,i++);
@@ -68,28 +68,19 @@ public class LandingActivity extends AppCompatActivity {
 
         Cursor c=getContentResolver().query(InventoryProvider.Orders.ORDERS_URI,new String[]{OrdersTable._ID},null,null,null);
         Log.d("here", "checking size: " + c.getCount());
-
-
     }
 
     @OnClick(R.id.customer_button)
     public void viewCustomers(){
-        int i=0;
-       /* ContentValues contentValues = new ContentValues();
-        contentValues.put(PersonTable.COMPANY_NAME,"abc");
-        contentValues.put(PersonTable.CONTACT_NO,"9876543210");
-        contentValues.put(PersonTable.PERSON_NAME,"rashida"+ ++i);
-        contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
-        getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
-
-        ContentValues contentValues1 = new ContentValues();
-        contentValues1.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_BILLING);
-        contentValues1.put(AddressTable.ADDRESS_LINE1,"Mumbai baka");
-        contentValues1.put(AddressTable.PERSON_ID,++i);
-        getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues1);*/
-
         Intent intent=new Intent(this,CustomerListActivity.class);
+        intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.CUSTOMER_TYPE);
         startActivity(intent);
+    }
 
+    @OnClick(R.id.vendor_button)
+    public void viewVendors(){
+        Intent intent=new Intent(this,CustomerListActivity.class);
+        intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.VENDOR_TYPE);
+        startActivity(intent);
     }
 }

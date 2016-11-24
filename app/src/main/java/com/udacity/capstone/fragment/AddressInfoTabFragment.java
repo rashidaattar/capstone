@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IntegerRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.udacity.capstone.R;
@@ -47,6 +49,9 @@ public class AddressInfoTabFragment extends Fragment  {
 
 
     private OnFragmentInteractionListener mListener;
+
+    @BindView(R.id.main_view)
+    LinearLayout linearLayout;
 
     @BindView(R.id.txt_addressline1)
     EditText address_line1_txt;
@@ -163,6 +168,9 @@ public class AddressInfoTabFragment extends Fragment  {
                 Uri uri=getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
 
             }
+            Snackbar snackbar = Snackbar
+                    .make(linearLayout, "Customer Information Added Successfully", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
         else{
             Toast.makeText(this.getActivity(),"Kindly insert the customer information first",Toast.LENGTH_SHORT).show();

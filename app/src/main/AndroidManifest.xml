@@ -27,7 +27,8 @@
         <activity android:name=".activity.ProductListActivity" />
         <activity android:name=".activity.CustomerListActivity" />
         <activity android:name=".activity.AddEditCustomerActivity" />
-        <activity android:name=".activity.CustomerDetailActivity"></activity>
+        <activity android:name=".activity.CustomerDetailActivity"
+            android:parentActivityName=".activity.CustomerListActivity"/>
     </application>
 
 </manifest>

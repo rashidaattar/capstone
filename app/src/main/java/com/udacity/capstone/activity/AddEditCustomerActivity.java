@@ -31,6 +31,7 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
 
     public String personIDEdit;
     public String addressIDEdit;
+    private boolean isCustomer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,9 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
                 personIDEdit = getIntent().getStringExtra(Constants.EDIT_CUSTOMER_CUSTOMERID);
                 addressIDEdit = getIntent().getStringExtra(Constants.EDIT_CUSTOMER_ADDRESSID);
             }
+            if(getIntent().hasExtra(Constants.PERSON_TYPE_LABEL)){ //check type of person
+                isCustomer = getIntent().getBooleanExtra(Constants.PERSON_TYPE_LABEL,false);
+            }
         }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,11 +58,11 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         if(getIntent().getBooleanExtra(Constants.EDIT_CUSTOMER_BOOLEAN,false)){
-            adapter.addFragment(CustomerInfoTabFragment.newInstance(personIDEdit), "ONE");
+            adapter.addFragment(CustomerInfoTabFragment.newInstance(personIDEdit,isCustomer), "ONE");
             adapter.addFragment(AddressInfoTabFragment.newInstance(addressIDEdit,personIDEdit), "TWO");
         }
         else{
-            adapter.addFragment(new CustomerInfoTabFragment(),"ONE");
+            adapter.addFragment(CustomerInfoTabFragment.newInstance1(isCustomer),"ONE");
             adapter.addFragment(new AddressInfoTabFragment(),"TWO");
         }
 

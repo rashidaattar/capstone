@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.udacity.capstone.fragment.CustomerInfoTabFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/main_view">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +27,8 @@
                 android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
                 android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
-                android:layout_marginTop="110dp"/>
+                android:layout_marginTop="110dp"
+                style="@style/DetailViewText"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -34,13 +36,15 @@
                 android:id="@+id/label_firstname"
                 android:text="@string/firstname_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                style="@style/TextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_fname"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:imeOptions="actionNext"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -48,13 +52,15 @@
                 android:id="@+id/label_lastname"
                 android:text="@string/lastname_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                style="@style/TextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_lname"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
                 android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -63,13 +69,16 @@
                 android:id="@+id/label_mobile"
                 android:text="@string/mobile_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                style="@style/TextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_mobile"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:inputType="phone"
+                android:imeOptions="actionNext"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,13 +86,15 @@
                 android:id="@+id/label_company"
                 android:text="@string/companyname_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                style="@style/TextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_company"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:imeOptions="actionNext"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -91,19 +102,22 @@
                 android:id="@+id/label_email"
                 android:text="@string/email_label"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                style="@style/TextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_email"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                android:inputType="textWebEmailAddress"
+                android:imeOptions="actionNone"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/save_customer"
-                android:text="SAVE"
+                android:text="@string/save"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
                 android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
 

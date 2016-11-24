@@ -46,13 +46,12 @@ public class CustomerInfoTabFragment extends Fragment {
     public static final int PICK_CONTACT = 1;
 
     private String mParam1;
-    private String mParam2;
+    private boolean mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     private static final int READ_CONTACTS_PERMISSIONS_REQUEST = 1;
     private boolean isContactsPermission = false;
-    private static final int CURSOR_LOADER_ID = 0;
     private Cursor mCursor;
 
     private String fname;
@@ -87,23 +86,37 @@ public class CustomerInfoTabFragment extends Fragment {
 
 
 
-    public static CustomerInfoTabFragment newInstance(String customerID) {
+    public static CustomerInfoTabFragment newInstance(String customerID, boolean isCustomer) {
         CustomerInfoTabFragment fragment = new CustomerInfoTabFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, customerID);
-      //  args.putString(ARG_PARAM2, param2);
+        args.putBoolean(ARG_PARAM2, isCustomer);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static CustomerInfoTabFragment newInstance1( boolean isCustomer) {
+        CustomerInfoTabFragment fragment = new CustomerInfoTabFragment();
+        Bundle args = new Bundle();
+       // args.putString(ARG_PARAM1, customerID);
+        args.putBoolean(ARG_PARAM2, isCustomer);
+        fragment.setArguments(args);
+        return fragment;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null && getArguments().size()==2) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getBoolean(ARG_PARAM2);
             mCursor = getActivity().getContentResolver().query(InventoryProvider.Persons.PERSONS_URI,null,PersonTable._ID+"="+Integer.parseInt(mParam1),null,null);
-           // mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        else if(getArguments()!=null && getArguments().size()==1){
+            mParam2 = getArguments().getBoolean(ARG_PARAM2);
+        }
+
     }
 
 
@@ -122,7 +135,12 @@ public class CustomerInfoTabFragment extends Fragment {
     public void addCustomer(){
         ContentValues contentValues = new ContentValues();
         contentValues.put(PersonTable.PERSON_NAME,firstName_text.getText().toString() + "_" + lastName_text.getText().toString() );
-        contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
+        if(mParam2){
+            contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
+        }
+        else{
+            contentValues.put(PersonTable.PERSON_TYPE,PersonTable.VENDOR_PERSON);
+        }
         contentValues.put(PersonTable.EMAIL,email_text.getText().toString());
         contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText().toString());
         contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText().toString());

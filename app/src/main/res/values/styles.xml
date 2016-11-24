@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditTextMain" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textColor">@color/editText</item>
+        <item name="android:textColorHint">@color/editTextHint</item>
+        <item name="android:textSize">@dimen/textSizeMedium</item>
+        <item name="android:textColorHighlight">@color/editTextAutoComplete</item>
+    </style>
+
+    <style name="TextMain" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/textSizeMain</item>
+        <item name="android:textColor">@color/textMain</item>
+    </style>
+
+    <style name="DetailViewText" parent="TextMain">
+        <item name="android:layout_marginTop">@dimen/marginMainTopAndBottom</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardViewBG" parent="AppTheme">
+        <item name="android:background">@color/bgColor</item>
+    </style>
+
 </resources>
