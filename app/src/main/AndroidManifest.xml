@@ -3,6 +3,7 @@
     package="com.udacity.capstone">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- add request permission for this in customer info tab fragment -->
     <application

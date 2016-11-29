@@ -7,208 +7,111 @@
     android:background="#FFFFFF">
 
     <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbar_main"/>
+        android:id="@+id/toolbar"/>
 
     <ScrollView
         android:id="@+id/scrollParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_main">
+        android:layout_height="wrap_content"
+      >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Spinner
-                android:id="@+id/title_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
-                android:layout_marginTop="@dimen/marginLargeTopAndBottom"
-                android:contentDescription="Title"
-                android:spinnerMode="dialog"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                >
-
-            </Spinner>
-
             <EditText
-                android:id="@+id/lbl_firstname"
+                android:id="@+id/txt_prodname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title_spinner"
                 android:inputType="textNoSuggestions|textVisiblePassword"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="First Name"
+                android:hint="Product Name"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
+                android:maxLines="1"
                 />
 
-            <TextView
-                android:id="@+id/hnt_fname"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_below="@id/lbl_firstname"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
             <EditText
-                android:id="@+id/lbl_lastname"
+                android:id="@+id/txt_prodcode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hnt_fname"
+                android:layout_below="@id/txt_prodname"
                 android:inputType="textNoSuggestions|textVisiblePassword"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Last Name"
+                android:hint="Product Code"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
+                android:maxLines="1"
                 />
 
-            <TextView
-                android:id="@+id/hnt_lname"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_below="@id/lbl_lastname"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
             <EditText
-                android:id="@+id/lbl_email"
+                android:id="@+id/txt_prodesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hnt_lname"
+                android:layout_below="@id/txt_prodcode"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Email"
-                android:singleLine="true"
-                android:inputType="textEmailAddress"
+                android:hint="Product Description"
+                android:maxLines="3"
+                android:inputType="textCapSentences"
                 android:imeOptions="actionNext"/>
 
-            <TextView
-                android:id="@+id/hnt_email"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_below="@id/lbl_email"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
             <EditText
-                android:id="@+id/lbl_pwd"
+                android:id="@+id/txt_quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hnt_email"
+                android:layout_below="@id/txt_prodesc"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Password"
-                android:singleLine="true"
-                android:inputType="textPassword"
+                android:hint="Quantity"
+                android:inputType="numberDecimal"
                 android:imeOptions="actionNext"/>
 
-            <TextView
-                android:id="@+id/hnt_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_below="@id/lbl_pwd"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
             <EditText
-                android:id="@+id/lbl_confirmpwd"
+                android:id="@+id/txt_minquantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hnt_pwd"
+                android:layout_below="@id/txt_quantity"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
                 android:singleLine="true"
-
-                android:hint="Confirm Password"
+                android:hint="Minimum Quantity"
                 android:focusable="false"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:enabled="false"/>
 
 
-            <TextView
-                android:id="@+id/hnt_confirmpwd"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_below="@id/lbl_confirmpwd"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
             <EditText
-                android:id="@+id/lbl_mobile"
+                android:id="@+id/txt_dimension"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/hnt_confirmpwd"
+                android:layout_below="@id/txt_minquantity"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:singleLine="true"
-                android:hint="Mobile"
-                android:inputType="number"
-                android:maxLength="10"
+                android:hint="Dimension"
+                android:inputType="text"
                 android:imeOptions="actionDone"/>
 
-            <TextView
-                android:id="@+id/hnt_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_below="@id/lbl_mobile"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:layout_marginLeft="@dimen/marginSmallLeftAndRight"
-                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-
-                android:textSize="12dp"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lbl_mobile"
-                android:layout_marginBottom="@dimen/marginLargeTopAndBottom"
-                android:layout_marginTop="20dp"
-                android:spinnerMode="dialog"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
+                android:text="SAVE IMAGE"
+                android:layout_below="@id/txt_dimension"
+                android:clickable="true"
+                android:src="@drawable/ic_photo_library_black_24dp"
+                android:id="@+id/txt_saveimage"
+                />
 
-            <LinearLayout
-                android:id="@+id/containerButtonRegister"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/gender_spinner"
+            <Button
+                android:id="@+id/save_product"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/buttonMainHeight"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/marginLargeLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
                 android:gravity="center"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btnRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/buttonMainHeight"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="@dimen/marginLargeLeftAndRight"
-                    android:layout_marginRight="@dimen/marginLargeLeftAndRight"
-                    android:gravity="center"
-                    android:paddingRight="30dp"
-                    android:paddingLeft="30dp"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
+                android:paddingRight="30dp"
+                android:paddingLeft="30dp"
+                android:textColor="@android:color/white" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_product"/>
 
         </RelativeLayout>
     </ScrollView>

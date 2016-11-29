@@ -70,7 +70,7 @@ public class ProductListActivity extends AppCompatActivity implements AddProduct
 
         switch (item.getItemId()){
             case R.id.add_button :
-                AddProductFragment addProductFragment=AddProductFragment.newInstance("1","2");
+                AddProductFragment addProductFragment=AddProductFragment.newInstance();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new AddProductFragment())
                         .addToBackStack("products")
@@ -93,7 +93,7 @@ public class ProductListActivity extends AppCompatActivity implements AddProduct
 
     @OnClick(R.id.add_fab)
     public void addProduct(){
-        AddProductFragment addProductFragment=AddProductFragment.newInstance("1","2");
+        AddProductFragment addProductFragment=AddProductFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new AddProductFragment())
                 .addToBackStack("products")
