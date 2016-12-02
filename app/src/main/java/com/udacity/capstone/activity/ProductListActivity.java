@@ -1,5 +1,6 @@
 package com.udacity.capstone.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
@@ -19,13 +20,13 @@ import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.ProductsCursorAdapter;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.ProductTable;
-import com.udacity.capstone.fragment.AddProductFragment;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProductListActivity extends AppCompatActivity implements AddProductFragment.OnFragmentInteractionListener, LoaderManager.LoaderCallbacks<Cursor>  {
+public class ProductListActivity extends AppCompatActivity implements  LoaderManager.LoaderCallbacks<Cursor>  {
 
     @BindView(R.id.toolbar)
     Toolbar mtoolbar;
@@ -58,46 +59,18 @@ public class ProductListActivity extends AppCompatActivity implements AddProduct
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.add_edit_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.add_button :
-                AddProductFragment addProductFragment=AddProductFragment.newInstance();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new AddProductFragment())
-                        .addToBackStack("products")
-                        .commit();
-                return true;
-
-            case R.id.edit_button :
-                return true;
-
-        }
 
 
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        Toast.makeText(this,uri.toString(),Toast.LENGTH_SHORT).show();
-    }
 
     @OnClick(R.id.add_fab)
     public void addProduct(){
-        AddProductFragment addProductFragment=AddProductFragment.newInstance();
+     /*   AddProductFragment addProductFragment=AddProductFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new AddProductFragment())
                 .addToBackStack("products")
-                .commit();
+                .commit();*/
+        Intent intent = new Intent(this, AddEditProductActivity.class);
+        startActivity(intent);
     }
 
     @Override

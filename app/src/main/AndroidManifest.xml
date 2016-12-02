@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- add request permission for this in customer info tab fragment -->
     <application
@@ -28,8 +30,18 @@
         <activity android:name=".activity.ProductListActivity" />
         <activity android:name=".activity.CustomerListActivity" />
         <activity android:name=".activity.AddEditCustomerActivity" />
-        <activity android:name=".activity.CustomerDetailActivity"
-            android:parentActivityName=".activity.CustomerListActivity"/>
+        <activity
+            android:name=".activity.CustomerDetailActivity"
+            android:parentActivityName=".activity.CustomerListActivity" />
+        <activity
+            android:name=".activity.AddEditProductActivity"
+            android:label="@string/title_activity_add_edit_product"
+            android:parentActivityName=".activity.ProductListActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.udacity.capstone.activity.ProductListActivity" />
+        </activity>
     </application>
 
 </manifest>

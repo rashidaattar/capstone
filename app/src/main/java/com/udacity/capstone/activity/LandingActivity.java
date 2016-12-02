@@ -45,12 +45,6 @@ public class LandingActivity extends AppCompatActivity {
     @OnClick(R.id.prod_button)
     public void prodClick(){
 
-        String i= "a";
-        int k=0;
-        ContentValues contentValues= new ContentValues();
-        contentValues.put(ProductTable.PRODUCT_NAME,i+k++);
-        getContentResolver().insert(InventoryProvider.Products.PRODUCTS_URI,contentValues);
-
         Cursor c=getContentResolver().query(InventoryProvider.Products.PRODUCTS_URI,new String[]{"_id"},null,null,null);
         Log.d("here", "checking size: " + c.getCount());
 

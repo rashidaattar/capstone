@@ -21,4 +21,5 @@
     <string name="pincode_label">Pincode</string>
     <string name="contact_label">Contact Number</string>
     <string name="save">SAVE</string>
+    <string name="title_activity_add_edit_product">AddEditProductActivity</string>
 </resources>
