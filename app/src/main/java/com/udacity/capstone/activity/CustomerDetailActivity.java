@@ -65,7 +65,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("DETAILS");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent()!=null){
-            personID = getIntent().getStringExtra(Constants.VIEW_CUSTOMER_DETAIL);
+            personID = getIntent().getStringExtra(Constants.VIEW_DETAIL);
             toolbar_customer.setTitle(getIntent().getStringExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME));
         }
         if(personID!=null){

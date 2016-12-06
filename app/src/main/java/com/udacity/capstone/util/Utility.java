@@ -8,8 +8,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -115,5 +117,20 @@ public class Utility {
             // no camera on this device
             return false;
         }
+    }
+
+    public static boolean hasPermissions(Context context, String permission) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permission != null) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            else{
+                    return true;
+                }
+        }
+        else{
+            return true;
+        }
+
     }
 }

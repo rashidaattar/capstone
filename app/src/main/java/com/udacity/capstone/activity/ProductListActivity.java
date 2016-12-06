@@ -76,7 +76,7 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this, InventoryProvider.Products.PRODUCTS_URI,
-                new String[]{ProductTable._ID,ProductTable.PRODUCT_NAME},null,null,null);
+                new String[]{ProductTable._ID,ProductTable.PRODUCT_NAME,ProductTable.PRODUCT_DESCRIPTION,ProductTable.PRODUCT_IMG},null,null,null);
     }
 
     @Override

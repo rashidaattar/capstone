@@ -16,6 +16,10 @@
         <include layout="@layout/toolbar_main"
             android:id="@+id/toolbar"/>
     </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,6 +35,7 @@
         tools:context="com.udacity.capstone.activity.AddEditProductActivity"
         tools:showIn="@layout/activity_add_edit_product">
 
+
         <EditText
             android:id="@+id/txt_prodname"
             android:layout_width="match_parent"
@@ -40,6 +45,8 @@
             android:hint="Product Name"
             android:imeOptions="actionNext"
             android:maxLines="1"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
             />
 
         <EditText
@@ -66,10 +73,21 @@
             android:imeOptions="actionNext"/>
 
         <EditText
-            android:id="@+id/txt_quantity"
+            android:id="@+id/txt_metric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_prodesc"
+            android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+            android:hint="Product Description"
+            android:maxLines="1"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/txt_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_metric"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
             android:hint="Quantity"
             android:inputType="numberDecimal"
@@ -84,7 +102,7 @@
             android:maxLines="1"
             android:hint="Minimum Quantity"
             android:imeOptions="actionNext"
-            android:inputType="textPassword"
+            android:inputType="numberDecimal"
             />
 
 
@@ -98,7 +116,13 @@
             android:inputType="text"
             android:imeOptions="actionDone"/>
 
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/image_product"
+            android:visibility="gone"
+            android:layout_below="@id/txt_dimension"
+            />
 
         <Button
             android:id="@+id/save_product"
@@ -112,15 +136,11 @@
             android:paddingLeft="30dp"
             android:text="SAVE"
             android:textColor="@android:color/white"
-            android:layout_below="@id/txt_dimension"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/image_product"/>
+            android:layout_below="@id/image_product"/>
 
 
     </RelativeLayout>
 
-
+</android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

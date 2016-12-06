@@ -41,7 +41,7 @@ public interface ProductTable {
     @DataType(REAL)
     String MINIMUM_QUANTITY = "minimum_quantity";
 
-    @DataType(BLOB)
+    @DataType(TEXT)
     String PRODUCT_IMG = "product_img";
 
 }

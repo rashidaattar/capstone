@@ -7,9 +7,11 @@ package com.udacity.capstone.util;
 public class Constants {
 
     public static final String EDIT_CUSTOMER_BOOLEAN = "0";
+    public static final String EDIT_PRODUCT_BOOLEAN = "8";
     public static final String EDIT_CUSTOMER_CUSTOMERID = "1";
     public static final String EDIT_CUSTOMER_ADDRESSID = "2";
-    public static final String VIEW_CUSTOMER_DETAIL = "3";
+    public static final String EDIT_PRODUCTS = "9";
+    public static final String VIEW_DETAIL = "3";
     public static final String VIEW_CUSTOMER_DETAIL_NAME = "4";
     public static final String CUSTOMER_TYPE = "5";
     public static final String VENDOR_TYPE = "6";

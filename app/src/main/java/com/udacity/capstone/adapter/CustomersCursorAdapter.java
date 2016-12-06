@@ -18,14 +18,10 @@ import android.widget.TextView;
 import com.udacity.capstone.R;
 import com.udacity.capstone.activity.AddEditCustomerActivity;
 import com.udacity.capstone.activity.CustomerDetailActivity;
-import com.udacity.capstone.activity.CustomerListActivity;
 import com.udacity.capstone.database.AddressTable;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
 import com.udacity.capstone.util.Constants;
-import com.udacity.capstone.util.Utility;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +64,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                 }
                 else{
                     Intent intent = new Intent(mContext, CustomerDetailActivity.class);
-                    intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL,personID);
+                    intent.putExtra(Constants.VIEW_DETAIL,personID);
                     intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME,personName);
                     mContext.startActivity(intent);
 
