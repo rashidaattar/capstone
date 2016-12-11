@@ -26,11 +26,8 @@ public class ProductsDetailActivity extends AppCompatActivity {
     @BindView(R.id.main_backdrop)
     ImageView prod_img;
 
-    @BindView(R.id.main_toolbar)
-    Toolbar mToolbar;
-
     @BindView(R.id.toolbar_product)
-    Toolbar prod_toolbar;
+    Toolbar mToolbar;
 
     @BindView(R.id.prod_desc)
     TextView prod_desc;
@@ -55,7 +52,6 @@ public class ProductsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_detail);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
         if(getIntent().hasExtra(Constants.VIEW_DETAIL)){
             prodID = getIntent().getStringExtra(Constants.VIEW_DETAIL);
         }
@@ -66,19 +62,15 @@ public class ProductsDetailActivity extends AppCompatActivity {
                 updateUI();
             }
         }
+        if(getIntent().hasExtra(Constants.PRODUCT_NAME_EXTRA)){
+            mToolbar.setTitle(getIntent().getStringExtra(Constants.PRODUCT_NAME_EXTRA));
+        }
     }
 
     private void updateUI() {
         mCursor.moveToFirst();
         if(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
             prod_img.setImageBitmap(BitmapFactory.decodeFile(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
-            getSupportActionBar().setTitle(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
-            prod_toolbar.setVisibility(View.GONE);
-        }
-        else{
-            prod_img.setVisibility(View.GONE);
-            getSupportActionBar().setTitle("PRODUCT");
-            prod_toolbar.setTitle(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
         }
         prod_code.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_CODE)));
         prod_desc.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));

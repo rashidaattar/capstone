@@ -23,11 +23,6 @@ import butterknife.OnClick;
 
 public class LandingActivity extends AppCompatActivity {
 
-    @BindView(R.id.prod_button)
-    Button productButton;
-
-    @BindView(R.id.order_button)
-    Button orderButton;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -55,13 +50,8 @@ public class LandingActivity extends AppCompatActivity {
 
     @OnClick(R.id.order_button)
     public void orderClick(){
-        int i=1;
-        ContentValues contentValues= new ContentValues();
-        contentValues.put(OrdersTable.ORDER_NUMBER,i++);
-        getContentResolver().insert(InventoryProvider.Orders.ORDERS_URI,contentValues);
-
-        Cursor c=getContentResolver().query(InventoryProvider.Orders.ORDERS_URI,new String[]{OrdersTable._ID},null,null,null);
-        Log.d("here", "checking size: " + c.getCount());
+        Intent intent = new Intent(this,OrderListActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.customer_button)
@@ -77,4 +67,5 @@ public class LandingActivity extends AppCompatActivity {
         intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.VENDOR_TYPE);
         startActivity(intent);
     }
+
 }

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/cordinator_main"
+    tools:context="com.udacity.capstone.activity.AddEditProductActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include layout="@layout/toolbar_main"
+            android:id="@+id/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/content_add_edit_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.udacity.capstone.activity.AddEditOrderActivity"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/txt_orderno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Order Number"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:visibility="visible"
+                />
+
+            <EditText
+                android:id="@+id/txt_orderdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Order Date"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                />
+
+            <EditText
+                android:id="@+id/txt_deliverydate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Delivery Date"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                />
+
+
+            <EditText
+                android:id="@+id/txt_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:maxLines="1"
+                android:hint="Quantity"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                />
+
+            <EditText
+                android:id="@+id/txt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Amount"
+                android:maxLines="1"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/horizontaldivider_order"
+                android:layout_marginStart="-1dp"
+                android:layout_marginEnd="-1dp"
+                android:paddingStart="-1dp"
+                android:paddingEnd="-1dp"/>
+
+            <EditText
+                android:id="@+id/txt_deliveryaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Delivery Address Line1"
+                android:maxLines="1"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_deliveryaddressline2"
+                android:imeOptions="actionNext"
+                android:hint="Delivery Address Line2"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_city"
+                android:hint="City"
+                android:imeOptions="actionNext"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_state"
+                android:hint="State"
+                android:imeOptions="actionNext"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_pincode"
+                android:hint="Pincode"
+                android:imeOptions="actionNext"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/horizontaldivider_address"
+                android:layout_marginStart="-1dp"
+                android:layout_marginEnd="-1dp"
+                android:paddingStart="-1dp"
+                android:paddingEnd="-1dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Add Another Product"
+                android:clickable="true"
+                android:id="@+id/add_product" />
+
+
+            <Button
+                android:id="@+id/save_product"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/buttonMainHeight"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/marginLargeLeftAndRight"
+                android:layout_marginRight="@dimen/marginLargeLeftAndRight"
+                android:gravity="center"
+                android:paddingRight="30dp"
+                android:paddingLeft="30dp"
+                android:text="SAVE"
+                android:textColor="@android:color/white"
+                android:layout_below="@id/add_product"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+

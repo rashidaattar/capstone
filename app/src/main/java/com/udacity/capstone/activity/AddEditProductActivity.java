@@ -128,11 +128,12 @@ public class AddEditProductActivity extends AppCompatActivity {
 
     }
 
-
+    @OnClick(R.id.add_from_gallery)
     public void imageFromGallery(){
         getPermissionToGallery(READ_EXTERNAL_STORAGE_REQUEST);
     }
 
+    @OnClick(R.id.add_from_camera)
     public void imageFromCamera(){
         getPermissionToGallery(CAMERA_REQUEST);
     }
@@ -185,7 +186,7 @@ public class AddEditProductActivity extends AppCompatActivity {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
                 isCameraPermission=true;
-               // getImageIntent();
+               getCameraIntent();
             } else {
                 Toast.makeText(this, "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
                 isCameraPermission=false;
@@ -213,28 +214,6 @@ public class AddEditProductActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_image_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.add_from_gallery:
-                imageFromGallery();
-                return true;
-
-            case R.id.add_from_camera:
-                imageFromCamera();
-                return true;
-
-            default:
-                return false;
-        }
-
-    }
 
     public void getImageIntent(){
         /*Intent intent = new Intent();
@@ -300,5 +279,11 @@ public class AddEditProductActivity extends AppCompatActivity {
             getContentResolver().insert(InventoryProvider.Products.PRODUCTS_URI,contentValues);
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        selectedImagePath = "";
     }
 }

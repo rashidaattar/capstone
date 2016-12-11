@@ -6,7 +6,7 @@
         android:title="Edit"
         android:showAsAction="always"
         app:showAsAction="always"
-        android:icon="@drawable/ic_add_a_photo_black_24dp"
+        android:icon="@drawable/ic_photo_library_black_24dp"
         >
         <menu>
 
@@ -23,7 +23,7 @@
                 android:title="Camera"
                 android:showAsAction="always"
                 app:showAsAction="always"
-                android:icon="@drawable/ic_photo_camera_black_24dp"
+                android:icon="@drawable/ic_camera_alt_black_24dp"
                 />
 
         </menu>

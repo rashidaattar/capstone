@@ -48,39 +48,43 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder,  Cursor cursor, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
 
         viewHolder.product_name.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
         viewHolder.product_desc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
-        if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null &&
-                cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG)).length()>0){
-            final int THUMBSIZE = 64;
-
+        final int THUMBSIZE = 64;
+        if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail
                     (BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))),
-                    THUMBSIZE, THUMBSIZE);
+                            THUMBSIZE, THUMBSIZE);
             viewHolder.thumbnail_view.setImageBitmap(ThumbImage);
+        }
+        else{
+            viewHolder.thumbnail_view.setVisibility(View.GONE);
+        }
 
-            mCursor = getCursor();
-            mCursor.moveToPosition(position);
-            viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
+
+        mCursor = getCursor();
+
+        viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mActionMode!=null){
                         mActionMode.finish();
                     }
                     else{
+                        mCursor.moveToPosition(position);
                         Intent intent = new Intent(mContext, ProductsDetailActivity.class);
                         intent.putExtra(Constants.VIEW_DETAIL,mCursor.getString(mCursor.getColumnIndex(ProductTable._ID)));
+                        intent.putExtra(Constants.PRODUCT_NAME_EXTRA,mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
                         mContext.startActivity(intent);
                     }
 
                 }
             });
-            viewHolder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
+        viewHolder.card_view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(final View v) {
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                         mActionMode=v.startActionMode(new ActionMode.Callback() {
@@ -134,7 +138,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                 }
             });
 
-        }
+
     }
 
 

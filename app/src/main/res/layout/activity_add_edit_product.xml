@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_minquantity"
-            android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+            android:layout_marginBottom="@dimen/marginExtraLargeLeftAndRight"
             android:hint="Dimension"
             android:inputType="text"
             android:imeOptions="actionDone"/>
@@ -138,8 +138,28 @@
             android:textColor="@android:color/white"
             android:layout_below="@id/image_product"/>
 
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="60dp">
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_photo_library_black_24dp"
+                android:id="@+id/add_from_gallery"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera_alt_black_24dp"
+                android:id="@+id/add_from_camera"/>
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
     </RelativeLayout>
+
 
 </android.support.v4.widget.NestedScrollView>
 
