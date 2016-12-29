@@ -50,7 +50,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public void onBindViewHolder( ViewHolder viewHolder, Cursor cursor,  int position) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
-        viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(AddressTable._ID)));
+        viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable._ID)));
         mCursor=getCursor(); //obtain cursor with updated data
         mCursor.moveToPosition(position); //move cursor to the current position selected
         final String personID = mCursor.getString(mCursor.getColumnIndex(PersonTable._ID));

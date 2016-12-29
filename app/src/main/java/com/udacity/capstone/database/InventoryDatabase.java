@@ -23,5 +23,7 @@ public class InventoryDatabase {
 
     @Table(AddressTable.class) public static final String ADRESSES = "addresses";
 
+    @Table(Order_ProductTable.class) public static final String ORDER_PRODUCT = "order_product";
+
 }
 

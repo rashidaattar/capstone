@@ -72,17 +72,6 @@
 
 
             <EditText
-                android:id="@+id/txt_quantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:maxLines="1"
-                android:hint="Quantity"
-                android:imeOptions="actionNext"
-                android:inputType="numberDecimal"
-                />
-
-            <EditText
                 android:id="@+id/txt_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,6 +80,14 @@
                 android:maxLines="1"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionNext"/>
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/customer_auto_complete"
+                android:completionThreshold="2"
+                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
+                android:hint="Customer Name"/>
 
             <View
                 android:layout_width="match_parent"
@@ -103,7 +100,7 @@
                 android:paddingEnd="-1dp"/>
 
             <EditText
-                android:id="@+id/txt_deliveryaddress"
+                android:id="@+id/txt_deliveryaddressline1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
@@ -150,13 +147,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ Add Another Product"
+                android:text="+ Add Product"
                 android:clickable="true"
                 android:id="@+id/add_product" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_info"
+                android:visibility="gone"/>
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/status_spinner"
+                />
+
 
             <Button
-                android:id="@+id/save_product"
+                android:id="@+id/save_order"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/buttonMainHeight"
                 android:layout_gravity="center_horizontal"

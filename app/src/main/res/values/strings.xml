@@ -22,4 +22,10 @@
     <string name="contact_label">Contact Number</string>
     <string name="save">SAVE</string>
     <string name="title_activity_add_edit_product">AddEditProductActivity</string>
+
+    <string-array name="status_array">
+        <item name="completed">COMPLETED</item>
+        <item name = "progress">IN-PROGRESS</item>
+        <item name = "cancelled">CANCELLED</item>
+    </string-array>
 </resources>

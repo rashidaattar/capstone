@@ -5,6 +5,7 @@ import android.net.Uri;
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
 import net.simonvt.schematic.annotation.InexactContentUri;
+import net.simonvt.schematic.annotation.Table;
 import net.simonvt.schematic.annotation.TableEndpoint;
 
 /**
@@ -27,6 +28,7 @@ public class InventoryProvider {
         String ORDERS = "orders";
         String PERSONS = "persons";
         String ADDRESSES = "addresses";
+        String ORDER_PRODUCT = "order_product";
      //   String CUSTOMER_JOIN = "customer_join";
     }
 
@@ -79,8 +81,9 @@ public class InventoryProvider {
 
         @ContentUri(
                 path = Path.PERSONS + Path.ADDRESSES,
-                type = "vnd.example.dir" ,
-                join = "JOIN "+ InventoryDatabase.ADRESSES + " ON " + InventoryDatabase.PERSONS + "." + PersonTable._ID + " = "
+                type = "vnd.example.dir",
+                where = AddressTable.ADDRESS_TYPE+" like '"+AddressTable.ADDRESS_BILLING+"'",
+                join = "INNER JOIN "+ InventoryDatabase.ADRESSES + " ON " + InventoryDatabase.PERSONS + "." + PersonTable._ID + " = "
                         + InventoryDatabase.ADRESSES + "." + AddressTable.PERSON_ID)
         public static final Uri PERSONS_JOIN_URI = buildUri(Path.PERSONS+Path.ADDRESSES);
 
@@ -93,6 +96,16 @@ public class InventoryProvider {
                 type = "vnd.android.cursor.dir/addresses",
                 defaultSort = AddressTable._ID + " ASC")
         public static final Uri ADDRESSES_URI = buildUri(Path.ADDRESSES);
+
+    }
+
+    @TableEndpoint(table = InventoryDatabase.ORDER_PRODUCT) public static class OrderProduct{
+
+        @ContentUri(
+                path = Path.ORDER_PRODUCT,
+                type = "vnd.android.cursor.dir/order_product",
+                defaultSort = Order_ProductTable._ID + " ASC")
+        public static final Uri ORDER_PRODUCT_URI = buildUri(Path.ORDER_PRODUCT);
 
     }
 }
