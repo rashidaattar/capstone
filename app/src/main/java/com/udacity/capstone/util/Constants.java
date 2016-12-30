@@ -8,6 +8,7 @@ public class Constants {
 
     public static final String EDIT_CUSTOMER_BOOLEAN = "0";
     public static final String EDIT_PRODUCT_BOOLEAN = "8";
+    public static final String EDIT_ORDER_BOOLEAN = "11";
     public static final String EDIT_CUSTOMER_CUSTOMERID = "1";
     public static final String EDIT_CUSTOMER_ADDRESSID = "2";
     public static final String EDIT_PRODUCTS = "9";
