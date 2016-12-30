@@ -302,7 +302,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
                     product_quantity = quantity.getText().toString();
                     if(Integer.parseInt(available_quantity)<=Integer.parseInt(product_quantity))
                     {
-                        Toast.makeText(mContext,"Available quanityt less than required quantity. Kindly update the inventory!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Available quantity less than required quantity. Kindly update the inventory!",Toast.LENGTH_SHORT).show();
                     }
                     if(product_info.getVisibility()!=View.VISIBLE){
                         product_info.setVisibility(View.VISIBLE);

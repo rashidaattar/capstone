@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.ProductsCursorAdapter;
 import com.udacity.capstone.database.InventoryProvider;
+import com.udacity.capstone.database.OrdersTable;
 import com.udacity.capstone.database.ProductTable;
 
 
@@ -30,9 +31,6 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
 
     @BindView(R.id.toolbar)
     Toolbar mtoolbar;
-
-    @BindView(R.id.add_fab)
-    FloatingActionButton add_fab;
 
     @BindView(R.id.products_list)
     RecyclerView productsList;
@@ -77,6 +75,7 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this, InventoryProvider.Products.PRODUCTS_URI,
                 new String[]{ProductTable._ID,ProductTable.PRODUCT_NAME,ProductTable.PRODUCT_DESCRIPTION,ProductTable.PRODUCT_IMG},null,null,null);
+       // return new CursorLoader(this,InventoryProvider.Orders.ORDERS_PRODUCT_JOIN,null,null,null,null);
     }
 
     @Override

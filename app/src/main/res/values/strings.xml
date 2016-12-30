@@ -25,7 +25,7 @@
 
     <string-array name="status_array">
         <item name="completed">COMPLETED</item>
-        <item name = "progress">IN-PROGRESS</item>
-        <item name = "cancelled">CANCELLED</item>
+        <item name="progress">IN-PROGRESS</item>
+        <item name="cancelled">CANCELLED</item>
     </string-array>
 </resources>

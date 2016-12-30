@@ -57,6 +57,14 @@ public class InventoryProvider {
                 type = "vnd.android.cursor.dir/orders",
                 defaultSort = OrdersTable.ORDER_NUMBER + " ASC")
         public static final Uri ORDERS_URI = buildUri(Path.ORDERS);
+
+        @ContentUri(
+                path = Path.ORDERS+Path.ORDER_PRODUCT,
+                type = "vnd.android.cursor.dir",
+                join = "INNER JOIN "+InventoryDatabase.ORDER_PRODUCT +" ON "+InventoryDatabase.ORDERS+"."
+                        +OrdersTable._ID+" = "+InventoryDatabase.ORDER_PRODUCT+"."+Order_ProductTable.ORDER_ID,
+                defaultSort = OrdersTable.ORDER_NUMBER + " ASC")
+        public static final Uri ORDERS_PRODUCT_JOIN = buildUri(Path.ORDERS+Path.ORDER_PRODUCT);
     }
 
     @TableEndpoint(table = InventoryDatabase.PERSONS) public static class Persons {
@@ -107,7 +115,22 @@ public class InventoryProvider {
                 defaultSort = Order_ProductTable._ID + " ASC")
         public static final Uri ORDER_PRODUCT_URI = buildUri(Path.ORDER_PRODUCT);
 
+
+        @ContentUri(
+                path = Path.ORDER_PRODUCT+Path.ORDERS,
+                type = "vnd.android.cursor.dir",
+                join = "LEFT JOIN "+InventoryDatabase.ORDERS +" ON "+InventoryDatabase.ORDERS+"."
+                        +OrdersTable._ID+" = "+InventoryDatabase.ORDER_PRODUCT+"."+Order_ProductTable.ORDER_ID+
+                        " INNER JOIN "+InventoryDatabase.ADRESSES+" ON "+InventoryDatabase.ADRESSES+"."
+                        +AddressTable._ID+" = "+ InventoryDatabase.ORDERS+"."+OrdersTable.ADDRESS_ID+
+                        " INNER JOIN "+InventoryDatabase.PERSONS+" ON "+InventoryDatabase.ADRESSES+"."
+                        +AddressTable.PERSON_ID+" = "+ InventoryDatabase.PERSONS+"."+PersonTable._ID,
+                defaultSort = OrdersTable.ORDER_NUMBER + " ASC")
+        public static final Uri ORDERS_PRODUCT_PERSON_JOIN = buildUri(Path.ORDER_PRODUCT+Path.ORDERS);
+
     }
+
+
 }
 
 
