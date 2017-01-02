@@ -86,6 +86,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                 @Override
                 public boolean onLongClick(final View v) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        mCursor.moveToPosition(position);
                         v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                         mActionMode=v.startActionMode(new ActionMode.Callback() {
                             @Override

@@ -3,18 +3,28 @@ package com.udacity.capstone.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.udacity.capstone.R;
+import com.udacity.capstone.activity.AddEditOrderActivity;
+import com.udacity.capstone.activity.AddEditProductActivity;
 import com.udacity.capstone.activity.OrderDetailActivity;
+import com.udacity.capstone.database.AddressTable;
+import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.Order_ProductTable;
 import com.udacity.capstone.database.OrdersTable;
+import com.udacity.capstone.database.ProductTable;
 import com.udacity.capstone.util.Constants;
 import com.udacity.capstone.util.OrderProductDAO;
 
@@ -36,6 +46,7 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
     private Context mContext;
     private HashMap<Integer,ArrayList<OrderProductDAO>> mMap = new HashMap<>();
     private ArrayList<OrderProductDAO> productsList;
+    public ActionMode mActionMode;
 
 
     public OrdersCursorAdapter(Context context, Cursor cursor) {
@@ -70,24 +81,106 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
         viewHolder.prod_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 getCursor().moveToPosition(position);
-                int order_id =getCursor().getInt(getCursor().getColumnIndex(Order_ProductTable.ORDER_ID));
-                ArrayList<OrderProductDAO> orderProductDAOs = new ArrayList<>();
-                Set<Map.Entry<Integer, ArrayList<OrderProductDAO>>> entrySet = mMap.entrySet();
-                for (Map.Entry entry : entrySet)
-                {
-                    if((Integer)entry.getKey()== order_id){
-                       orderProductDAOs.addAll((ArrayList<OrderProductDAO>)entry.getValue());
-                    }
+                if(mActionMode!=null){
+                    mActionMode.finish();
                 }
-                Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                intent.putExtra(Constants.ORDER_ID_EXTRA,order_id);
-                intent.putExtra(Constants.PRODUCT_NAME_EXTRA,orderProductDAOs);
-                mContext.startActivity(intent);
+                else{
+                    getCursor().moveToPosition(position);
+                    Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                    mContext.startActivity(createIntent(intent));
+                }
+
+            }
+        });
+
+        viewHolder.prod_name.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    getCursor().moveToPosition(position);
+                    v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
+                    mActionMode=v.startActionMode(new ActionMode.Callback() {
+                        @Override
+                        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                            MenuInflater inflater = mode.getMenuInflater();
+                            inflater.inflate(R.menu.edit_delete_contextmenu, menu);
+                            mode.getMenu().getItem(1).setVisible(false);
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.edit_button:
+                                    Intent intent = new Intent(mContext,AddEditOrderActivity.class);
+                                    intent.putExtra(Constants.EDIT_ORDER_BOOLEAN,true);
+                                    mContext.startActivity(createIntent(intent));
+                                    mode.finish();
+                                    return true;
+                               /* case R.id.delete_button:
+                                   deleteOrder(getCursor());
+                                    mode.finish();
+                                    return true;*/
+                                default:
+                                    return false;
+                            }
+                        }
+
+                        @Override
+                        public void onDestroyActionMode(ActionMode mode) {
+
+                            if(mActionMode!=null){
+                                mActionMode=null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    v.setBackgroundColor(mContext.getColor(R.color.bgColor));
+                                }
+                            }
+
+
+                        }
+
+                    },ActionMode.TYPE_FLOATING);
+                }
+                return true;
             }
         });
 
     }
+
+   /* private void deleteOrder(Cursor cursor) {
+        int order_id =cursor.getInt(getCursor().getColumnIndex(Order_ProductTable.ORDER_ID));
+        Set<Map.Entry<Integer, ArrayList<OrderProductDAO>>> entrySet = mMap.entrySet();
+        for (Map.Entry entry : entrySet)
+        {
+            if((Integer)entry.getKey()== order_id){
+                int deleted_order_prodct = mContext.getContentResolver().delete(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI, Order_ProductTable._ID + "=" +
+                        cursor.getString(cursor.getColumnIndex(Order_ProductTable._ID)), null);
+                // notifyDataSetChanged();
+                Log.d("customerinsert","Updated deleted_order_prodct : "+deleted_order_prodct);
+            }
+        }
+
+
+        int deleted_order = mContext.getContentResolver().delete(InventoryProvider.Orders.ORDERS_URI, OrdersTable._ID + "=" +
+                cursor.getString(cursor.getColumnIndex(OrdersTable._ID)), null);
+        Log.d("customerinsert","Updated deleted_order : "+deleted_order);
+        //notifyDataSetChanged();
+
+        int deleted_address = mContext.getContentResolver().delete(InventoryProvider.Addreses.ADDRESSES_URI, AddressTable._ID + "=" +
+                cursor.getString(cursor.getColumnIndex(AddressTable._ID)), null);
+        Log.d("customerinsert","Updated deleted_address : "+deleted_address);
+        notifyDataSetChanged();
+        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_URI, null);
+        mContext.getContentResolver().notifyChange(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI, null);
+        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_URI, null);
+        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_PRODUCT_JOIN,null);
+
+    }*/
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -122,4 +215,22 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
             ButterKnife.bind(this,itemView);
         }
     }
+
+    private Intent createIntent(Intent intent){
+        int order_id =getCursor().getInt(getCursor().getColumnIndex(Order_ProductTable.ORDER_ID));
+        ArrayList<OrderProductDAO> orderProductDAOs = new ArrayList<>();
+        Set<Map.Entry<Integer, ArrayList<OrderProductDAO>>> entrySet = mMap.entrySet();
+        for (Map.Entry entry : entrySet)
+        {
+            if((Integer)entry.getKey()== order_id){
+                orderProductDAOs.addAll((ArrayList<OrderProductDAO>)entry.getValue());
+            }
+        }
+
+        intent.putExtra(Constants.ORDER_ID_EXTRA,order_id);
+        intent.putExtra(Constants.PRODUCT_NAME_EXTRA,orderProductDAOs);
+        return intent;
+    }
+
+
 }

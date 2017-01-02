@@ -47,7 +47,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
 
 
     @Override
-    public void onBindViewHolder( ViewHolder viewHolder, Cursor cursor,  int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
         viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable._ID)));
@@ -78,6 +78,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
             public boolean onLongClick(final View v) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mCursor.moveToPosition(position);
                     v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                     mActionMode=v.startActionMode(new ActionMode.Callback() {
                         @Override

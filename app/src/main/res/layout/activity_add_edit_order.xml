@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/customer_auto_complete"
-                android:completionThreshold="2"
+                android:completionThreshold="1"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
                 android:hint="Customer Name"/>
 

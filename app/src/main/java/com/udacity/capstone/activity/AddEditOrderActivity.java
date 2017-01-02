@@ -29,14 +29,18 @@ import android.widget.Toast;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.AddressTable;
+import com.udacity.capstone.database.InventoryDatabase;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.Order_ProductTable;
 import com.udacity.capstone.database.OrdersTable;
 import com.udacity.capstone.database.PersonTable;
 import com.udacity.capstone.database.ProductTable;
+import com.udacity.capstone.util.Constants;
+import com.udacity.capstone.util.OrderProductDAO;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -91,6 +95,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
     Calendar myCalendar = Calendar.getInstance();
 
     Context mContext;
+    boolean isEdit = false;
 
     //data fields
     private String orderNo;
@@ -98,6 +103,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
     private String status;
     private int order_id;
     private int address_id;
+    private int order_product_id;
     HashMap<String,String> customer_map = new HashMap<>();
     HashMap<String,String> product_quantity_map = new HashMap<>();
     private String[] status_array ;
@@ -161,6 +167,21 @@ public class AddEditOrderActivity extends AppCompatActivity {
             }
         });
 
+        if(getIntent().hasExtra(Constants.EDIT_ORDER_BOOLEAN)){
+            if(getIntent().getBooleanExtra(Constants.EDIT_ORDER_BOOLEAN,true)){
+                isEdit = true;
+                order_id = getIntent().getIntExtra(Constants.ORDER_ID_EXTRA,0);
+                Cursor c =getContentResolver().query(InventoryProvider.OrderProduct.ORDERS_PRODUCT_PERSON_JOIN,null, InventoryDatabase.ORDER_PRODUCT+
+                        "."+Order_ProductTable.ORDER_ID+" = "+order_id,null,null);
+                if(c.getCount()>0){
+                    while(c.moveToNext()){
+                        populateData(c);
+                    }
+                }
+                populateProducts(getIntent().<OrderProductDAO>getParcelableArrayListExtra(Constants.PRODUCT_NAME_EXTRA));
+            }
+        }
+
 
     }
 
@@ -205,6 +226,14 @@ public class AddEditOrderActivity extends AppCompatActivity {
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,
                 customer_map.keySet().toArray(new String[cursor.getCount()]));
         customer_auto_complete.setAdapter(stringArrayAdapter);
+        customer_auto_complete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    customer_auto_complete.showDropDown();
+                }
+            }
+        });
     }
 
     @OnClick(R.id.save_order)
@@ -212,6 +241,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
         insertAddress();
         insertOrder();
         insertorderProduct();
+//        notifyAll();
     }
 
     public void insertOrder(){
@@ -223,9 +253,16 @@ public class AddEditOrderActivity extends AppCompatActivity {
         contentValues.put(OrdersTable.ORDER_STATUS,status);
        // contentValues.put(OrdersTable.ADDRESS_ID,address_id);
         contentValues.put(OrdersTable.ADDRESS_ID,address_id);
-        Uri uri = getContentResolver().insert(InventoryProvider.Orders.ORDERS_URI,contentValues);
-        String id[] = uri.getPath().toString().split("/");
-        order_id =Integer.parseInt(id[2]);
+        if(isEdit){
+            int inserted_rows =getContentResolver().update(InventoryProvider.Orders.ORDERS_URI,contentValues,OrdersTable._ID+"="+order_id,null);
+            Log.d("customerinsert","Updated customers : "+inserted_rows);
+        }
+        else{
+            Uri uri = getContentResolver().insert(InventoryProvider.Orders.ORDERS_URI,contentValues);
+            String id[] = uri.getPath().toString().split("/");
+            order_id =Integer.parseInt(id[2]);
+        }
+
     }
 
     public void insertAddress(){
@@ -237,9 +274,16 @@ public class AddEditOrderActivity extends AppCompatActivity {
         contentValues.put(AddressTable.PINCODE,pincode.getText().toString());
         contentValues.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_SHIPPING);
         contentValues.put(AddressTable.PERSON_ID,Integer.parseInt(customer_map.get(customer_auto_complete.getText().toString())));
-        Uri uri = getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
-        String id[] = uri.getPath().toString().split("/");
-        address_id =Integer.parseInt(id[2]);
+        if(isEdit){
+            int inserted_rows =getContentResolver().update(InventoryProvider.Addreses.ADDRESSES_URI,contentValues,AddressTable._ID+"="+address_id,null);
+            Log.d("customerinsert","Updated customers : "+inserted_rows);
+        }
+        else{
+            Uri uri = getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+            String id[] = uri.getPath().toString().split("/");
+            address_id =Integer.parseInt(id[2]);
+        }
+
     }
 
     public void insertorderProduct(){
@@ -250,12 +294,46 @@ public class AddEditOrderActivity extends AppCompatActivity {
             contentValues.put(Order_ProductTable.ORDER_ID,order_id);
             contentValues.put(Order_ProductTable.PRODUCT_NAME,(String)entry.getKey());
             contentValues.put(Order_ProductTable.PRODUCT_QUANTITY,Float.valueOf((String)entry.getValue()));
-            getContentResolver().insert(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues);
-
+            if(isEdit){
+                int inserted_rows =getContentResolver().update(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues,Order_ProductTable._ID+"="+order_product_id,null);
+                Log.d("customerinsert","Updated customers : "+inserted_rows);
+            }
+            else{
+                getContentResolver().insert(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues);
+            }
         }
-
-
     }
+
+    private void populateProducts(ArrayList<OrderProductDAO> parcelableArrayListExtra) {
+        product_info.setVisibility(View.VISIBLE);
+        for(OrderProductDAO orderProductDAO:parcelableArrayListExtra){
+            product_info.setText(orderProductDAO.getProd_name() + "\n"+"Quantity :"+orderProductDAO.getProd_quantity()+"\n");
+            product_info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new ProductAutoCompleteAsync().execute();
+                }
+            });
+        }
+    }
+
+    private void populateData(Cursor c) {
+        order_no.setText(c.getString(c.getColumnIndex(OrdersTable.ORDER_NUMBER)));
+        order_date_edittext.setText(c.getString(c.getColumnIndex(OrdersTable.ORDER_DATE)));
+        delivery_date_edittext.setText(c.getString(c.getColumnIndex(OrdersTable.DELIVERY_DATE)));
+        amount.setText(c.getString(c.getColumnIndex(OrdersTable.ORDER_AMOUNT)));
+        spinner.setPrompt(c.getString(c.getColumnIndex(OrdersTable.ORDER_STATUS)));
+        address_line1.setText(c.getString(c.getColumnIndex(AddressTable.ADDRESS_LINE1)));
+        address_line2.setText(c.getString(c.getColumnIndex(AddressTable.ADDRESS_LINE2)));
+        city.setText(c.getString(c.getColumnIndex(AddressTable.CITY)));
+        state.setText(c.getString(c.getColumnIndex(AddressTable.STATE)));
+        pincode.setText(c.getString(c.getColumnIndex(AddressTable.PINCODE)));
+        customer_auto_complete.setText(c.getString(c.getColumnIndex(PersonTable.PERSON_NAME)));
+        order_id = c.getInt(c.getColumnIndex(Order_ProductTable.ORDER_ID));
+        address_id = c.getInt(c.getColumnIndex(AddressTable._ID));
+        order_product_id = c.getInt(c.getColumnIndex(Order_ProductTable._ID));
+    }
+
 
     public class ProductAutoCompleteAsync extends AsyncTask<Void,Cursor,Cursor>{
 
@@ -293,7 +371,15 @@ public class AddEditOrderActivity extends AppCompatActivity {
             }
             ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,productMap.keySet().toArray(new String[cursor.getCount()]));
             productautoAutoCompleteTextView.setAdapter(stringArrayAdapter);
-            productautoAutoCompleteTextView.setThreshold(2);
+            productautoAutoCompleteTextView.setThreshold(1);
+            productautoAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        productautoAutoCompleteTextView.showDropDown();
+                    }
+                }
+            });
             builder.setView(alert_view);
             builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                 @Override
