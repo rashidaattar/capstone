@@ -52,7 +52,23 @@
         </activity>
         <activity android:name=".activity.OrderListActivity" />
         <activity android:name=".activity.AddEditOrderActivity" />
-        <activity android:name=".activity.OrderDetailActivity"></activity>
+        <activity android:name=".activity.OrderDetailActivity" />
+
+        <receiver android:name="com.sam_chordas.android.stockhawk.widget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>
