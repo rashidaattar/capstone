@@ -54,7 +54,7 @@
         <activity android:name=".activity.AddEditOrderActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
 
-        <receiver android:name="com.sam_chordas.android.stockhawk.widget.WidgetProvider">
+        <receiver android:name=".widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

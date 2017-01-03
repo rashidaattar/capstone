@@ -1,5 +1,6 @@
 package com.udacity.capstone.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,11 +22,19 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     public WidgetRemoteViewFactory(Context mContext) {
         this.mContext = mContext;
+
     }
 
     @Override
     public void onCreate() {
-
+       /* mCursor= mContext.getContentResolver().query(InventoryProvider.Orders.ORDERS_URI,
+                null, OrdersTable.ORDER_STATUS + " LIKE ?",
+                new String[]{OrdersTable.STATUS_PROGRESS}, null);
+        for(int i=0;i<mCursor.getCount();i++){
+            getCount();
+            getViewAt(i);
+        }
+*/
     }
 
     @Override
@@ -47,20 +56,19 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getCount() {
-        return 0;
+        return mCursor.getCount();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         mCursor.moveToPosition(position);
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
-        rv.setTextViewText(R.id.stock_symbol,mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));
-        rv.setTextViewText(R.id.bid_price,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_AMOUNT)));
-        rv.setTextViewText(R.id.change,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_STATUS)));
-      /*  Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(mContext.getString(R.string.symbole_label),mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL)));
-        rv.setOnClickFillInIntent(R.id.stock_symbol, fillInIntent);
-*/
+        rv.setTextViewText(R.id.order_number,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_NUMBER)));
+        rv.setTextViewText(R.id.order_amount,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_AMOUNT)));
+        rv.setTextViewText(R.id.delivery_date,mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, position);
+        rv.setOnClickFillInIntent(R.id.order_number, fillInIntent);
         return rv;
     }
 
@@ -71,12 +79,12 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
