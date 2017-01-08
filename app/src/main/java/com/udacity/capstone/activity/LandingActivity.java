@@ -14,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.AddressTable;
 import com.udacity.capstone.database.InventoryProvider;
@@ -34,7 +38,11 @@ public class LandingActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    private ComponentName mServiceComponent;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
+
+    private InterstitialAd mInterstitialAd;
 
     private int mJobId = 0;
     @Override
@@ -46,10 +54,32 @@ public class LandingActivity extends AppCompatActivity {
         mToolbar.setTitle("CHECK");
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         scheduleNotification();
+       // AdView mAdView = (AdView) root.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)//add device id in strings.xml
+                .addTestDevice(getString(R.string.test_device_id))
+                .build();
+        mAdView.loadAd(adRequest);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
+        requestNewInterstitial();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
     }
 
     @OnClick(R.id.prod_button)
     public void prodClick(){
+        if(mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
         Intent intent=new Intent(this,ProductListActivity.class);
         startActivity(intent);
 
@@ -57,12 +87,18 @@ public class LandingActivity extends AppCompatActivity {
 
     @OnClick(R.id.order_button)
     public void orderClick(){
+        if(mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
         Intent intent = new Intent(this,OrderListActivity.class);
         startActivity(intent);
     }
 
     @OnClick(R.id.customer_button)
     public void viewCustomers(){
+        if(mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
         Intent intent=new Intent(this,CustomerListActivity.class);
         intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.CUSTOMER_TYPE);
         startActivity(intent);
@@ -70,6 +106,9 @@ public class LandingActivity extends AppCompatActivity {
 
     @OnClick(R.id.vendor_button)
     public void viewVendors(){
+        if(mInterstitialAd.isLoaded()){
+            mInterstitialAd.show();
+        }
         Intent intent=new Intent(this,CustomerListActivity.class);
         intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.VENDOR_TYPE);
         startActivity(intent);
@@ -97,6 +136,14 @@ public class LandingActivity extends AppCompatActivity {
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR) //add device id in strings.xml
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
 }
