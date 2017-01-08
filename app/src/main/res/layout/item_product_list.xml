@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/product_name"
-                    android:textSize="@dimen/textSizeMedium"
+                    android:textSize="@dimen/textSizeMain"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     style="@style/DetailViewText"/>
@@ -38,9 +38,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/product_desc"
-                    android:textSize="@dimen/textSizeSmall"
+                    android:textSize="@dimen/textSizeMedium"
                     android:textStyle="italic"
                     style="@style/TextMain"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/product_quantity"
+                        android:textSize="@dimen/textSizeMedium"
+                        android:textStyle="italic"
+                        style="@style/TextMain"/>
 
                     </LinearLayout>
 

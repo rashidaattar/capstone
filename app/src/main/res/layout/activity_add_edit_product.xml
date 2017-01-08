@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-            android:hint="Product Name"
+            android:hint="@string/product_name"
             android:imeOptions="actionNext"
             android:maxLines="1"
             android:visibility="visible"
@@ -56,7 +56,7 @@
             android:layout_below="@id/txt_prodname"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-            android:hint="Product Code"
+            android:hint="@string/product_code"
             android:imeOptions="actionNext"
             android:maxLines="1"
             />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_prodcode"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-            android:hint="Product Description"
+            android:hint="@string/product_description"
             android:maxLines="3"
             android:inputType="textCapSentences"
             android:imeOptions="actionNext"/>
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_prodesc"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-            android:hint="Product Description"
+            android:hint="@string/metirc_unit"
             android:maxLines="1"
             android:inputType="textCapSentences"
             android:imeOptions="actionNext"/>
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_metric"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-            android:hint="Quantity"
+            android:hint="@string/quantity"
             android:inputType="numberDecimal"
             android:imeOptions="actionNext"/>
 
@@ -100,7 +100,7 @@
             android:layout_below="@id/txt_quantity"
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
             android:maxLines="1"
-            android:hint="Minimum Quantity"
+            android:hint="@string/minimum_quantity"
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             />
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_minquantity"
             android:layout_marginBottom="@dimen/marginExtraLargeLeftAndRight"
-            android:hint="Dimension"
+            android:hint="@string/dimension"
             android:inputType="text"
             android:imeOptions="actionDone"/>
 
@@ -122,6 +122,7 @@
             android:id="@+id/image_product"
             android:visibility="gone"
             android:layout_below="@id/txt_dimension"
+            android:contentDescription="@string/image_descirption"
             />
 
         <Button
@@ -134,9 +135,10 @@
             android:gravity="center"
             android:paddingRight="30dp"
             android:paddingLeft="30dp"
-            android:text="SAVE"
+            android:text="@string/save"
             android:textColor="@android:color/white"
-            android:layout_below="@id/image_product"/>
+            android:layout_below="@id/image_product"
+            android:contentDescription="@string/save_product_description"/>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
@@ -149,12 +151,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_photo_library_black_24dp"
-                android:id="@+id/add_from_gallery"/>
+                android:id="@+id/add_from_gallery"
+                android:contentDescription="@string/gallery_description"/>
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera_alt_black_24dp"
-                android:id="@+id/add_from_camera"/>
+                android:id="@+id/add_from_camera"
+                android:contentDescription="@string/camera_description"/>
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 

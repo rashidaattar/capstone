@@ -14,14 +14,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,16 +43,13 @@ public class AddEditProductActivity extends AppCompatActivity {
 
 
     private  String selectedImagePath;
-    private boolean isStoragePermission = false;
     private static final int SELECT_PICTURE = 0;
     private static final int SELECT_CAMERA = 5;
     private static final int READ_EXTERNAL_STORAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 3;
-    private static final int OPEN_CAMERA = 4;
-    private boolean isCameraPermission = false;
     private Uri camera_uri;
 
-    private static String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static final String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
 
     private String prodID = "";
@@ -85,13 +80,16 @@ public class AddEditProductActivity extends AppCompatActivity {
     @BindView(R.id.txt_metric)
     EditText txt_metric;
 
+    @BindView(R.id.cordinator_main)
+    CoordinatorLayout main_layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_product);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("ADD PRODUCT");
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_add_edit_product));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent()!=null){
             if(getIntent().hasExtra(Constants.EDIT_PRODUCTS)){
@@ -141,17 +139,15 @@ public class AddEditProductActivity extends AppCompatActivity {
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void getPermissionToGallery(int i) {
+    private void getPermissionToGallery(int i) {
 
         switch (i){
             case READ_EXTERNAL_STORAGE_REQUEST:
                 if (ContextCompat.checkSelfPermission(this, permissions[0])
                         != PackageManager.PERMISSION_GRANTED){
                     requestPermissions(new String[]{permissions[0]}, READ_EXTERNAL_STORAGE_REQUEST);
-                    //isStoragePermission = false;
                 }
                 else{
-                   // isStoragePermission = true;
                     getImageIntent();
                 }
                 break;
@@ -162,7 +158,6 @@ public class AddEditProductActivity extends AppCompatActivity {
                     requestPermissions(new String[]{permissions[1],permissions[2]},CAMERA_REQUEST);
                 }
                 else{
-                    //isCameraPermission = true;
                     getCameraIntent();
                 }
         }
@@ -173,23 +168,13 @@ public class AddEditProductActivity extends AppCompatActivity {
         if (requestCode == READ_EXTERNAL_STORAGE_REQUEST) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
-                isStoragePermission=true;
                 getImageIntent();
-            } else {
-                Toast.makeText(this, "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
-                isStoragePermission=false;
             }
         }
         else if(requestCode == CAMERA_REQUEST){
             if (grantResults.length == 2 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
-                isCameraPermission=true;
-               getCameraIntent();
-            } else {
-                Toast.makeText(this, "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
-                isCameraPermission=false;
+                getCameraIntent();
             }
         }
         else {
@@ -205,7 +190,6 @@ public class AddEditProductActivity extends AppCompatActivity {
                 selectedImagePath = Utility.getPathforImage(selectedImageUri,this);
                 //showImage();
 
-                Log.v("IMAGE PATH====>>>> ",selectedImagePath);
             }
             else if(requestCode == SELECT_CAMERA) {
                 selectedImagePath = camera_uri.getPath();
@@ -215,7 +199,7 @@ public class AddEditProductActivity extends AppCompatActivity {
     }
 
 
-    public void getImageIntent(){
+    private void getImageIntent(){
         /*Intent intent = new Intent();
             intent.setType("image");
             intent.setAction(Intent.ACTION_GET_CONTENT);*/
@@ -259,7 +243,7 @@ public class AddEditProductActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.save_product)
-    public void saveProduct(View view){
+    public void saveProduct(){
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductTable.PRODUCT_NAME,txt_prodname.getText().toString());
@@ -273,11 +257,14 @@ public class AddEditProductActivity extends AppCompatActivity {
         contentValues.put(ProductTable.PRODUCT_IMG,selectedImagePath);
         if(getIntent().hasExtra(Constants.EDIT_PRODUCT_BOOLEAN)){
             int inserted_rows =getContentResolver().update(InventoryProvider.Products.PRODUCTS_URI,contentValues,ProductTable._ID+"="+prodID,null);
-            Log.d("customerinsert","Updated customers : "+inserted_rows);
         }
         else{
             getContentResolver().insert(InventoryProvider.Products.PRODUCTS_URI,contentValues);
         }
+        Snackbar snackbar = Snackbar
+                .make(main_layout, getResources().getString(R.string.product_add_toast), Snackbar.LENGTH_LONG);
+        snackbar.show();
+        finish();
 
     }
 

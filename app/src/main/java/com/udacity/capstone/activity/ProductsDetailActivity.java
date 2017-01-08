@@ -72,12 +72,12 @@ public class ProductsDetailActivity extends AppCompatActivity {
         if(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
             prod_img.setImageBitmap(BitmapFactory.decodeFile(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
         }
-        prod_code.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_CODE)));
-        prod_desc.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
-        prod_dimension.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DIMENSION)));
-        prod_metric.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_METRIC)));
-        quantity.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
-        prod_minquant.setText(mCursor.getString(mCursor.getColumnIndex(ProductTable.MINIMUM_QUANTITY)));
+        prod_code.setText(getResources().getString(R.string.product_code)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_CODE)));
+        prod_desc.setText(getResources().getString(R.string.product_description)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
+        prod_dimension.setText(getResources().getString(R.string.dimension)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DIMENSION)));
+        prod_metric.setText(getResources().getString(R.string.metirc_unit)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_METRIC)));
+        quantity.setText(getResources().getString(R.string.quantity)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
+        prod_minquant.setText(getResources().getString(R.string.minimum_quantity)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.MINIMUM_QUANTITY)));
         mCursor.close();
     }
 }

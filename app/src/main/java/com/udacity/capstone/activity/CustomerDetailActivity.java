@@ -24,15 +24,12 @@ public class CustomerDetailActivity extends AppCompatActivity {
     private String personID;
     private Cursor mCursor;
 
-    @BindView(R.id.name)
-    TextView name;
     @BindView(R.id.company_name)
     TextView company_name;
     @BindView(R.id.mobile)
     TextView mobile;
     @BindView(R.id.email)
     TextView email;
-
     @BindView(R.id.address_line1)
     TextView address_line1;
     @BindView(R.id.address_line2)
@@ -61,8 +58,8 @@ public class CustomerDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         mContext = this;
-        toolbar_adress.setTitle("BILLING ADDRESS");
-        getSupportActionBar().setTitle("DETAILS");
+        toolbar_adress.setTitle(getString(R.string.address_info));
+        getSupportActionBar().setTitle(getString(R.string.details_label));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent()!=null){
             personID = getIntent().getStringExtra(Constants.VIEW_DETAIL);
@@ -99,16 +96,16 @@ public class CustomerDetailActivity extends AppCompatActivity {
 
             mCursor.moveToNext();
          //   name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)));
-            mobile.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
-            email.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
-            company_name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)));
+            mobile.setText(getString(R.string.mobile_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
+            email.setText(getString(R.string.email_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
+            company_name.setText(getString(R.string.companyname_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)));
 
-            address_line1.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1)));
-            address_line2.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2)));
-            city.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY)));
-            state.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
-            pincode.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)));
-            company_number.setText(mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
+            address_line1.setText(getString(R.string.address1_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1)));
+            address_line2.setText(getString(R.string.address2_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2)));
+            city.setText(getString(R.string.city_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY)));
+            state.setText(getString(R.string.state_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
+            pincode.setText(getString(R.string.pincode_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)));
+            company_number.setText(getString(R.string.contact_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
 
     }
 }

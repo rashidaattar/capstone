@@ -57,7 +57,6 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
-        Log.d("TAG","in binviewholder"+"size of cursor ----"+cursor.getCount());
         cursor.moveToPosition(position);
         OrderProductDAO orderProductDAO = new OrderProductDAO(cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_NAME)),
                 cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_QUANTITY)));
@@ -78,7 +77,7 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
         }
         viewHolder.prod_name.setText(cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_NAME)));
         viewHolder.prod_quantity.setText(cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_QUANTITY)));
-        viewHolder.prod_name.setOnClickListener(new View.OnClickListener() {
+        viewHolder.order_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mActionMode!=null){
@@ -93,7 +92,7 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
             }
         });
 
-        viewHolder.prod_name.setOnLongClickListener(new View.OnLongClickListener() {
+        viewHolder.order_layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -122,10 +121,6 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
                                     mContext.startActivity(createIntent(intent));
                                     mode.finish();
                                     return true;
-                               /* case R.id.delete_button:
-                                   deleteOrder(getCursor());
-                                    mode.finish();
-                                    return true;*/
                                 default:
                                     return false;
                             }
@@ -152,42 +147,10 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
 
     }
 
-   /* private void deleteOrder(Cursor cursor) {
-        int order_id =cursor.getInt(getCursor().getColumnIndex(Order_ProductTable.ORDER_ID));
-        Set<Map.Entry<Integer, ArrayList<OrderProductDAO>>> entrySet = mMap.entrySet();
-        for (Map.Entry entry : entrySet)
-        {
-            if((Integer)entry.getKey()== order_id){
-                int deleted_order_prodct = mContext.getContentResolver().delete(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI, Order_ProductTable._ID + "=" +
-                        cursor.getString(cursor.getColumnIndex(Order_ProductTable._ID)), null);
-                // notifyDataSetChanged();
-                Log.d("customerinsert","Updated deleted_order_prodct : "+deleted_order_prodct);
-            }
-        }
-
-
-        int deleted_order = mContext.getContentResolver().delete(InventoryProvider.Orders.ORDERS_URI, OrdersTable._ID + "=" +
-                cursor.getString(cursor.getColumnIndex(OrdersTable._ID)), null);
-        Log.d("customerinsert","Updated deleted_order : "+deleted_order);
-        //notifyDataSetChanged();
-
-        int deleted_address = mContext.getContentResolver().delete(InventoryProvider.Addreses.ADDRESSES_URI, AddressTable._ID + "=" +
-                cursor.getString(cursor.getColumnIndex(AddressTable._ID)), null);
-        Log.d("customerinsert","Updated deleted_address : "+deleted_address);
-        notifyDataSetChanged();
-        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_URI, null);
-        mContext.getContentResolver().notifyChange(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI, null);
-        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_URI, null);
-        mContext.getContentResolver().notifyChange(InventoryProvider.Orders.ORDERS_PRODUCT_JOIN,null);
-
-    }*/
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("TAG","in createviewholder");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_list, null);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -209,6 +172,7 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
 
         @BindView(R.id.order_status)
         TextView order_status;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

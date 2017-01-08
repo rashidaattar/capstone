@@ -58,12 +58,12 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         if(getIntent().getBooleanExtra(Constants.EDIT_CUSTOMER_BOOLEAN,false)){
-            adapter.addFragment(CustomerInfoTabFragment.newInstance(personIDEdit,isCustomer), "ONE");
-            adapter.addFragment(AddressInfoTabFragment.newInstance(addressIDEdit,personIDEdit), "TWO");
+            adapter.addFragment(CustomerInfoTabFragment.newInstance(personIDEdit,isCustomer), getString(R.string.personal_info));
+            adapter.addFragment(AddressInfoTabFragment.newInstance(addressIDEdit,personIDEdit), getString(R.string.address_info));
         }
         else{
-            adapter.addFragment(CustomerInfoTabFragment.newInstance1(isCustomer),"ONE");
-            adapter.addFragment(new AddressInfoTabFragment(),"TWO");
+            adapter.addFragment(CustomerInfoTabFragment.newInstance1(isCustomer),getString(R.string.personal_info));
+            adapter.addFragment(new AddressInfoTabFragment(),getString(R.string.address_info));
         }
 
         viewPager.setAdapter(adapter);

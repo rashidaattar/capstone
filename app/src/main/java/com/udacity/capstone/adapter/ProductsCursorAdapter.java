@@ -52,6 +52,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
 
         viewHolder.product_name.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
         viewHolder.product_desc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
+        viewHolder.prod_quant.setText(mContext.getResources().getString(R.string.quantity)+" : "+cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
         final int THUMBSIZE = 64;
         if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail
@@ -159,6 +160,8 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
         ImageView thumbnail_view;
         @BindView(R.id.card_view)
         CardView card_view;
+        @BindView(R.id.product_quantity)
+        TextView prod_quant;
 
         public ViewHolder(View itemView) {
             super(itemView);

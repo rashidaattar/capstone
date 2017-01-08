@@ -54,7 +54,6 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
         mProductsCursorAdapter = new ProductsCursorAdapter(this,mCursor);
         productsList.setLayoutManager(new LinearLayoutManager(this));
         productsList.setAdapter(mProductsCursorAdapter);
-
     }
 
 
@@ -62,11 +61,6 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
 
     @OnClick(R.id.add_fab)
     public void addProduct(){
-     /*   AddProductFragment addProductFragment=AddProductFragment.newInstance();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new AddProductFragment())
-                .addToBackStack("products")
-                .commit();*/
         Intent intent = new Intent(this, AddEditProductActivity.class);
         startActivity(intent);
     }
@@ -74,8 +68,7 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this, InventoryProvider.Products.PRODUCTS_URI,
-                new String[]{ProductTable._ID,ProductTable.PRODUCT_NAME,ProductTable.PRODUCT_DESCRIPTION,ProductTable.PRODUCT_IMG},null,null,null);
-       // return new CursorLoader(this,InventoryProvider.Orders.ORDERS_PRODUCT_JOIN,null,null,null,null);
+                new String[]{ProductTable._ID,ProductTable.PRODUCT_NAME,ProductTable.PRODUCT_DESCRIPTION,ProductTable.PRODUCT_IMG,ProductTable.PRODUCT_QUANTITY},null,null,null);
     }
 
     @Override

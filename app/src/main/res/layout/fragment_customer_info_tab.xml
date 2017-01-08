@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/import_contacts"
-                android:text="Import from Contacts"
+                android:text="@string/import_from_contacts"
                 android:textStyle="italic"
                 android:textColor="@color/colorAccent"
                 android:clickable="true"
@@ -119,7 +119,8 @@
                 android:id="@+id/save_customer"
                 android:text="@string/save"
                 android:layout_marginStart="@dimen/marginLargeLeftAndRight"
-                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"/>
+                android:layout_marginEnd="@dimen/marginLargeLeftAndRight"
+                />
 
 
         </LinearLayout>

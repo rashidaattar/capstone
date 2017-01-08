@@ -42,10 +42,15 @@ public class OrderListActivity extends AppCompatActivity  implements  LoaderMana
         getSupportActionBar().setTitle("Order List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         mOrdersCursorAdapter = new OrdersCursorAdapter(this,mCursor);
         orders_list.setLayoutManager(new LinearLayoutManager(this));
         orders_list.setAdapter(mOrdersCursorAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
     }
 
     @OnClick(R.id.addorder_fab)

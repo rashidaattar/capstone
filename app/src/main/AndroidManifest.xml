@@ -51,8 +51,12 @@
             >
         </activity>
         <activity android:name=".activity.OrderListActivity" />
-        <activity android:name=".activity.AddEditOrderActivity" />
-        <activity android:name=".activity.OrderDetailActivity" />
+        <activity
+            android:name=".activity.AddEditOrderActivity"
+            android:parentActivityName=".activity.OrderListActivity" />
+        <activity
+            android:name=".activity.OrderDetailActivity"
+            android:parentActivityName=".activity.OrderListActivity" />
 
         <receiver android:name=".widget.WidgetProvider">
             <intent-filter>
@@ -68,7 +72,10 @@
             android:name=".widget.WidgetService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

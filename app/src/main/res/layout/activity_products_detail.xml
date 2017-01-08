@@ -22,7 +22,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/product_dummy"
                 android:fitsSystemWindows="true"
-                />
+                android:contentDescription="@string/image_descirption" />
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

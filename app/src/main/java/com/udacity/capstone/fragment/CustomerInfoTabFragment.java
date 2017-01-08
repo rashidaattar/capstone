@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.udacity.capstone.R;
@@ -75,6 +77,8 @@ public class CustomerInfoTabFragment extends Fragment {
     @BindView(R.id.txt_mobile)
     EditText mobile_text;
 
+    @BindView(R.id.main_view)
+    LinearLayout linearLayout;
    /* @BindView(R.id.save_customer)
     Button saveButton;*/
 
@@ -145,13 +149,15 @@ public class CustomerInfoTabFragment extends Fragment {
         contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText().toString());
         contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText().toString());
         if(mParam1!=null){
-            int inserted_rows =getActivity().getContentResolver().update(InventoryProvider.Persons.PERSONS_URI,contentValues,PersonTable._ID+"="+Integer.parseInt(mParam1),null);
-            Log.d("customerinsert","Updated customers : "+inserted_rows);
+            getActivity().getContentResolver().update(InventoryProvider.Persons.PERSONS_URI,contentValues,PersonTable._ID+"="+Integer.parseInt(mParam1),null);
         }
         else{
             Uri uri =getActivity().getContentResolver().insert(InventoryProvider.Persons.PERSONS_URI,contentValues);
             onCustomerInserted(uri);
         }
+        Snackbar snackbar = Snackbar
+                .make(linearLayout, getResources().getString(R.string.add_toast), Snackbar.LENGTH_LONG);
+        snackbar.show();
 
     }
 
@@ -287,12 +293,6 @@ public class CustomerInfoTabFragment extends Fragment {
 
         if (ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
-
-            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
-                // Show our own UI to explain to the user why we need to read the contacts
-                // before actually requesting the permission and showing the default UI
-            }
-
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
                     READ_CONTACTS_PERMISSIONS_REQUEST);
         }
@@ -306,10 +306,10 @@ public class CustomerInfoTabFragment extends Fragment {
         if (requestCode == READ_CONTACTS_PERMISSIONS_REQUEST) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this.getActivity(), "Read Contacts permission granted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT);
                 isContactsPermission=true;
             } else {
-                Toast.makeText(this.getActivity(), "Read Contacts permission denied", Toast.LENGTH_SHORT).show();
                 isContactsPermission=false;
             }
         } else {

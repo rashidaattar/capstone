@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textNoSuggestions|textVisiblePassword"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Order Number"
+                android:hint="@string/order_number"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
                 android:visibility="visible"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Order Date"
+                android:hint="@string/order_date"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
                 />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Delivery Date"
+                android:hint="@string/delivery_date"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
                 />
@@ -76,9 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Amount"
+                android:hint="@string/amount"
                 android:maxLines="1"
-                android:inputType="textCapSentences"
+                android:inputType="numberDecimal"
                 android:imeOptions="actionNext"/>
 
             <AutoCompleteTextView
@@ -87,11 +87,11 @@
                 android:id="@+id/customer_auto_complete"
                 android:completionThreshold="1"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Customer Name"/>
+                android:hint="@string/customer_name"/>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="@dimen/marginSmallLeftAndRight"
                 android:background="@android:color/darker_gray"
                 android:id="@+id/horizontaldivider_order"
                 android:layout_marginStart="-1dp"
@@ -103,8 +103,8 @@
                 android:id="@+id/txt_deliveryaddressline1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="Delivery Address Line1"
+                android:layout_marginTop="@dimen/marginSmallTopAndBottom"
+                android:hint="@string/delivery_address_line1"
                 android:maxLines="1"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionNext"/>
@@ -114,29 +114,33 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_deliveryaddressline2"
                 android:imeOptions="actionNext"
-                android:hint="Delivery Address Line2"
+                android:inputType="textCapSentences"
+                android:hint="@string/delivery_address_line2"
                 />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_city"
-                android:hint="City"
-                android:imeOptions="actionNext"/>
+                android:hint="@string/city_label"
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_state"
-                android:hint="State"
-                android:imeOptions="actionNext"/>
+                android:hint="@string/state_label"
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_pincode"
-                android:hint="Pincode"
-                android:imeOptions="actionNext"/>
+                android:hint="@string/pincode_label"
+                android:imeOptions="actionNext"
+                android:inputType="number"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="@dimen/marginSmallTopAndBottom"
                 android:background="@android:color/darker_gray"
                 android:id="@+id/horizontaldivider_address"
                 android:layout_marginStart="-1dp"
@@ -147,15 +151,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ Add Product"
+                android:text="@string/add_product"
                 android:clickable="true"
-                android:id="@+id/add_product" />
+                android:id="@+id/add_product"
+                android:layout_marginTop="@dimen/marginLargeTopAndBottom"
+                android:textSize="@dimen/textSizeMain"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/product_info"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textSize="@dimen/textSizeMedium"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/order_status"
+                android:textSize="@dimen/textSizeMedium"/>
 
             <android.support.v7.widget.AppCompatSpinner
                 android:layout_width="match_parent"
@@ -174,9 +187,9 @@
                 android:gravity="center"
                 android:paddingRight="30dp"
                 android:paddingLeft="30dp"
-                android:text="SAVE"
+                android:text="@string/save"
                 android:textColor="@android:color/white"
-                android:layout_below="@id/add_product"/>
+                android:contentDescription="@string/save_order"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

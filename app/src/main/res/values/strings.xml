@@ -11,9 +11,12 @@
     <string name="companyname_label">Company Name</string>
     <string name="mobile_label">Mobile</string>
     <string name="email_label">E-mail</string>
-
+    <string name="personal_info">PERSONAL INFO</string>
+    <string name="address_info">ADDRESS</string>
+    <string name="details_label">DETAILS</string>
     <string name="save_label">SAVE</string>
-
+    <string name="customer_label">CUSTOMERS</string>
+    <string name="vendor_label">VENDORS</string>
     <string name="address1_label">Address Line 1</string>
     <string name="address2_label">Address Line 2</string>
     <string name="city_label">City</string>
@@ -21,7 +24,34 @@
     <string name="pincode_label">Pincode</string>
     <string name="contact_label">Contact Number</string>
     <string name="save">SAVE</string>
-    <string name="title_activity_add_edit_product">AddEditProductActivity</string>
+    <string name="title_activity_add_edit_product">Add/Edit Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_code">Product Code</string>
+    <string name="product_description">Product Description</string>
+    <string name="quantity">Quantity</string>
+    <string name="minimum_quantity">Minimum Quantity</string>
+    <string name="dimension">Dimension</string>
+    <string name="save_product_description">Save Product</string>
+    <string name="gallery_description">Add from gallery</string>
+    <string name="camera_description">Add from Camera</string>
+    <string name="image_descirption">Product Image</string>
+    <string name="product_add_toast">Product Information Added Successfully</string>
+    <string name="add_toast">Information Added Successfully</string>
+    <string name="metirc_unit">Metirc/UNIT</string>
+    <string name="import_from_contacts">Import from Contacts</string>
+    <string name="order_number">Order Number</string>
+    <string name="order_date">Order Date</string>
+    <string name="delivery_date">Delivery Date</string>
+    <string name="amount">Amount</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="delivery_address_line1">Delivery Address Line1</string>
+    <string name="delivery_address_line2">Delivery Address Line2</string>
+    <string name="add_product">+ Add Product</string>
+    <string name="order_status">Order Status :</string>
+    <string name="save_order">Save Order</string>
+    <string name="order_label">ORDERS</string>
+    <string name="product_info">PRODUCTS</string>
+    <string name="order_info">ORDER INFO</string>
 
     <string-array name="status_array">
         <item name="completed">COMPLETED</item>

@@ -28,18 +28,13 @@
             android:orientation="vertical"
             android:layout_marginStart="@dimen/marginLargeLeftAndRight"
             android:layout_marginLeft="@dimen/marginLargeLeftAndRight">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/name"
-                style="@style/DetailViewText"
-                android:layout_marginTop="?attr/actionBarSize" /><!--since its the topmost view-->
+            <!--since its the topmost view-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/company_name"
-                style="@style/TextMain"/>
+                style="@style/TextMain"
+                android:layout_marginTop="?attr/actionBarSize"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

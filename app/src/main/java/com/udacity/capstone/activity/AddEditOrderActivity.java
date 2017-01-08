@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -92,14 +94,15 @@ public class AddEditOrderActivity extends AppCompatActivity {
     @BindView(R.id.status_spinner)
     AppCompatSpinner spinner;
 
+    @BindView(R.id.cordinator_main)
+    CoordinatorLayout main_layout;
+
     Calendar myCalendar = Calendar.getInstance();
 
     Context mContext;
     boolean isEdit = false;
 
     //data fields
-    private String orderNo;
-    private String order_date;
     private String status;
     private int order_id;
     private int address_id;
@@ -195,7 +198,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
 
     private void updateLabel() {
 
-        String myFormat = "dd/MMM/yy"; //In which you need put here
+        String myFormat = "dd/MMM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         if(order_date_edittext.getText().toString().length()==0)
         order_date_edittext.setText(sdf.format(myCalendar.getTime()));
@@ -205,8 +208,6 @@ public class AddEditOrderActivity extends AppCompatActivity {
 
     @OnClick(R.id.add_product)
     public void addProduct(){
-       //display a dialog with an autocomplete text view, on selecting a product, add a textview to disply the product
-       // callDialog();
         new ProductAutoCompleteAsync().execute();
 
     }
@@ -240,7 +241,6 @@ public class AddEditOrderActivity extends AppCompatActivity {
         insertAddress();
         insertOrder();
         insertorderProduct();
-//        notifyAll();
     }
 
     public void insertOrder(){
@@ -250,11 +250,9 @@ public class AddEditOrderActivity extends AppCompatActivity {
         contentValues.put(OrdersTable.DELIVERY_DATE,delivery_date_edittext.getText().toString());
         contentValues.put(OrdersTable.ORDER_AMOUNT,amount.getText().toString());
         contentValues.put(OrdersTable.ORDER_STATUS,status);
-       // contentValues.put(OrdersTable.ADDRESS_ID,address_id);
         contentValues.put(OrdersTable.ADDRESS_ID,address_id);
         if(isEdit){
-            int inserted_rows =getContentResolver().update(InventoryProvider.Orders.ORDERS_URI,contentValues,OrdersTable._ID+"="+order_id,null);
-            Log.d("customerinsert","Updated customers : "+inserted_rows);
+            getContentResolver().update(InventoryProvider.Orders.ORDERS_URI,contentValues,OrdersTable._ID+"="+order_id,null);
         }
         else{
             Uri uri = getContentResolver().insert(InventoryProvider.Orders.ORDERS_URI,contentValues);
@@ -274,8 +272,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
         contentValues.put(AddressTable.ADDRESS_TYPE,AddressTable.ADDRESS_SHIPPING);
         contentValues.put(AddressTable.PERSON_ID,Integer.parseInt(customer_map.get(customer_auto_complete.getText().toString())));
         if(isEdit){
-            int inserted_rows =getContentResolver().update(InventoryProvider.Addreses.ADDRESSES_URI,contentValues,AddressTable._ID+"="+address_id,null);
-            Log.d("customerinsert","Updated customers : "+inserted_rows);
+            getContentResolver().update(InventoryProvider.Addreses.ADDRESSES_URI,contentValues,AddressTable._ID+"="+address_id,null);
         }
         else{
             Uri uri = getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
@@ -288,25 +285,27 @@ public class AddEditOrderActivity extends AppCompatActivity {
     public void insertorderProduct(){
         Set<HashMap.Entry<String, String>> entrySet = product_quantity_map.entrySet();
         for (Map.Entry entry : entrySet) {
-            System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
             ContentValues contentValues = new ContentValues();
             contentValues.put(Order_ProductTable.ORDER_ID,order_id);
             contentValues.put(Order_ProductTable.PRODUCT_NAME,(String)entry.getKey());
             contentValues.put(Order_ProductTable.PRODUCT_QUANTITY,Float.valueOf((String)entry.getValue()));
             if(isEdit){
-                int inserted_rows =getContentResolver().update(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues,Order_ProductTable._ID+"="+order_product_id,null);
-                Log.d("customerinsert","Updated customers : "+inserted_rows);
+                getContentResolver().update(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues,Order_ProductTable._ID+"="+order_product_id,null);
             }
             else{
                 getContentResolver().insert(InventoryProvider.OrderProduct.ORDER_PRODUCT_URI,contentValues);
             }
         }
+        Snackbar snackbar = Snackbar
+                .make(main_layout, getResources().getString(R.string.add_toast), Snackbar.LENGTH_LONG);
+        snackbar.show();
+        finish();
     }
 
     private void populateProducts(ArrayList<OrderProductDAO> parcelableArrayListExtra) {
         product_info.setVisibility(View.VISIBLE);
         for(OrderProductDAO orderProductDAO:parcelableArrayListExtra){
-            product_info.setText(orderProductDAO.getProd_name() + "\n"+"Quantity :"+orderProductDAO.getProd_quantity()+"\n");
+            product_info.setText(orderProductDAO.getProd_name() + "\n"+getString(R.string.quantity)+" :"+orderProductDAO.getProd_quantity()+"\n");
             product_info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -380,7 +379,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
                 }
             });
             builder.setView(alert_view);
-            builder.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String available_quantity = productMap.get(productautoAutoCompleteTextView.getText().toString());
@@ -393,11 +392,11 @@ public class AddEditOrderActivity extends AppCompatActivity {
                         product_info.setVisibility(View.VISIBLE);
                     }
                     if(product_info.getText().toString()==null){
-                        product_info.setText(productautoAutoCompleteTextView.getText().toString()+"\nQuantity :"+quantity.getText().toString());
+                        product_info.setText(productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
                     }
                     else{
                         String info=product_info.getText().toString();
-                        product_info.setText(info + "\n"+productautoAutoCompleteTextView.getText().toString()+"\nQuantity :"+quantity.getText().toString());
+                        product_info.setText(info + "\n"+productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
                     }
                     product_quantity_map.put(productautoAutoCompleteTextView.getText().toString(),product_quantity);
                 }

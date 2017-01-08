@@ -30,11 +30,6 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
 
     @BindView(R.id.toolbar)
     Toolbar mtoolbar;
-    InventoryDatabase inventoryDatabase;
-
-
-    @BindView(R.id.customer_fab)
-    FloatingActionButton customer_fab;
 
     @BindView(R.id.customers_list)
     RecyclerView customersList;
@@ -45,7 +40,7 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
 
     private CustomersCursorAdapter mCustomersCursorAdapter;
 
-    private boolean isCustomer = false;
+    private static boolean  isCustomer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +57,9 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
         }
         setSupportActionBar(mtoolbar);
         if(isCustomer)
-            getSupportActionBar().setTitle("Customers");
+            getSupportActionBar().setTitle(getString(R.string.customer_label));
         else
-            getSupportActionBar().setTitle("Vendors");
+            getSupportActionBar().setTitle(getString(R.string.vendor_label));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mtoolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);

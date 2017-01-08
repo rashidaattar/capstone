@@ -169,7 +169,7 @@ public class AddressInfoTabFragment extends Fragment  {
 
             }
             Snackbar snackbar = Snackbar
-                    .make(linearLayout, "Customer Information Added Successfully", Snackbar.LENGTH_LONG);
+                    .make(linearLayout, getResources().getString(R.string.add_toast), Snackbar.LENGTH_LONG);
             snackbar.show();
         }
         else{
