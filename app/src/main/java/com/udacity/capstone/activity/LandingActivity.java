@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.udacity.capstone.R;
+import com.udacity.capstone.adapter.LandingAdapter;
 import com.udacity.capstone.database.AddressTable;
 import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.OrdersTable;
@@ -42,7 +45,11 @@ public class LandingActivity extends AppCompatActivity {
     @BindView(R.id.adView)
     AdView mAdView;
 
+    @BindView(R.id.landing_list)
+    RecyclerView recyclerView;
+
     private InterstitialAd mInterstitialAd;
+    private LandingAdapter landingAdapter;
 
     private int mJobId = 0;
     @Override
@@ -53,11 +60,6 @@ public class LandingActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("CHECK");
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        scheduleNotification();
-       // AdView mAdView = (AdView) root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
         AdRequest adRequest = new AdRequest.Builder()
                 //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)//add device id in strings.xml
                 .addTestDevice(getString(R.string.test_device_id))
@@ -73,9 +75,18 @@ public class LandingActivity extends AppCompatActivity {
                 requestNewInterstitial();
             }
         });
+        scheduleNotification();
+        landingAdapter = new LandingAdapter(this,mInterstitialAd);
+        recyclerView.setAdapter(landingAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+       // AdView mAdView = (AdView) root.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+
     }
 
-    @OnClick(R.id.prod_button)
+   /* @OnClick(R.id.prod_button)
     public void prodClick(){
         if(mInterstitialAd.isLoaded()){
             mInterstitialAd.show();
@@ -112,7 +123,7 @@ public class LandingActivity extends AppCompatActivity {
         Intent intent=new Intent(this,CustomerListActivity.class);
         intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.VENDOR_TYPE);
         startActivity(intent);
-    }
+    }*/
 
     public  void scheduleNotification() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

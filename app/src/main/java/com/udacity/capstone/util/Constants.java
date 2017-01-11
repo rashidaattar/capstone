@@ -19,6 +19,6 @@ public class Constants {
     public static final String PERSON_TYPE_LABEL = "7";
     public static final String PRODUCT_NAME_EXTRA = "8";
     public static final String ORDER_ID_EXTRA = "9";
-    public static final String PRODUCT_QUANTITY_EXTRA = "10";
+    public static final String MAP_EXTRA = "10";
 
 }

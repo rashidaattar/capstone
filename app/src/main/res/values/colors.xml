@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#189BFA</color>
-    <color name="colorPrimaryDark">#0C4B8E</color>
-    <color name="colorAccent">#5ACFD6</color>
-    <color name="bgColor">#D2FAFB</color>
+
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="bgColor">#BBDEFB</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 
     <!-- textfields -->
-    <color name="textMain">#4E4E4E</color>
-    <color name="editText">#233548</color>
+    <color name="textMain">#757575</color>
+    <color name="editText">#212121</color>
     <color name="editTextHint">#ADADAD</color>
     <color name="editTextAutoComplete">#0958B8</color>
     <color name="editTextDark">#FFFFFF</color>

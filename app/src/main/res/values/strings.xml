@@ -57,6 +57,9 @@
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="test_device_id" translatable="false">add device id here</string>
 
+
+    <string name="maps_key" translatable="false">map key here</string>
+
     <string-array name="status_array">
         <item name="completed">COMPLETED</item>
         <item name="progress">IN-PROGRESS</item>

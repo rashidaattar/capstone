@@ -33,7 +33,8 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="com.udacity.capstone.activity.AddEditOrderActivity"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            style="@style/EditTextMain">
 
 
             <EditText
@@ -46,6 +47,7 @@
                 android:imeOptions="actionNext"
                 android:maxLines="1"
                 android:visibility="visible"
+                style="@style/EditTextMain"
                 />
 
             <EditText
@@ -57,6 +59,7 @@
                 android:hint="@string/order_date"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
+                style="@style/EditTextMain"
                 />
 
             <EditText
@@ -68,6 +71,7 @@
                 android:hint="@string/delivery_date"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
+                style="@style/EditTextMain"
                 />
 
 
@@ -79,7 +83,8 @@
                 android:hint="@string/amount"
                 android:maxLines="1"
                 android:inputType="numberDecimal"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionNext"
+                style="@style/EditTextMain"/>
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -87,12 +92,13 @@
                 android:id="@+id/customer_auto_complete"
                 android:completionThreshold="1"
                 android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
-                android:hint="@string/customer_name"/>
+                android:hint="@string/customer_name"
+                style="@style/EditTextMain"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/marginSmallLeftAndRight"
-                android:background="@android:color/darker_gray"
+                android:background="@color/divider"
                 android:id="@+id/horizontaldivider_order"
                 android:layout_marginStart="-1dp"
                 android:layout_marginEnd="-1dp"
@@ -107,7 +113,8 @@
                 android:hint="@string/delivery_address_line1"
                 android:maxLines="1"
                 android:inputType="textCapSentences"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionNext"
+                style="@style/EditTextMain"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -116,6 +123,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapSentences"
                 android:hint="@string/delivery_address_line2"
+                style="@style/EditTextMain"
                 />
             <EditText
                 android:layout_width="match_parent"
@@ -123,25 +131,28 @@
                 android:id="@+id/txt_city"
                 android:hint="@string/city_label"
                 android:imeOptions="actionNext"
-                android:inputType="textCapSentences"/>
+                android:inputType="textCapSentences"
+                style="@style/EditTextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_state"
                 android:hint="@string/state_label"
                 android:imeOptions="actionNext"
-                android:inputType="textCapSentences"/>
+                android:inputType="textCapSentences"
+                style="@style/EditTextMain"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_pincode"
                 android:hint="@string/pincode_label"
                 android:imeOptions="actionNext"
-                android:inputType="number"/>
+                android:inputType="number"
+                style="@style/EditTextMain"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/marginSmallTopAndBottom"
-                android:background="@android:color/darker_gray"
+                android:background="@color/divider"
                 android:id="@+id/horizontaldivider_address"
                 android:layout_marginStart="-1dp"
                 android:layout_marginEnd="-1dp"
@@ -174,6 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/status_spinner"
+                style="@style/EditTextMain"
                 />
 
 

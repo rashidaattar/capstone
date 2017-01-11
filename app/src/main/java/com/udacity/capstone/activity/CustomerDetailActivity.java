@@ -1,7 +1,9 @@
 package com.udacity.capstone.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.location.Address;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +53,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
     Toolbar toolbar_adress;
 
     private Context mContext;
+    private String locationString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,21 @@ public class CustomerDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        toolbar_adress.inflateMenu(R.menu.maps_menu);
+        toolbar_adress.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.maps_button){
+                    //maps logic here
+                    Intent intent=new Intent(mContext,MapsActivity.class);
+                    intent.putExtra(Constants.MAP_EXTRA,locationString);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void updateUI() {
@@ -99,13 +117,14 @@ public class CustomerDetailActivity extends AppCompatActivity {
             mobile.setText(getString(R.string.mobile_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
             email.setText(getString(R.string.email_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
             company_name.setText(getString(R.string.companyname_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)));
-
             address_line1.setText(getString(R.string.address1_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1)));
             address_line2.setText(getString(R.string.address2_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2)));
             city.setText(getString(R.string.city_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY)));
             state.setText(getString(R.string.state_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
             pincode.setText(getString(R.string.pincode_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)));
             company_number.setText(getString(R.string.contact_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
+           // locationString = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1))+" , "+ mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2));
+            locationString = mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE));
 
     }
 }

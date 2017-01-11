@@ -47,6 +47,7 @@
             android:maxLines="1"
             android:visibility="visible"
             android:layout_alignParentTop="true"
+            style="@style/EditTextMain"
             />
 
         <EditText
@@ -59,6 +60,7 @@
             android:hint="@string/product_code"
             android:imeOptions="actionNext"
             android:maxLines="1"
+            style="@style/EditTextMain"
             />
 
         <EditText
@@ -70,7 +72,8 @@
             android:hint="@string/product_description"
             android:maxLines="3"
             android:inputType="textCapSentences"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            style="@style/EditTextMain"/>
 
         <EditText
             android:id="@+id/txt_metric"
@@ -81,7 +84,8 @@
             android:hint="@string/metirc_unit"
             android:maxLines="1"
             android:inputType="textCapSentences"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            style="@style/EditTextMain"/>
 
         <EditText
             android:id="@+id/txt_quantity"
@@ -91,7 +95,8 @@
             android:layout_marginBottom="@dimen/marginSmallTopAndBottom"
             android:hint="@string/quantity"
             android:inputType="numberDecimal"
-            android:imeOptions="actionNext"/>
+            android:imeOptions="actionNext"
+            style="@style/EditTextMain"/>
 
         <EditText
             android:id="@+id/txt_minquantity"
@@ -103,6 +108,7 @@
             android:hint="@string/minimum_quantity"
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
+            style="@style/EditTextMain"
             />
 
 
@@ -114,7 +120,8 @@
             android:layout_marginBottom="@dimen/marginExtraLargeLeftAndRight"
             android:hint="@string/dimension"
             android:inputType="text"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            style="@style/EditTextMain"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -146,7 +153,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="60dp"
+            app:fab_addButtonColorNormal="@color/colorAccent">
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
