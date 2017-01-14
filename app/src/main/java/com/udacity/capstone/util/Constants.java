@@ -1,7 +1,7 @@
 package com.udacity.capstone.util;
 
 /**
- * Created by 836137 on 22-11-2016.
+ * Created by Rashida on 22-11-2016.
  */
 
 public class Constants {

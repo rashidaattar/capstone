@@ -12,7 +12,7 @@ import static net.simonvt.schematic.annotation.DataType.Type.REAL;
 import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 /**
- * Created by 836137 on 03-11-2016.
+ * Created by Rashida on 03-11-2016.
  */
 
 public interface OrdersTable {

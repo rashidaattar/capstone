@@ -9,7 +9,7 @@ import net.simonvt.schematic.annotation.Table;
 import net.simonvt.schematic.annotation.TableEndpoint;
 
 /**
- * Created by 836137 on 03-11-2016.
+ * Created by Rashida on 03-11-2016.
  */
 
 

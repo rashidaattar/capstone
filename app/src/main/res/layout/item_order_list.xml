@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/order_number"
             android:id="@+id/order_status"
-            android:textSize="@dimen/textSizeMedium"/>
+            android:textSize="@dimen/textSizeMedium"
+            android:transitionName="@string/first_transition"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
         android:id="@+id/card_view"
         android:clickable="true"
         android:layout_below="@id/order_main"
+        android:layout_marginBottom="@dimen/marginLargeLeftAndRight"
         >
 
             <RelativeLayout

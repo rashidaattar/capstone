@@ -6,7 +6,7 @@ import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * Created by 836137 on 08-11-2016.
+ * Created by Rashida on 08-11-2016.
  */
 
 public abstract class InventoryCursorAdapter <VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH>{

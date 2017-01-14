@@ -6,17 +6,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         >
         <TextView
             android:id="@+id/order_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:textSize="@dimen/textSizeTitle"
             android:textColor="@android:color/black"
             android:text="GOOG"
@@ -35,6 +33,7 @@
                 android:paddingRight="10sp"
                 android:text="1000.00"
                 android:textColor="@android:color/black"
+                android:layout_margin="@dimen/marginLargeTopAndBottom"
                 android:textSize="@dimen/textSizeTitle"
                 />
             <TextView

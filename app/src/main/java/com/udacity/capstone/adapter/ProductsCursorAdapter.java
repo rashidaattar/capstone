@@ -1,5 +1,6 @@
 package com.udacity.capstone.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
@@ -30,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 836137 on 08-11-2016.
+ * Created by Rashida on 08-11-2016.
  */
 
 public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursorAdapter.ViewHolder> {
@@ -48,7 +51,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
 
         viewHolder.product_name.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
         viewHolder.product_desc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
@@ -78,7 +81,18 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                         Intent intent = new Intent(mContext, ProductsDetailActivity.class);
                         intent.putExtra(Constants.VIEW_DETAIL,mCursor.getString(mCursor.getColumnIndex(ProductTable._ID)));
                         intent.putExtra(Constants.PRODUCT_NAME_EXTRA,mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
-                        mContext.startActivity(intent);
+                        Pair<View, String> p1 = Pair.create((View)viewHolder.product_name, mContext.getString(R.string.first_transition));
+                        Pair<View, String> p2 = Pair.create((View)viewHolder.thumbnail_view, mContext.getString(R.string.second_transition));
+                        /*ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((Activity) mContext, (View)viewHolder.product_name, mContext.getString(R.string.first_transition));*/
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((Activity) mContext, p1,p2);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            mContext.startActivity(intent,options.toBundle());
+                        }
+                        else{
+                            mContext.startActivity(intent);
+                        }
                     }
 
                 }

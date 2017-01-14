@@ -152,10 +152,15 @@ public class AddEditProductActivity extends AppCompatActivity {
                 }
                 break;
             case CAMERA_REQUEST:
-                if (ContextCompat.checkSelfPermission(this, permissions[1])
-                        != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, permissions[2])
+                if(ContextCompat.checkSelfPermission(this, permissions[1])
                         != PackageManager.PERMISSION_GRANTED){
-                    requestPermissions(new String[]{permissions[1],permissions[2]},CAMERA_REQUEST);
+                    if(ContextCompat.checkSelfPermission(this, permissions[2])
+                            != PackageManager.PERMISSION_GRANTED){
+                        requestPermissions(new String[]{permissions[1],permissions[2]},CAMERA_REQUEST);
+                    }
+                    else{
+                        requestPermissions(new String[]{permissions[1]},CAMERA_REQUEST);
+                    }
                 }
                 else{
                     getCameraIntent();

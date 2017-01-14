@@ -12,7 +12,7 @@ import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.OrdersTable;
 
 /**
- * Created by 836137 on 02-01-2017.
+ * Created by Rashida on 02-01-2017.
  */
 
 public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -64,7 +64,7 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
         mCursor.moveToPosition(position);
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
         rv.setTextViewText(R.id.order_number,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_NUMBER)));
-        rv.setTextViewText(R.id.order_amount,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_AMOUNT)));
+        rv.setTextViewText(R.id.order_amount,mContext.getString(R.string.order_number_widget,mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_AMOUNT))));
         rv.setTextViewText(R.id.delivery_date,mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, position);

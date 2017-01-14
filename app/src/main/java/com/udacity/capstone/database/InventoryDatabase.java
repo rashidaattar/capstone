@@ -4,7 +4,7 @@ import net.simonvt.schematic.annotation.Database;
 import net.simonvt.schematic.annotation.Table;
 
 /**
- * Created by 836137 on 03-11-2016.
+ * Created by Rashida on 03-11-2016.
  */
 
 

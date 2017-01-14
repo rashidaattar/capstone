@@ -1,9 +1,11 @@
 package com.udacity.capstone.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.ActionMode;
@@ -27,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 836137 on 09-11-2016.
+ * Created by Rashida on 09-11-2016.
  */
 
 public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCursorAdapter.ViewHolder> {
@@ -47,7 +49,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
 
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
 
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
         viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.COMPANY_NAME)));
@@ -67,7 +69,14 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                     Intent intent = new Intent(mContext, CustomerDetailActivity.class);
                     intent.putExtra(Constants.VIEW_DETAIL,personID);
                     intent.putExtra(Constants.VIEW_CUSTOMER_DETAIL_NAME,personName);
-                    mContext.startActivity(intent);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) mContext, (View)viewHolder.card_view, mContext.getString(R.string.first_transition));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        mContext.startActivity(intent,options.toBundle());
+                    }
+                    else{
+                        mContext.startActivity(intent);
+                    }
 
                 }
             }

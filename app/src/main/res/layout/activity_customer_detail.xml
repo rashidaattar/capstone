@@ -19,7 +19,8 @@
         android:layout_below="@id/toolbar"
         android:layout_margin="@dimen/marginLargeLeftAndRight"
         app:cardBackgroundColor="@color/bgColor"
-        android:id="@+id/customer_card">
+        android:id="@+id/customer_card"
+        android:transitionName="@string/first_transition">
         <include layout="@layout/toolbar_main"
             android:id="@+id/toolbar_customer"/>
         <LinearLayout

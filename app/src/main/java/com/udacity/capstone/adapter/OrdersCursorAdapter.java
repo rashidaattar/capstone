@@ -1,9 +1,12 @@
 package com.udacity.capstone.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ActionMode;
@@ -38,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 836137 on 30-12-2016.
+ * Created by Rashida on 30-12-2016.
  */
 
 public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdapter.ViewHolder> {
@@ -56,7 +59,7 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
         cursor.moveToPosition(position);
         OrderProductDAO orderProductDAO = new OrderProductDAO(cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_NAME)),
                 cursor.getString(cursor.getColumnIndex(Order_ProductTable.PRODUCT_QUANTITY)));
@@ -86,7 +89,14 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
                 else{
                     getCursor().moveToPosition(position);
                     Intent intent = new Intent(mContext, OrderDetailActivity.class);
-                    mContext.startActivity(createIntent(intent));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) mContext, (View)viewHolder.order_no, mContext.getString(R.string.first_transition));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        mContext.startActivity(createIntent(intent),options.toBundle());
+                    }
+                    else{
+                        mContext.startActivity(createIntent(intent));
+                    }
                 }
 
             }
@@ -172,6 +182,9 @@ public class OrdersCursorAdapter extends InventoryCursorAdapter<OrdersCursorAdap
 
         @BindView(R.id.order_status)
         TextView order_status;
+
+        @BindView(R.id.card_view)
+        CardView cardView;
 
 
         public ViewHolder(View itemView) {

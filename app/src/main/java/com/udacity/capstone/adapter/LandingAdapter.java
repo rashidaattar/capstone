@@ -3,6 +3,7 @@ package com.udacity.capstone.adapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 836137 on 11-01-2017.
+ * Created by Rashida on 11-01-2017.
  */
 
 public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHolder>  {
@@ -48,6 +49,7 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         switch(position){
             case 0 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -58,26 +60,26 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
 
             case 1 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_inventory));
+                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_customer));
                 }
                 holder.landing_txt.setText("CUSTOMERS");
                 break;
             case 2 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_inventory));
+                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_vendor));
                 }
                 holder.landing_txt.setText("VENDORS");
                 break;
 
             case 3 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_inventory));
+                    holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_order));
                 }
                 holder.landing_txt.setText("ORDERS");
                 break;
 
         }
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.landing_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchIntent(position);
@@ -134,6 +136,7 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            landing_txt.setTypeface(Typeface.createFromAsset(mContext.getAssets(),"FjallaOne-Regular.ttf"));
         }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Capstone</string>
+    <string name="app_name">mINVENTORY</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -52,6 +52,9 @@
     <string name="order_label">ORDERS</string>
     <string name="product_info">PRODUCTS</string>
     <string name="order_info">ORDER INFO</string>
+    <string name="order_number_widget">"\u20B9" %1$s</string>
+    <string name="first_transition">transition1</string>
+    <string name="second_transition">transition2</string>
 
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>

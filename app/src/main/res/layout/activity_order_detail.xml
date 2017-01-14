@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/order_number"
                 style="@style/DetailViewText"
-                android:layout_marginTop="?attr/actionBarSize" /><!--since its the topmost view-->
+                android:layout_marginTop="?attr/actionBarSize"
+                android:transitionName="@string/first_transition"/><!--since its the topmost view-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,7 +140,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginLargeLeftAndRight"
         app:cardBackgroundColor="@color/bgColor"
-        android:id="@+id/product_card">
+        android:id="@+id/product_card"
+        >
 
         <include layout="@layout/toolbar_main"
             android:id="@+id/toolbar_product"/>

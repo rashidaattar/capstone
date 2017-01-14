@@ -11,6 +11,7 @@
         android:layout_margin="@dimen/marginSmallLeftAndRight"
         android:id="@+id/card_view"
         card_view:cardBackgroundColor="@color/bgColor"
+        android:transitionName="@string/first_transition"
         >
         <LinearLayout
             android:layout_width="match_parent"

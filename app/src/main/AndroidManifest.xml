@@ -41,9 +41,12 @@
             android:authorities="com.udacity.capstone"
             android:exported="true" />
 
-        <activity android:name=".activity.ProductListActivity" />
-        <activity android:name=".activity.CustomerListActivity" />
-        <activity android:name=".activity.AddEditCustomerActivity" />
+        <activity android:name=".activity.ProductListActivity"
+            android:parentActivityName=".activity.LandingActivity"/>
+        <activity android:name=".activity.CustomerListActivity"
+            android:parentActivityName=".activity.LandingActivity"/>
+        <activity android:name=".activity.AddEditCustomerActivity"
+            android:parentActivityName=".activity.LandingActivity"/>
         <activity
             android:name=".activity.CustomerDetailActivity"
             android:parentActivityName=".activity.CustomerListActivity" />
@@ -64,7 +67,8 @@
                 android:value="com.udacity.capstone.activity.ProductListActivity" />
             >
         </activity>
-        <activity android:name=".activity.OrderListActivity" />
+        <activity android:name=".activity.OrderListActivity"
+            android:parentActivityName=".activity.LandingActivity"/>
         <activity
             android:name=".activity.AddEditOrderActivity"
             android:parentActivityName=".activity.OrderListActivity" />

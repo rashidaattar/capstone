@@ -13,7 +13,7 @@ import com.udacity.capstone.activity.LandingActivity;
 import com.udacity.capstone.activity.OrderListActivity;
 
 /**
- * Created by 836137 on 02-01-2017.
+ * Created by Rashida on 02-01-2017.
  */
 
 public class WidgetProvider extends AppWidgetProvider {
