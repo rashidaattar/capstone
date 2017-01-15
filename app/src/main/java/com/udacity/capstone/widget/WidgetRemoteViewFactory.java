@@ -42,7 +42,8 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
         mCursor= mContext.getContentResolver().query(InventoryProvider.Orders.ORDERS_URI,
                 null, OrdersTable.ORDER_STATUS + " LIKE ?",
                 new String[]{OrdersTable.STATUS_PROGRESS}, null);
-        for(int i=0;i<mCursor.getCount();i++){
+        assert mCursor != null;
+        for(int i = 0; i<mCursor.getCount(); i++){
             getCount();
             getViewAt(i);
         }

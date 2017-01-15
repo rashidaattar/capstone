@@ -41,6 +41,7 @@ public class OrderListActivity extends AppCompatActivity  implements  LoaderMana
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Order List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //noinspection deprecation
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         mOrdersCursorAdapter = new OrdersCursorAdapter(this,mCursor);
         orders_list.setLayoutManager(new LinearLayoutManager(this));

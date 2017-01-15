@@ -19,11 +19,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.InventoryProvider;
@@ -261,7 +259,7 @@ public class AddEditProductActivity extends AppCompatActivity {
         if(selectedImagePath!=null && selectedImagePath.length()>0)
         contentValues.put(ProductTable.PRODUCT_IMG,selectedImagePath);
         if(getIntent().hasExtra(Constants.EDIT_PRODUCT_BOOLEAN)){
-            int inserted_rows =getContentResolver().update(InventoryProvider.Products.PRODUCTS_URI,contentValues,ProductTable._ID+"="+prodID,null);
+            getContentResolver().update(InventoryProvider.Products.PRODUCTS_URI,contentValues,ProductTable._ID+"="+prodID,null);
         }
         else{
             getContentResolver().insert(InventoryProvider.Products.PRODUCTS_URI,contentValues);

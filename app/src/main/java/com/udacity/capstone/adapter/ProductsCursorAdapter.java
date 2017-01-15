@@ -161,8 +161,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_list, null);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

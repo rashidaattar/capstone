@@ -4,14 +4,11 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.RingtoneManager;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -52,8 +49,8 @@ public class NotificationService extends IntentService {
         mCursor= getContentResolver().query(InventoryProvider.Orders.ORDERS_URI,
                 null, OrdersTable.ORDER_STATUS + " LIKE ?",
                 new String[]{OrdersTable.STATUS_PROGRESS}, null);
-        if(mCursor.getCount()>0){
-            String orderIds = " ";
+        if((mCursor != null ? mCursor.getCount() : 0) >0){
+            String orderIds = "";
 
             while(mCursor.moveToNext()){
                 Log.d("test","order id "+mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));
@@ -75,7 +72,7 @@ public class NotificationService extends IntentService {
         Notification n = new NotificationCompat.Builder(this)
                         .setContentTitle("Pending Order")
                         .setContentText("The pending orders are : "+orderIds)
-                        .setSmallIcon(R.drawable.ic_add_a_photo_black_24dp)
+                        .setSmallIcon(R.drawable.ic_order)
                         .setLargeIcon((((BitmapDrawable) ContextCompat.getDrawable(this, R.mipmap.ic_launcher)).getBitmap()))
                         .setContentIntent(resultPendingIntent)
                         .setAutoCancel(true)

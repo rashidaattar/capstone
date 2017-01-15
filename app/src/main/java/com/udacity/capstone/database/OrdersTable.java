@@ -1,7 +1,6 @@
 package com.udacity.capstone.database;
 
 import net.simonvt.schematic.annotation.AutoIncrement;
-import net.simonvt.schematic.annotation.Check;
 import net.simonvt.schematic.annotation.DataType;
 import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;

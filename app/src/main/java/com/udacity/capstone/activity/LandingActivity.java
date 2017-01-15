@@ -1,20 +1,14 @@
 package com.udacity.capstone.activity;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.Button;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -22,19 +16,12 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.LandingAdapter;
-import com.udacity.capstone.database.AddressTable;
-import com.udacity.capstone.database.InventoryProvider;
-import com.udacity.capstone.database.OrdersTable;
-import com.udacity.capstone.database.PersonTable;
-import com.udacity.capstone.database.ProductTable;
 import com.udacity.capstone.service.NotificationService;
-import com.udacity.capstone.util.Constants;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -59,6 +46,7 @@ public class LandingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("CHECK");
+        //noinspection deprecation,deprecation
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         AdRequest adRequest = new AdRequest.Builder()
                 //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)//add device id in strings.xml

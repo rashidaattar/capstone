@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,17 +20,12 @@ import android.widget.TextView;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.activity.AddEditOrderActivity;
-import com.udacity.capstone.activity.AddEditProductActivity;
 import com.udacity.capstone.activity.OrderDetailActivity;
-import com.udacity.capstone.database.AddressTable;
-import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.Order_ProductTable;
 import com.udacity.capstone.database.OrdersTable;
-import com.udacity.capstone.database.ProductTable;
 import com.udacity.capstone.util.Constants;
 import com.udacity.capstone.util.OrderProductDAO;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

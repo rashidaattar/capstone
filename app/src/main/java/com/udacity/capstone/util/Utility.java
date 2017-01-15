@@ -64,17 +64,6 @@ public class Utility {
 
     }
 
-    public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
-    }
-
-    // convert from byte array to bitmap
-    public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
-
     public static String getPathforImage(Uri uri, Context context) {
         String wholeID = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -108,29 +97,4 @@ public class Utility {
 
     }
 
-    public static boolean isDeviceSupportCamera(Context context) {
-        if (context.getPackageManager().hasSystemFeature(
-                PackageManager.FEATURE_CAMERA)) {
-            // this device has a camera
-            return true;
-        } else {
-            // no camera on this device
-            return false;
-        }
-    }
-
-    public static boolean hasPermissions(Context context, String permission) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permission != null) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            else{
-                    return true;
-                }
-        }
-        else{
-            return true;
-        }
-
-    }
 }

@@ -13,19 +13,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -175,6 +170,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
                 order_id = getIntent().getIntExtra(Constants.ORDER_ID_EXTRA,0);
                 Cursor c =getContentResolver().query(InventoryProvider.OrderProduct.ORDERS_PRODUCT_PERSON_JOIN,null, InventoryDatabase.ORDER_PRODUCT+
                         "."+Order_ProductTable.ORDER_ID+" = "+order_id,null,null);
+                assert c != null;
                 if(c.getCount()>0){
                     while(c.moveToNext()){
                         populateData(c);
@@ -256,7 +252,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
         }
         else{
             Uri uri = getContentResolver().insert(InventoryProvider.Orders.ORDERS_URI,contentValues);
-            String id[] = uri.getPath().toString().split("/");
+            String id[] = uri != null ? uri.getPath().toString().split("/") : new String[0];
             order_id =Integer.parseInt(id[2]);
         }
 
@@ -354,8 +350,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
 
         @Override
         protected Cursor doInBackground(Void... params) {
-            Cursor cursor = mContext.getContentResolver().query(InventoryProvider.Products.PRODUCTS_URI,new String[]{ProductTable.PRODUCT_NAME,ProductTable._ID,ProductTable.PRODUCT_QUANTITY},null,null,null);
-            return cursor;
+            return mContext.getContentResolver().query(InventoryProvider.Products.PRODUCTS_URI,new String[]{ProductTable.PRODUCT_NAME,ProductTable._ID,ProductTable.PRODUCT_QUANTITY},null,null,null);
         }
 
         @Override

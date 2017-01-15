@@ -32,7 +32,7 @@ public class GeocodeJSONParser {
 
     private List<HashMap<String, String>> getPlaces(JSONArray jPlaces){
         int placesCount = jPlaces.length();
-        List<HashMap<String, String>> placesList = new ArrayList<HashMap<String,String>>();
+        List<HashMap<String, String>> placesList = new ArrayList<>();
         HashMap<String, String> place = null;
 
         /** Taking each place, parses and adds to list object */

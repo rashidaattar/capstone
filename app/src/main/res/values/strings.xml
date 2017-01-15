@@ -61,7 +61,11 @@
     <string name="test_device_id" translatable="false">add device id here</string>
 
 
-    <string name="maps_key" translatable="false">map key here</string>
+    <string name="maps_key" translatable="false">AIzaSyDAUfUlqhQVJHBYOmCzRbS6mFCM0zRhiiI</string>
+    <string name="inventory_label">INVENTORY</string>
+    <string name="customers_label">CUSTOMERS</string>
+    <string name="vendors_label">VENDORS</string>
+    <string name="orders_label">ORDERS</string>
 
     <string-array name="status_array">
         <item name="completed">COMPLETED</item>

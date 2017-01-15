@@ -11,21 +11,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.database.InventoryProvider;
@@ -37,7 +30,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import android.provider.ContactsContract.CommonDataKinds.*;
-import android.widget.Toast;
 
 
 public class CustomerInfoTabFragment extends Fragment {
@@ -237,7 +229,7 @@ public class CustomerInfoTabFragment extends Fragment {
                Uri contacts_id_uri = data.getData();
                 //String projection[] = {Phone.DATA1, Phone.DATA, Phone.DISPLAY_NAME, Phone.PHOTO_URI};
                 Cursor c= getActivity().getContentResolver().query(contacts_id_uri,null,null,null,null);
-                if(c.getCount()>0){
+                if((c != null ? c.getCount() : 0) >0){
                     while(c.moveToNext()){
                       //  String email = c.getString(c.getColumnIndex(Email.ADDRESS));
                          mobile = "";
@@ -281,7 +273,7 @@ public class CustomerInfoTabFragment extends Fragment {
     private String getMobileNumber(String contactsID) {
         Cursor c = getActivity().getContentResolver().query(Phone.CONTENT_URI,null,Phone.CONTACT_ID + "=" + contactsID,null,null);
         String mobile = "";
-        if(c.getCount()>0){
+        if((c != null ? c.getCount() : 0) >0){
             while(c.moveToNext()){
                 mobile =  c.getString(c.getColumnIndex(Phone.NUMBER));
             }

@@ -2,8 +2,6 @@ package com.udacity.capstone.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -12,14 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.udacity.capstone.R;
 import com.udacity.capstone.adapter.ProductsCursorAdapter;
 import com.udacity.capstone.database.InventoryProvider;
-import com.udacity.capstone.database.OrdersTable;
 import com.udacity.capstone.database.ProductTable;
 
 
@@ -49,6 +43,7 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setTitle("Products");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //noinspection deprecation
         mtoolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         getSupportLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
         mProductsCursorAdapter = new ProductsCursorAdapter(this,mCursor);

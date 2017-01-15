@@ -1,6 +1,5 @@
 package com.udacity.capstone.adapter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,9 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.InterstitialAd;
@@ -42,8 +39,7 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.landing_item, null);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
 
@@ -55,27 +51,27 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_inventory));
                 }
-                holder.landing_txt.setText("INVENTORY");
+                holder.landing_txt.setText(R.string.inventory_label);
                 break;
 
             case 1 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_customer));
                 }
-                holder.landing_txt.setText("CUSTOMERS");
+                holder.landing_txt.setText(R.string.customers_label);
                 break;
             case 2 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_vendor));
                 }
-                holder.landing_txt.setText("VENDORS");
+                holder.landing_txt.setText(R.string.vendors_label);
                 break;
 
             case 3 :
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     holder.landing_img.setImageDrawable(mContext.getDrawable(R.drawable.ic_order));
                 }
-                holder.landing_txt.setText("ORDERS");
+                holder.landing_txt.setText(R.string.orders_label);
                 break;
 
         }

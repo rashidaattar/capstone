@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.udacity.capstone.R;
-import com.udacity.capstone.activity.LandingActivity;
 import com.udacity.capstone.activity.OrderListActivity;
 
 /**

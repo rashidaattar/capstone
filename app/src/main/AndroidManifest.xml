@@ -95,7 +95,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.MapsActivity"></activity>
+        <activity android:name=".activity.MapsActivity"/>
 
     </application>
 

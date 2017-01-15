@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,7 +162,7 @@ public class AddressInfoTabFragment extends Fragment  {
                 getActivity().getContentResolver().update(InventoryProvider.Addreses.ADDRESSES_URI,contentValues,AddressTable._ID+"="+Integer.parseInt(mParam1),null);
             }
             else{
-                Uri uri=getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
+                getActivity().getContentResolver().insert(InventoryProvider.Addreses.ADDRESSES_URI,contentValues);
 
             }
             Snackbar snackbar = Snackbar

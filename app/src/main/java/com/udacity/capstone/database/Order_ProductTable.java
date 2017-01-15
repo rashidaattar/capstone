@@ -7,7 +7,6 @@ import net.simonvt.schematic.annotation.PrimaryKey;
 
 import static net.simonvt.schematic.annotation.DataType.Type.INTEGER;
 import static net.simonvt.schematic.annotation.DataType.Type.REAL;
-import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 /**
  * Created by Rashida on 28-12-2016.

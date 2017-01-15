@@ -80,7 +80,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         order_id = getIntent().getIntExtra(Constants.ORDER_ID_EXTRA,0);
         Cursor c =getContentResolver().query(InventoryProvider.OrderProduct.ORDERS_PRODUCT_PERSON_JOIN,null, InventoryDatabase.ORDER_PRODUCT+
                 "."+Order_ProductTable.ORDER_ID+" = "+order_id,null,null);
-        if(c.getCount()>0){
+        if((c != null ? c.getCount() : 0) >0){
             while(c.moveToNext()){
                 populateData(c);
             }

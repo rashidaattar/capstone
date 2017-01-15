@@ -73,7 +73,6 @@ public class AddEditCustomerActivity extends AppCompatActivity implements Addres
     @Override
     public void onFragmentInteractionCustomer(Uri uri) {
 
-        uri.getPath().toString();
         String id[] = uri.getPath().toString().split("/");
         personID =id[2];
 
