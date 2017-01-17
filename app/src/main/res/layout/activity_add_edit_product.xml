@@ -147,7 +147,7 @@
             android:layout_below="@id/image_product"
             android:contentDescription="@string/save_product_description"/>
 
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
+     <!--   <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -167,7 +167,17 @@
                 android:src="@drawable/ic_camera_alt_black_24dp"
                 android:id="@+id/add_from_camera"
                 android:contentDescription="@string/camera_description"/>
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_from_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="60dp"
+            android:elevation="@dimen/fab_elevation"
+            android:src="@drawable/ic_camera_alt_black_24dp"/>
 
 
     </RelativeLayout>

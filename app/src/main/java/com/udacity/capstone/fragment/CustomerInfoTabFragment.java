@@ -130,16 +130,16 @@ public class CustomerInfoTabFragment extends Fragment {
     @OnClick(R.id.save_customer)
     public void addCustomer(){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(PersonTable.PERSON_NAME,firstName_text.getText().toString() + "_" + lastName_text.getText().toString() );
+        contentValues.put(PersonTable.PERSON_NAME,firstName_text.getText()!=null?firstName_text.getText().toString():"" + "_" + lastName_text.getText()!=null?lastName_text.getText().toString():"" );
         if(mParam2){
             contentValues.put(PersonTable.PERSON_TYPE,PersonTable.CUSTOMER_PERSON);
         }
         else{
             contentValues.put(PersonTable.PERSON_TYPE,PersonTable.VENDOR_PERSON);
         }
-        contentValues.put(PersonTable.EMAIL,email_text.getText().toString());
-        contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText().toString());
-        contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText().toString());
+        contentValues.put(PersonTable.EMAIL,email_text.getText()!=null?email_text.getText().toString():"");
+        contentValues.put(PersonTable.CONTACT_NO,mobile_text.getText()!=null?mobile_text.getText().toString():"");
+        contentValues.put(PersonTable.COMPANY_NAME,companyName_text.getText()!=null?companyName_text.getText().toString():"");
         if(mParam1!=null){
             getActivity().getContentResolver().update(InventoryProvider.Persons.PERSONS_URI,contentValues,PersonTable._ID+"="+Integer.parseInt(mParam1),null);
         }
@@ -177,9 +177,9 @@ public class CustomerInfoTabFragment extends Fragment {
                     lname = "";
                 }
 
-                email = mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL));
-                company_name=mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME));
-                mobile = mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO));
+                email = mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL))!=null?mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)):"";
+                company_name=mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME))!=null?mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)):"";
+                mobile = mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO))!=null?mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)):"";
                 updateUI();
             }
         }

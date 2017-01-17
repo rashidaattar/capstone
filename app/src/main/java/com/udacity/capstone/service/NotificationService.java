@@ -50,7 +50,7 @@ public class NotificationService extends IntentService {
                 null, OrdersTable.ORDER_STATUS + " LIKE ?",
                 new String[]{OrdersTable.STATUS_PROGRESS}, null);
         if((mCursor != null ? mCursor.getCount() : 0) >0){
-            String orderIds = "";
+            String orderIds = null;
 
             while(mCursor.moveToNext()){
                 Log.d("test","order id "+mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));

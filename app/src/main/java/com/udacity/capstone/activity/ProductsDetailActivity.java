@@ -2,6 +2,7 @@ package com.udacity.capstone.activity;
 
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -69,7 +70,7 @@ public class ProductsDetailActivity extends AppCompatActivity {
     private void updateUI() {
         mCursor.moveToFirst();
         if(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
-            prod_img.setImageBitmap(BitmapFactory.decodeFile(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
+            prod_img.setImageURI(Uri.parse(mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
         }
         prod_code.setText(getResources().getString(R.string.product_code)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_CODE)));
         prod_desc.setText(getResources().getString(R.string.product_description)+" : "+mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));

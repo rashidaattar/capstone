@@ -126,8 +126,6 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
         @BindView(R.id.landing_txt)
         TextView landing_txt;
 
-        @BindView(R.id.card_view)
-        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);

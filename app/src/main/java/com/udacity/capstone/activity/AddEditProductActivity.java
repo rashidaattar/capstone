@@ -19,6 +19,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,9 +42,9 @@ public class AddEditProductActivity extends AppCompatActivity {
 
 
     private  String selectedImagePath;
-    private static final int SELECT_PICTURE = 0;
+   // private static final int SELECT_PICTURE = 0;
     private static final int SELECT_CAMERA = 5;
-    private static final int READ_EXTERNAL_STORAGE_REQUEST = 1;
+   // private static final int READ_EXTERNAL_STORAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 3;
     private Uri camera_uri;
 
@@ -111,23 +112,32 @@ public class AddEditProductActivity extends AppCompatActivity {
     }
 
     private void updateUI(Cursor cursor) {
-        cursor.moveToFirst();
-        txt_prodname.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
-        txt_prodesc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
-        txt_quantity.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
-        txt_minquantity.setText(cursor.getString(cursor.getColumnIndex(ProductTable.MINIMUM_QUANTITY)));
-        txt_dimension.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DIMENSION)));
-        txt_metric.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_METRIC)));
-        txt_prodcode.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_CODE)));
-        img_product.setImageBitmap(BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
-        img_product.setVisibility(View.VISIBLE);
+        if(cursor.moveToFirst()){
+            txt_prodname.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)):"");
+            txt_prodesc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)):"");
+            txt_quantity.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)):"");
+            txt_minquantity.setText(cursor.getString(cursor.getColumnIndex(ProductTable.MINIMUM_QUANTITY))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.MINIMUM_QUANTITY)):"");
+            txt_dimension.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DIMENSION))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DIMENSION)):"");
+            txt_metric.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_METRIC))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_METRIC)):"");
+            txt_prodcode.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_CODE))!=null?cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_CODE)):"");
+            //img_product.setImageBitmap(BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
+            if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null && cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG)).length()>0){
+                img_product.setImageURI(Uri.parse(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))));
+                img_product.setVisibility(View.VISIBLE);
+            }
+            else{
+                img_product.setVisibility(View.GONE);
+            }
+
+        }
+
 
     }
 
-    @OnClick(R.id.add_from_gallery)
+   /* @OnClick(R.id.add_from_gallery)
     public void imageFromGallery(){
         getPermissionToGallery(READ_EXTERNAL_STORAGE_REQUEST);
-    }
+    }*/
 
     @OnClick(R.id.add_from_camera)
     public void imageFromCamera(){
@@ -139,7 +149,7 @@ public class AddEditProductActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     private void getPermissionToGallery(int i) {
 
-        switch (i){
+      /*  switch (i){
             case READ_EXTERNAL_STORAGE_REQUEST:
                 if (ContextCompat.checkSelfPermission(this, permissions[0])
                         != PackageManager.PERMISSION_GRANTED){
@@ -163,12 +173,25 @@ public class AddEditProductActivity extends AppCompatActivity {
                 else{
                     getCameraIntent();
                 }
+        }*/
+        if(ContextCompat.checkSelfPermission(this, permissions[1])
+                != PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this, permissions[2])
+                    != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{permissions[1],permissions[2]},CAMERA_REQUEST);
+            }
+            else{
+                requestPermissions(new String[]{permissions[1]},CAMERA_REQUEST);
+            }
+        }
+        else{
+            getCameraIntent();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == READ_EXTERNAL_STORAGE_REQUEST) {
+       /* if (requestCode == READ_EXTERNAL_STORAGE_REQUEST) {
             if (grantResults.length == 1 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getImageIntent();
@@ -182,37 +205,49 @@ public class AddEditProductActivity extends AppCompatActivity {
         }
         else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }*/
+        if(requestCode == CAMERA_REQUEST){
+            if (grantResults.length == 2 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                getCameraIntent();
+            }
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
+            /*if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                selectedImagePath = Utility.getPathforImage(selectedImageUri,this);
-                //showImage();
-
+               // selectedImagePath = Utility.getPathforImage(selectedImageUri,this);
+                selectedImagePath = selectedImageUri.toString();
+               // showImage(selectedImageUri);
             }
-            else if(requestCode == SELECT_CAMERA) {
+            else */if(requestCode == SELECT_CAMERA) {
                 selectedImagePath = camera_uri.getPath();
+                showImage(Uri.parse(selectedImagePath));
+                //showImage(camera_uri.parse(selectedImagePath));
             }
-            showImage();
+
+
         }
     }
 
 
-    private void getImageIntent(){
-        /*Intent intent = new Intent();
+  /*  private void getImageIntent(){
+        *//*Intent intent = new Intent();
             intent.setType("image");
-            intent.setAction(Intent.ACTION_GET_CONTENT);*/
+            intent.setAction(Intent.ACTION_GET_CONTENT);*//*
         Intent intent = new Intent(
                 Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(Intent.createChooser(intent,
                 "Select Picture"), SELECT_PICTURE);
     }
-
+*/
     private void getCameraIntent() {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -236,26 +271,22 @@ public class AddEditProductActivity extends AppCompatActivity {
                 "IMG_"+ timeStamp + ".jpg");
     }
 
-    private void showImage() {
-        File imgFile = new File(selectedImagePath);
-        if(imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-            img_product.setVisibility(View.VISIBLE);
-            img_product.setImageBitmap(myBitmap);
-        }
+    private void showImage(Uri imageUri) {
+        img_product.setVisibility(View.VISIBLE);
+        img_product.setImageURI(imageUri);
     }
 
     @OnClick(R.id.save_product)
     public void saveProduct(){
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductTable.PRODUCT_NAME,txt_prodname.getText().toString());
-        contentValues.put(ProductTable.PRODUCT_DESCRIPTION,txt_prodesc.getText().toString());
-        contentValues.put(ProductTable.PRODUCT_CODE,txt_prodcode.getText().toString());
-        contentValues.put(ProductTable.PRODUCT_DIMENSION,txt_dimension.getText().toString());
-        contentValues.put(ProductTable.PRODUCT_QUANTITY,Float.valueOf(txt_quantity.getText().toString()));
-        contentValues.put(ProductTable.MINIMUM_QUANTITY,Float.valueOf(txt_minquantity.getText().toString()));
-        contentValues.put(ProductTable.PRODUCT_METRIC,txt_metric.getText().toString());
+        contentValues.put(ProductTable.PRODUCT_NAME, txt_prodname.getText().length()>0 ? txt_prodname.getText().toString() : "");
+        contentValues.put(ProductTable.PRODUCT_DESCRIPTION,txt_prodesc.getText().length()>0 ? txt_prodesc.getText().toString() : "");
+        contentValues.put(ProductTable.PRODUCT_CODE,txt_prodcode.getText().length()>0 ? txt_prodcode.getText().toString() : "");
+        contentValues.put(ProductTable.PRODUCT_DIMENSION,txt_dimension.getText().length()>0 ? txt_dimension.getText().toString() : "");
+        contentValues.put(ProductTable.PRODUCT_QUANTITY,txt_quantity.getText().length()>0 ? Float.valueOf(txt_quantity.getText().toString()) : 0.0f);
+        contentValues.put(ProductTable.MINIMUM_QUANTITY,txt_minquantity.getText().length()>0 ? Float.valueOf(txt_minquantity.getText().toString()) : 0.0f);
+        contentValues.put(ProductTable.PRODUCT_METRIC,txt_metric.getText().length()>0 ? txt_metric.getText().toString() : "");
         if(selectedImagePath!=null && selectedImagePath.length()>0)
         contentValues.put(ProductTable.PRODUCT_IMG,selectedImagePath);
         if(getIntent().hasExtra(Constants.EDIT_PRODUCT_BOOLEAN)){

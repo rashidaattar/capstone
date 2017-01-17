@@ -36,14 +36,14 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
 
     public Context mContext;
     public ActionMode mActionMode;
-    public Cursor mCursor;
+   // public Cursor mCursor;
     private boolean isCustomer;
 
 
     public CustomersCursorAdapter(Context context, Cursor cursor, boolean isCustomer) {
         super(context, cursor);
         mContext= context;
-        mCursor = cursor;
+      //  mCursor = cursor;
         this.isCustomer = isCustomer;
     }
 
@@ -54,11 +54,11 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
         viewHolder.customer_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME)).replace("_"," "));
         viewHolder.company_name.setText(cursor.getString(cursor.getColumnIndex(PersonTable.COMPANY_NAME)));
         viewHolder.mobile.setText(cursor.getString(cursor.getColumnIndex(PersonTable.CONTACT_NO)));
-        mCursor=getCursor(); //obtain cursor with updated data
-        mCursor.moveToPosition(position); //move cursor to the current position selected
-        final String personID = mCursor.getString(mCursor.getColumnIndex(PersonTable._ID));
-        final String addressID = mCursor.getString(mCursor.getColumnIndex(AddressTable._ID));
-        final String personName = mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME));
+       // mCursor=getCursor(); //obtain cursor with updated data
+        cursor.moveToPosition(position); //move cursor to the current position selected
+        final String personID = cursor.getString(cursor.getColumnIndex(PersonTable._ID));
+        final String addressID = cursor.getString(cursor.getColumnIndex(AddressTable._ID));
+        final String personName = cursor.getString(cursor.getColumnIndex(PersonTable.PERSON_NAME));
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
             public boolean onLongClick(final View v) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mCursor.moveToPosition(position);
+                    getCursor().moveToPosition(viewHolder.getAdapterPosition());
                     v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                     mActionMode=v.startActionMode(new ActionMode.Callback() {
                         @Override
@@ -116,6 +116,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
                                     mode.finish();
                                     return true;
                                 case R.id.delete_button:
+                                    getCursor().moveToPosition(viewHolder.getAdapterPosition());
                                     deleteCustomer();
                                     mode.finish();
                                     return true;
@@ -173,9 +174,9 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     public void deleteCustomer(){
 
         mContext.getContentResolver().delete(InventoryProvider.Persons.PERSONS_URI,PersonTable._ID + "="+
-                mCursor.getString(mCursor.getColumnIndex(PersonTable._ID)),null);
+                getCursor().getString(getCursor().getColumnIndex(PersonTable._ID)),null);
         mContext.getContentResolver().delete(InventoryProvider.Addreses.ADDRESSES_URI, AddressTable.PERSON_ID +
-                "="+ mCursor.getString(mCursor.getColumnIndex(PersonTable._ID)),null);
+                "="+ getCursor().getString(getCursor().getColumnIndex(PersonTable._ID)),null);
         notifyDataSetChanged();
         mContext.getContentResolver().notifyChange(InventoryProvider.Persons.PERSONS_URI, null);
         mContext.getContentResolver().notifyChange(InventoryProvider.Addreses.ADDRESSES_URI,null);

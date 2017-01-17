@@ -55,6 +55,8 @@
     <string name="order_number_widget">"\u20B9" %1$s</string>
     <string name="first_transition">transition1</string>
     <string name="second_transition">transition2</string>
+    <string name="no_customer_toast">No customer found in the database.</string>
+    <string name="no_product_toast">No products found in the database.</string>
 
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>

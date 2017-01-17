@@ -113,12 +113,12 @@ public class AddressInfoTabFragment extends Fragment  {
     private void populateData() {
         if(mCursor.getCount()>0){
             while(mCursor.moveToNext()){
-                addline1 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1));
-                addline2 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2));
-                city = mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY));
-                state = mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE));
-                pincode = mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE));
-                conatct = mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO));
+                addline1 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1))!=null?mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1)):"";
+                addline2 = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2))!=null? mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2)):"";
+                city = mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY))!=null?mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY)):"";
+                state = mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE))!=null?mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)):"";
+                pincode = mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE))!=null?mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)):"";
+                conatct = mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO))!=null?mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)):"";
                 updateUI();
             }
         }

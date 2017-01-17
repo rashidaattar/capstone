@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
@@ -39,7 +41,7 @@ import butterknife.ButterKnife;
 public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursorAdapter.ViewHolder> {
 
 
-    private Cursor mCursor;
+   // private Cursor mCursor;
     private Context mContext;
 
     public ActionMode mActionMode;
@@ -47,17 +49,18 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     public ProductsCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         this.mContext=context;
-        this.mCursor=cursor;
+     //   this.mCursor=cursor;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor,  int position) {
 
+        cursor.moveToPosition(position);
         viewHolder.product_name.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
         viewHolder.product_desc.setText(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_DESCRIPTION)));
         viewHolder.prod_quant.setText(mContext.getResources().getString(R.string.quantity)+" : "+cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
         final int THUMBSIZE = 64;
-        if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null){
+        if(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))!=null && cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG)).length()>0){
             Bitmap ThumbImage = ThumbnailUtils.extractThumbnail
                     (BitmapFactory.decodeFile(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_IMG))),
                             THUMBSIZE, THUMBSIZE);
@@ -68,7 +71,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
         }
 
 
-        mCursor = getCursor();
+     //   mCursor = getCursor();
 
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,10 +80,10 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                         mActionMode.finish();
                     }
                     else{
-                        mCursor.moveToPosition(position);
+                        getCursor().moveToPosition(viewHolder.getAdapterPosition());
                         Intent intent = new Intent(mContext, ProductsDetailActivity.class);
-                        intent.putExtra(Constants.VIEW_DETAIL,mCursor.getString(mCursor.getColumnIndex(ProductTable._ID)));
-                        intent.putExtra(Constants.PRODUCT_NAME_EXTRA,mCursor.getString(mCursor.getColumnIndex(ProductTable.PRODUCT_NAME)));
+                        intent.putExtra(Constants.VIEW_DETAIL,getCursor().getString(getCursor().getColumnIndex(ProductTable._ID)));
+                        intent.putExtra(Constants.PRODUCT_NAME_EXTRA,getCursor().getString(getCursor().getColumnIndex(ProductTable.PRODUCT_NAME)));
                         Pair<View, String> p1 = Pair.create((View)viewHolder.product_name, mContext.getString(R.string.first_transition));
                         Pair<View, String> p2 = Pair.create((View)viewHolder.thumbnail_view, mContext.getString(R.string.second_transition));
                         /*ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -101,7 +104,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                 @Override
                 public boolean onLongClick(final View v) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        mCursor.moveToPosition(position);
+                        getCursor().moveToPosition(viewHolder.getAdapterPosition());
                         v.setBackgroundColor(mContext.getColor(R.color.cardview_dark_background));
                         mActionMode=v.startActionMode(new ActionMode.Callback() {
                             @Override
@@ -122,7 +125,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                                     case R.id.edit_button:
                                         Intent intent = new Intent(mContext,AddEditProductActivity.class);
                                         intent.putExtra(Constants.EDIT_PRODUCT_BOOLEAN,true);
-                                        intent.putExtra(Constants.EDIT_PRODUCTS,mCursor.getString(mCursor.getColumnIndex(ProductTable._ID)));
+                                        intent.putExtra(Constants.EDIT_PRODUCTS,getCursor().getString(getCursor().getColumnIndex(ProductTable._ID)));
                                         mContext.startActivity(intent);
                                         mode.finish();
                                         return true;
@@ -144,7 +147,6 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
                                         v.setBackgroundColor(mContext.getColor(R.color.bgColor));
                                     }
                                 }
-
 
                             }
 
@@ -185,7 +187,7 @@ public class ProductsCursorAdapter extends InventoryCursorAdapter<ProductsCursor
     public void deleteProduct() {
 
         mContext.getContentResolver().delete(InventoryProvider.Products.PRODUCTS_URI, ProductTable._ID + "=" +
-                mCursor.getString(mCursor.getColumnIndex(ProductTable._ID)), null);
+                getCursor().getString(getCursor().getColumnIndex(ProductTable._ID)), null);
         notifyDataSetChanged();
         mContext.getContentResolver().notifyChange(InventoryProvider.Products.PRODUCTS_URI, null);
     }

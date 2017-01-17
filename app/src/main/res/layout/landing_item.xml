@@ -4,36 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="2dp"
-        android:layout_margin="@dimen/marginLargeTopAndBottom"
-        android:padding="@dimen/marginLargeLeftAndRight"
-        android:id="@+id/card_view"
-        android:clickable="true"
-        android:layout_gravity="center"
-        ><!--
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-       &lt;!&ndash; <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/landing_img"
-            android:fitsSystemWindows="true"
-            />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextMain"
-            android:id="@+id/landing_txt"/>&ndash;&gt;
-        </LinearLayout>
--->
-        </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:orientation="vertical"
@@ -43,7 +14,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb"
             android:id="@+id/landing_img" />
 
         <TextView

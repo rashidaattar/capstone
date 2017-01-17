@@ -11,45 +11,7 @@
     <include layout="@layout/toolbar_main"
         android:id="@+id/toolbar"/>
 
-   <!-- <Button
-        android:text="Products"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_below="@id/toolbar"
-        android:id="@+id/prod_button" />
 
-    <Button
-        android:text="Orders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/prod_button"
-        android:layout_alignRight="@+id/prod_button"
-        android:layout_alignEnd="@+id/prod_button"
-        android:layout_marginTop="36dp"
-        android:id="@+id/order_button" />
-
-    <Button
-        android:text="Customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/order_button"
-        android:layout_alignRight="@+id/prod_button"
-        android:layout_alignEnd="@+id/prod_button"
-        android:layout_marginTop="36dp"
-        android:id="@+id/customer_button" />
-
-    <Button
-        android:text="Vendor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/customer_button"
-        android:layout_alignRight="@+id/prod_button"
-        android:layout_alignEnd="@+id/prod_button"
-        android:layout_marginTop="36dp"
-        android:id="@+id/vendor_button" />-->
     <android.support.v7.widget.RecyclerView
 
         android:id="@+id/landing_list"

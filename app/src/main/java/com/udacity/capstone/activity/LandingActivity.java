@@ -38,7 +38,6 @@ public class LandingActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private LandingAdapter landingAdapter;
 
-    private int mJobId = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,61 +66,18 @@ public class LandingActivity extends AppCompatActivity {
         landingAdapter = new LandingAdapter(this,mInterstitialAd);
         recyclerView.setAdapter(landingAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-       // AdView mAdView = (AdView) root.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+
 
     }
-
-   /* @OnClick(R.id.prod_button)
-    public void prodClick(){
-        if(mInterstitialAd.isLoaded()){
-            mInterstitialAd.show();
-        }
-        Intent intent=new Intent(this,ProductListActivity.class);
-        startActivity(intent);
-
-    }
-
-    @OnClick(R.id.order_button)
-    public void orderClick(){
-        if(mInterstitialAd.isLoaded()){
-            mInterstitialAd.show();
-        }
-        Intent intent = new Intent(this,OrderListActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.customer_button)
-    public void viewCustomers(){
-        if(mInterstitialAd.isLoaded()){
-            mInterstitialAd.show();
-        }
-        Intent intent=new Intent(this,CustomerListActivity.class);
-        intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.CUSTOMER_TYPE);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.vendor_button)
-    public void viewVendors(){
-        if(mInterstitialAd.isLoaded()){
-            mInterstitialAd.show();
-        }
-        Intent intent=new Intent(this,CustomerListActivity.class);
-        intent.putExtra(Constants.PERSON_TYPE_LABEL,Constants.VENDOR_TYPE);
-        startActivity(intent);
-    }*/
 
     public  void scheduleNotification() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotificationService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
-        // reset previous pending intent
         alarmManager.cancel(pendingIntent);
 
-        // Set the alarm to start at approximately 08:00 morning.
+        // Set the alarm to start at approximately 10:00 morning.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 10);

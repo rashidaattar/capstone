@@ -219,17 +219,32 @@ public class AddEditOrderActivity extends AppCompatActivity {
                 //  productarray[i] = cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME));
             }
         }
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,
-                customer_map.keySet().toArray(new String[cursor.getCount()]));
-        customer_auto_complete.setAdapter(stringArrayAdapter);
-        customer_auto_complete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    customer_auto_complete.showDropDown();
+        if(customer_map.size()>0){
+            ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,
+                    customer_map.keySet().toArray(new String[cursor.getCount()]));
+            customer_auto_complete.setAdapter(stringArrayAdapter);
+            customer_auto_complete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        customer_auto_complete.showDropDown();
+                    }
                 }
-            }
-        });
+            });
+        }
+        else{
+            customer_auto_complete.setEnabled(false);
+            customer_auto_complete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        Toast.makeText(mContext,getString(R.string.no_customer_toast),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
+
     }
 
     @OnClick(R.id.save_order)
@@ -357,47 +372,50 @@ public class AddEditOrderActivity extends AppCompatActivity {
         protected void onPostExecute(Cursor cursor) {
             super.onPostExecute(cursor);
             final HashMap<String,String> productMap = new HashMap<>();
-            if(cursor.getCount()>0){
+            if(cursor!=null && cursor.getCount()>0){
                 while(cursor.moveToNext()){
                     productMap.put(cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_NAME)),cursor.getString(cursor.getColumnIndex(ProductTable.PRODUCT_QUANTITY)));
                 }
-            }
-            ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,productMap.keySet().toArray(new String[cursor.getCount()]));
-            productautoAutoCompleteTextView.setAdapter(stringArrayAdapter);
-            productautoAutoCompleteTextView.setThreshold(1);
-            productautoAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus){
-                        productautoAutoCompleteTextView.showDropDown();
+                ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(mContext,android.R.layout.simple_dropdown_item_1line,productMap.keySet().toArray(new String[cursor.getCount()]));
+                productautoAutoCompleteTextView.setAdapter(stringArrayAdapter);
+                productautoAutoCompleteTextView.setThreshold(1);
+                productautoAutoCompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if(hasFocus){
+                            productautoAutoCompleteTextView.showDropDown();
+                        }
                     }
-                }
-            });
-            builder.setView(alert_view);
-            builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String available_quantity = productMap.get(productautoAutoCompleteTextView.getText().toString());
-                    product_quantity = quantity.getText().toString();
-                    if(Integer.parseInt(available_quantity)<=Integer.parseInt(product_quantity))
-                    {
-                        Toast.makeText(mContext,"Available quantity less than required quantity. Kindly update the inventory!",Toast.LENGTH_SHORT).show();
+                });
+                builder.setView(alert_view);
+                builder.setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String available_quantity = productMap.get(productautoAutoCompleteTextView.getText().toString());
+                        product_quantity = quantity.getText().toString();
+                        if(Float.valueOf(available_quantity)<=Float.valueOf(product_quantity))
+                        {
+                            Toast.makeText(mContext,"Available quantity less than required quantity. Kindly update the inventory!",Toast.LENGTH_SHORT).show();
+                        }
+                        if(product_info.getVisibility()!=View.VISIBLE){
+                            product_info.setVisibility(View.VISIBLE);
+                        }
+                        if(product_info.getText().toString()==null){
+                            product_info.setText(productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
+                        }
+                        else{
+                            String info=product_info.getText().toString();
+                            product_info.setText(info + "\n"+productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
+                        }
+                        product_quantity_map.put(productautoAutoCompleteTextView.getText().toString(),product_quantity);
                     }
-                    if(product_info.getVisibility()!=View.VISIBLE){
-                        product_info.setVisibility(View.VISIBLE);
-                    }
-                    if(product_info.getText().toString()==null){
-                        product_info.setText(productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
-                    }
-                    else{
-                        String info=product_info.getText().toString();
-                        product_info.setText(info + "\n"+productautoAutoCompleteTextView.getText().toString()+"\n"+getString(R.string.quantity)+" :"+quantity.getText().toString());
-                    }
-                    product_quantity_map.put(productautoAutoCompleteTextView.getText().toString(),product_quantity);
-                }
 
-            });
-            builder.show();
+                });
+                builder.show();
+            }
+            else{
+                Toast.makeText(mContext,getString(R.string.no_product_toast),Toast.LENGTH_SHORT).show();
+            }
 
         }
     }
