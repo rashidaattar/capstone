@@ -19,7 +19,6 @@ public interface AddressTable {
     public String ADDRESS_SHIPPING = "shipping_address";
     public String ADDRESS_BILLING = "billing_Address";
 
-
     @DataType(INTEGER) @AutoIncrement @PrimaryKey
     String _ID = "_id";
 
