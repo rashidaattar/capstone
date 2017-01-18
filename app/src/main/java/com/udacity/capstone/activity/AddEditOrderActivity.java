@@ -105,6 +105,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
     HashMap<String,String> customer_map = new HashMap<>();
     HashMap<String,String> product_quantity_map = new HashMap<>();
     private String[] status_array ;
+    private boolean save_order_flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mContext = this;
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Order");
+        getSupportActionBar().setTitle(getString(R.string.order_label));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -194,7 +195,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
 
     private void updateLabel() {
 
-        String myFormat = "dd/MMM/yy";
+        String myFormat = getString(R.string.date_format);
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         if(order_date_edittext.getText().toString().length()==0)
         order_date_edittext.setText(sdf.format(myCalendar.getTime()));
@@ -233,6 +234,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
             });
         }
         else{
+            save_order_flag = false;
             customer_auto_complete.setEnabled(false);
             customer_auto_complete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -249,9 +251,15 @@ public class AddEditOrderActivity extends AppCompatActivity {
 
     @OnClick(R.id.save_order)
     public void saveOrder(View view){
-        insertAddress();
-        insertOrder();
-        insertorderProduct();
+        if(save_order_flag){
+            insertAddress();
+            insertOrder();
+            insertorderProduct();
+        }
+        else{
+            Toast.makeText(mContext,getString(R.string.no_order_toast),Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void insertOrder(){
@@ -395,7 +403,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
                         product_quantity = quantity.getText().toString();
                         if(Float.valueOf(available_quantity)<=Float.valueOf(product_quantity))
                         {
-                            Toast.makeText(mContext,"Available quantity less than required quantity. Kindly update the inventory!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,getString(R.string.quantity_less),Toast.LENGTH_SHORT).show();
                         }
                         if(product_info.getVisibility()!=View.VISIBLE){
                             product_info.setVisibility(View.VISIBLE);
@@ -414,6 +422,7 @@ public class AddEditOrderActivity extends AppCompatActivity {
                 builder.show();
             }
             else{
+                save_order_flag = false;
                 Toast.makeText(mContext,getString(R.string.no_product_toast),Toast.LENGTH_SHORT).show();
             }
 

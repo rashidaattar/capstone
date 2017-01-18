@@ -41,7 +41,7 @@ public class ProductListActivity extends AppCompatActivity implements  LoaderMan
         setContentView(R.layout.activity_product_list);
         ButterKnife.bind(this);
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setTitle("Products");
+        getSupportActionBar().setTitle(getString(R.string.product_list));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //noinspection deprecation
         mtoolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));

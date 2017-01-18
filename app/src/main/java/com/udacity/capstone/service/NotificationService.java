@@ -26,7 +26,7 @@ import java.util.Random;
 public class NotificationService extends IntentService {
 
     public NotificationService() {
-        super("NotificationService");
+        super(NotificationService.class.getSimpleName());
     }
 
     /**
@@ -42,7 +42,7 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        String myFormat = "dd/MMM/yy";
+        String myFormat = getString(R.string.date_format);
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         Calendar myCalendar = Calendar.getInstance();
         Cursor mCursor;
@@ -53,7 +53,7 @@ public class NotificationService extends IntentService {
             String orderIds = null;
 
             while(mCursor.moveToNext()){
-                Log.d("test","order id "+mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)));
+
                 if(mCursor.getString(mCursor.getColumnIndex(OrdersTable.DELIVERY_DATE)).equals(sdf.format(myCalendar.getTime())))
                 orderIds+=mCursor.getString(mCursor.getColumnIndex(OrdersTable.ORDER_NUMBER));
             }
@@ -70,8 +70,8 @@ public class NotificationService extends IntentService {
         Intent intent = new Intent(this, OrderListActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, generator.nextInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification n = new NotificationCompat.Builder(this)
-                        .setContentTitle("Pending Order")
-                        .setContentText("The pending orders are : "+orderIds)
+                        .setContentTitle(getString(R.string.notification_title))
+                        .setContentText(getString(R.string.notification_content,orderIds))
                         .setSmallIcon(R.drawable.ic_order)
                         .setLargeIcon((((BitmapDrawable) ContextCompat.getDrawable(this, R.mipmap.ic_launcher)).getBitmap()))
                         .setContentIntent(resultPendingIntent)

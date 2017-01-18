@@ -148,8 +148,7 @@ public class CustomersCursorAdapter extends InventoryCursorAdapter<CustomersCurs
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_customer_list, null);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

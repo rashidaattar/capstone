@@ -130,7 +130,7 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            landing_txt.setTypeface(Typeface.createFromAsset(mContext.getAssets(),"FjallaOne-Regular.ttf"));
+            landing_txt.setTypeface(Typeface.createFromAsset(mContext.getAssets(),mContext.getString(R.string.text_ttf)));
         }
     }
 }

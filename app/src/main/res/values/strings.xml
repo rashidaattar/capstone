@@ -17,6 +17,8 @@
     <string name="save_label">SAVE</string>
     <string name="customer_label">CUSTOMERS</string>
     <string name="vendor_label">VENDORS</string>
+    <string name="order_list">ORDER LIST</string>
+    <string name="product_list">PRODUCTS LIST</string>
     <string name="address1_label">Address Line 1</string>
     <string name="address2_label">Address Line 2</string>
     <string name="city_label">City</string>
@@ -55,19 +57,46 @@
     <string name="order_number_widget">"\u20B9" %1$s</string>
     <string name="first_transition">transition1</string>
     <string name="second_transition">transition2</string>
+    <string name="notification_title">Pending Order</string>
+    <string name="notification_content">The pending orders are : %1$s</string>
     <string name="no_customer_toast">No customer found in the database.</string>
     <string name="no_product_toast">No products found in the database.</string>
+    <string name="no_order_toast">Order cannot be saved if product or customer is absent</string>
+    <string name="quantity_less">Available quantity less than required quantity. Kindly update the inventory!</string>
+    <string name="customer_save">Kindly insert the customer information first</string>
+    <string name="no_emailid">No email-id found</string>
+    <string name="no_email_app">Sorry! we could not find an email app.</string>
 
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="test_device_id" translatable="false">add device id here</string>
 
-
     <string name="maps_key" translatable="false">AIzaSyDAUfUlqhQVJHBYOmCzRbS6mFCM0zRhiiI</string>
+    <string name="maps_url" translatable="false">https://maps.googleapis.com/maps/api/geocode/json?</string>
+    <string name="addresss_literal" translatable="false">components=postal_code:%1$s</string>
+    <string name="lat_string" translatable="false">lat</string>
+    <string name="lon_string" translatable="false">lng</string>
+    <string name="southwest_lat" translatable="false">southwestLatitude</string>
+    <string name="southwest_lng" translatable="false">southwestLongitude</string>
+    <string name="northeast_alt" translatable="false">northeastLatitude</string>
+    <string name="northeast_lng" translatable="false">northeastLongitude</string>
+    <string name="formatted_add" translatable="false">formatted_address</string>
+    <string name="bounds_string" translatable="false">bounds</string>
+    <string name="southwest_string" translatable="false">southwest</string>
+    <string name="northeast_string" translatable="false">northeast</string>
+    <string name="geometry_string" translatable="false">geometry</string>
+    <string name="location_string" translatable="false">location</string>
+    <string name="na_string" translatable="false">-NA-</string>
+    <string name="result_string" translatable="false">results</string>
+    <string name="mail_to" translatable="false">mailto:</string>
+    <string name="tel" translatable="false">tel:</string>
+    <string name="text_ttf" translatable="false">FjallaOne-Regular.ttf</string>
+
     <string name="inventory_label">INVENTORY</string>
     <string name="customers_label">CUSTOMERS</string>
     <string name="vendors_label">VENDORS</string>
     <string name="orders_label">ORDERS</string>
+    <string name="date_format">dd/MMM/yy</string>
 
     <string-array name="status_array">
         <item name="completed">COMPLETED</item>

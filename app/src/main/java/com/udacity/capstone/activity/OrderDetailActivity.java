@@ -95,7 +95,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             TextView tv=new TextView(this);
             tv.setLayoutParams(lparams);
             tv.setTextSize(getResources().getDimension(R.dimen.textSizeVeryVeryVerySmall));
-            tv.setText(orderProductDAO.getProd_name() + "\n"+"Quantity :"+orderProductDAO.getProd_quantity()+"\n");
+            tv.setText(orderProductDAO.getProd_name() + "\n "+getString(R.string.quantity)+"  "+orderProductDAO.getProd_quantity()+"\n");
             product_main.addView(tv);
 
         }

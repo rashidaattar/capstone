@@ -33,11 +33,12 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private static final String LOG_TAG = "MapsActivity";
+    private static final String LOG_TAG = MapsActivity.class.getSimpleName();
+    private static final String UTF_8 = "utf-8";
     private GoogleMap mMap;
     private ProgressDialog dialog;
     private Context mContext;
-    public  String url = "https://maps.googleapis.com/maps/api/geocode/json?";
+    public  String url = getString(R.string.maps_url);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +51,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String location=getIntent().getStringExtra(Constants.MAP_EXTRA);
         try {
             // encoding special characters like space in the user input place
-            location = URLEncoder.encode(location, "utf-8");
+            location = URLEncoder.encode(location, UTF_8);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        String address = "components=postal_code:" + location;
+        String address = getString(R.string.addresss_literal,location);
 
 
         // url , from where the geocoding data is fetched
         //url = url + address + "&key=" + getString(R.string.maps_key);
-        url = url + address + "&key=" + "AIzaSyDAUfUlqhQVJHBYOmCzRbS6mFCM0zRhiiI";
+        url = url + address + "&key=" + getString(R.string.maps_key);
 
         // Instantiating DownloadTask to get places from Google Geocoding service
         // in a non-ui thread
@@ -119,7 +120,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             try{
                 data = downloadUrl(url[0]);
             }catch(Exception e){
-                Log.d("Background Task",e.toString());
+                Log.d(LOG_TAG,e.toString());
             }
             return data;
         }
@@ -147,7 +148,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected List<HashMap<String, String>> doInBackground(String... jsonData) {
 
             List<HashMap<String, String>> places = null;
-            GeocodeJSONParser parser = new GeocodeJSONParser();
+            GeocodeJSONParser parser = new GeocodeJSONParser(mContext);
 
             try {
                 jObject = new JSONObject(jsonData[0]);
@@ -156,7 +157,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 places = parser.parse(jObject);
 
             } catch (Exception e) {
-                Log.d("Exception", e.toString());
+                Log.d(LOG_TAG, e.toString());
             }
             return places;
         }
@@ -170,14 +171,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             for (int i = 0; i < list.size(); i++) {
                 MarkerOptions markerOptions = new MarkerOptions();// Creating a marker
                 HashMap<String, String> hmPlace = list.get(i);// Getting a place from the places list
-                double lat = Double.parseDouble(hmPlace.get("lat"));// Getting latitude of the place
-                double lng = Double.parseDouble(hmPlace.get("lng"));// Getting longitude of the place
-                double SWlat = Double.parseDouble(hmPlace.get("southwestLatitude"));// Getting latitude of the place
-                double SWlng = Double.parseDouble(hmPlace.get("southwestLongitude"));// Getting longitude of the place
-                double NElat = Double.parseDouble(hmPlace.get("northeastLatitude"));// Getting latitude of the place
-                double NElng = Double.parseDouble(hmPlace.get("northeastLongitude"));// Getting longitude of the place
+                double lat = Double.parseDouble(hmPlace.get(getString(R.string.lat_string)));// Getting latitude of the place
+                double lng = Double.parseDouble(hmPlace.get(getString(R.string.lat_string)));// Getting longitude of the place
+                double SWlat = Double.parseDouble(hmPlace.get(getString(R.string.southwest_lat)));// Getting latitude of the place
+                double SWlng = Double.parseDouble(hmPlace.get(getString(R.string.southwest_lng)));// Getting longitude of the place
+                double NElat = Double.parseDouble(hmPlace.get(getString(R.string.northeast_alt)));// Getting latitude of the place
+                double NElng = Double.parseDouble(hmPlace.get(getString(R.string.northeast_lng)));// Getting longitude of the place
 
-                String name = hmPlace.get("formatted_address");// Getting name
+                String name = hmPlace.get(getString(R.string.formatted_add));// Getting name
                 LatLng latLng = new LatLng(lat, lng);// Setting the position for the marker
                 LatLng SWlatLng = new LatLng(SWlat, SWlng);// Setting the position for the marker
                 LatLng NElatLng = new LatLng(NElat, NElng);// Setting the position for the marker

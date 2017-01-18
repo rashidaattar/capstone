@@ -1,5 +1,9 @@
 package com.udacity.capstone.util;
 
+import android.content.Context;
+
+import com.udacity.capstone.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,13 +18,19 @@ import java.util.List;
 
 public class GeocodeJSONParser {
 
+    private Context mContext;
+
+    public GeocodeJSONParser(Context mContext) {
+        this.mContext = mContext;
+    }
+
     /** Receives a JSONObject and returns a list */
     public List<HashMap<String,String>> parse(JSONObject jObject){
 
         JSONArray jPlaces = null;
         try {
             /** Retrieves all the elements in the 'places' array */
-            jPlaces = jObject.getJSONArray("results");
+            jPlaces = jObject.getJSONArray(mContext.getString(R.string.result_string));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -54,7 +64,7 @@ public class GeocodeJSONParser {
     private HashMap<String, String> getPlace(JSONObject jPlace){
 
         HashMap<String, String> place = new HashMap<String, String>();
-        String formatted_address = "-NA-";
+        String formatted_address = mContext.getString(R.string.na_string);
         String lat="";
         String lng="";
         String southwestLongitude="";
@@ -63,23 +73,23 @@ public class GeocodeJSONParser {
         String northEastLatitude="";
         try {
             // Extracting formatted address, if available
-            if(!jPlace.isNull("formatted_address")){
-                formatted_address = jPlace.getString("formatted_address");
+            if(!jPlace.isNull(mContext.getString(R.string.formatted_add))){
+                formatted_address = jPlace.getString(mContext.getString(R.string.formatted_add));
             }
 
-            lat = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lat");
-            lng = jPlace.getJSONObject("geometry").getJSONObject("location").getString("lng");
-            southwestLongitude=jPlace.getJSONObject("geometry").getJSONObject("bounds").getJSONObject("southwest").getString("lng");
-            southwestLatitude=jPlace.getJSONObject("geometry").getJSONObject("bounds").getJSONObject("southwest").getString("lat");
-            northEastLongitude=jPlace.getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast").getString("lng");
-            northEastLatitude=jPlace.getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast").getString("lat");
-            place.put("formatted_address", formatted_address);
-            place.put("lat", lat);
-            place.put("lng", lng);
-            place.put("southwestLongitude",southwestLongitude);
-            place.put("southwestLatitude",southwestLatitude);
-            place.put("northeastLongitude",northEastLongitude);
-            place.put("northeastLatitude",northEastLatitude);
+            lat = jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.location_string)).getString(mContext.getString(R.string.lat_string));
+            lng = jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.location_string)).getString(mContext.getString(R.string.lon_string));
+            southwestLongitude=jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.bounds_string)).getJSONObject(mContext.getString(R.string.southwest_string)).getString(mContext.getString(R.string.lon_string));
+            southwestLatitude=jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.bounds_string)).getJSONObject(mContext.getString(R.string.southwest_string)).getString(mContext.getString(R.string.lat_string));
+            northEastLongitude=jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.bounds_string)).getJSONObject(mContext.getString(R.string.northeast_string)).getString(mContext.getString(R.string.lon_string));
+            northEastLatitude=jPlace.getJSONObject(mContext.getString(R.string.geometry_string)).getJSONObject(mContext.getString(R.string.bounds_string)).getJSONObject(mContext.getString(R.string.northeast_string)).getString(mContext.getString(R.string.lat_string));
+            place.put(mContext.getString(R.string.formatted_add), formatted_address);
+            place.put(mContext.getString(R.string.lat_string), lat);
+            place.put(mContext.getString(R.string.lon_string), lng);
+            place.put(mContext.getString(R.string.southwest_lng),southwestLongitude);
+            place.put(mContext.getString(R.string.southwest_lat),southwestLatitude);
+            place.put(mContext.getString(R.string.northeast_lng),northEastLongitude);
+            place.put(mContext.getString(R.string.northeast_alt),northEastLatitude);
 
         }catch (JSONException e) {
             e.printStackTrace();

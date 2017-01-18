@@ -27,8 +27,8 @@ import butterknife.Unbinder;
 
 public class AddressInfoTabFragment extends Fragment  {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "";
+    private static final String ARG_PARAM2 = "";
 
 
     private String mParam1;
@@ -170,7 +170,7 @@ public class AddressInfoTabFragment extends Fragment  {
             snackbar.show();
         }
         else{
-            Toast.makeText(this.getActivity(),"Kindly insert the customer information first",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getActivity(),getString(R.string.customer_save),Toast.LENGTH_SHORT).show();
         }
 
     }

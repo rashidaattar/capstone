@@ -39,7 +39,7 @@ public class OrderListActivity extends AppCompatActivity  implements  LoaderMana
         setContentView(R.layout.activity_order_list);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Order List");
+        getSupportActionBar().setTitle(getString(R.string.order_list));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //noinspection deprecation
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));

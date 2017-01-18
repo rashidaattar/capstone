@@ -14,6 +14,8 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.udacity.capstone.R;
+
 import java.io.ByteArrayOutputStream;
 
 /**
@@ -22,9 +24,11 @@ import java.io.ByteArrayOutputStream;
 
 public class Utility {
 
-    public static void callPerson(Context context,String phone){
+    private static final String TEXT_HTML = "text/html";
+
+    public static void callPerson(Context context, String phone){
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+phone));
+        intent.setData(Uri.parse(context.getString(R.string.tel)+phone));
         context.startActivity(intent);
     }
 
@@ -34,8 +38,8 @@ public class Utility {
             // Previous intent was changed for case when gmail is not installed
             if(emailID!=null || emailID.length()>0){
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setType("text/html");
-                intent.setData(Uri.parse("mailto:"));
+                intent.setType(TEXT_HTML);
+                intent.setData(Uri.parse(context.getString(R.string.mail_to)));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailID});
                 //startActivity(Intent.createChooser(intent, "Send Email By"));
                 if (intent.resolveActivity(context.getPackageManager()) != null) {
@@ -44,15 +48,15 @@ public class Utility {
 
             }
             else{
-                Toast.makeText(context,"No email-id found",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,context.getString(R.string.no_emailid),Toast.LENGTH_SHORT).show();
             }
 
 
         }catch (Exception ex){
             ex.printStackTrace();
             final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
-            builder.setMessage("Sorry! we could not find an email app. ");
-            builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+            builder.setMessage(context.getString(R.string.no_email_app));
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

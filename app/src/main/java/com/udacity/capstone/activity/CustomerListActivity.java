@@ -45,12 +45,7 @@ public class CustomerListActivity extends AppCompatActivity implements LoaderMan
         setContentView(R.layout.activity_customer_list);
         ButterKnife.bind(this);
         if(getIntent().hasExtra(Constants.PERSON_TYPE_LABEL)){
-            if(getIntent().getStringExtra(Constants.PERSON_TYPE_LABEL).equals(Constants.CUSTOMER_TYPE)){
-                isCustomer = true;
-            }
-            else{
-                isCustomer = false;
-            }
+            isCustomer = getIntent().getStringExtra(Constants.PERSON_TYPE_LABEL).equals(Constants.CUSTOMER_TYPE);
         }
         setSupportActionBar(mtoolbar);
         if(isCustomer)

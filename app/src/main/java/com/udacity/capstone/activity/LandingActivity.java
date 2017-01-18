@@ -44,7 +44,6 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("CHECK");
         //noinspection deprecation,deprecation
         mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         AdRequest adRequest = new AdRequest.Builder()

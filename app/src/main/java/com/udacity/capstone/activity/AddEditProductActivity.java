@@ -3,6 +3,7 @@ package com.udacity.capstone.activity;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -47,6 +48,7 @@ public class AddEditProductActivity extends AppCompatActivity {
    // private static final int READ_EXTERNAL_STORAGE_REQUEST = 1;
     private static final int CAMERA_REQUEST = 3;
     private Uri camera_uri;
+    private Context mContext;
 
     private static final String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -90,6 +92,7 @@ public class AddEditProductActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_add_edit_product));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mContext = this;
         if(getIntent()!=null){
             if(getIntent().hasExtra(Constants.EDIT_PRODUCTS)){
                 prodID = getIntent().getStringExtra(Constants.EDIT_PRODUCTS);
@@ -141,13 +144,13 @@ public class AddEditProductActivity extends AppCompatActivity {
 
     @OnClick(R.id.add_from_camera)
     public void imageFromCamera(){
-        getPermissionToGallery(CAMERA_REQUEST);
+        getPermissionToGallery();
     }
 
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void getPermissionToGallery(int i) {
+    private void getPermissionToGallery() {
 
       /*  switch (i){
             case READ_EXTERNAL_STORAGE_REQUEST:
