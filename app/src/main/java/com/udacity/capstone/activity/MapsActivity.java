@@ -38,7 +38,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private ProgressDialog dialog;
     private Context mContext;
-    public  String url = getString(R.string.maps_url);
+    public  String url = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         String location=getIntent().getStringExtra(Constants.MAP_EXTRA);
+        url =  getString(R.string.maps_url);
         try {
             // encoding special characters like space in the user input place
             location = URLEncoder.encode(location, UTF_8);
@@ -172,7 +173,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 MarkerOptions markerOptions = new MarkerOptions();// Creating a marker
                 HashMap<String, String> hmPlace = list.get(i);// Getting a place from the places list
                 double lat = Double.parseDouble(hmPlace.get(getString(R.string.lat_string)));// Getting latitude of the place
-                double lng = Double.parseDouble(hmPlace.get(getString(R.string.lat_string)));// Getting longitude of the place
+                double lng = Double.parseDouble(hmPlace.get(getString(R.string.lon_string)));// Getting longitude of the place
                 double SWlat = Double.parseDouble(hmPlace.get(getString(R.string.southwest_lat)));// Getting latitude of the place
                 double SWlng = Double.parseDouble(hmPlace.get(getString(R.string.southwest_lng)));// Getting longitude of the place
                 double NElat = Double.parseDouble(hmPlace.get(getString(R.string.northeast_alt)));// Getting latitude of the place

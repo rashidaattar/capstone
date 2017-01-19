@@ -17,7 +17,7 @@
             android:gravity="start|center_vertical"
             android:textSize="@dimen/textSizeTitle"
             android:textColor="@android:color/black"
-            android:text="GOOG"
+            android:text="@string/_001"
             />
         <LinearLayout
             android:layout_width="0dp"
@@ -31,7 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10sp"
-                android:text="1000.00"
+                android:paddingEnd="10sp"
+                android:text="@string/_1000_00"
                 android:textColor="@android:color/black"
                 android:layout_margin="@dimen/marginLargeTopAndBottom"
                 android:textSize="@dimen/textSizeTitle"
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:text="100%"
+                android:text="@string/_1000_00"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/textSizeTitle"
                 />
