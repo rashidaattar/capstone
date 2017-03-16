@@ -35,8 +35,8 @@ import android.provider.ContactsContract.CommonDataKinds.*;
 public class CustomerInfoTabFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "";
-    private static final String ARG_PARAM2 = "";
+    private static final String ARG_PARAM1 = "1";
+    private static final String ARG_PARAM2 = "2";
     public static final int PICK_CONTACT = 1;
 
     private String mParam1;

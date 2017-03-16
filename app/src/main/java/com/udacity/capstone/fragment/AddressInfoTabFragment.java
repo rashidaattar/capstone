@@ -27,8 +27,8 @@ import butterknife.Unbinder;
 
 public class AddressInfoTabFragment extends Fragment  {
 
-    private static final String ARG_PARAM1 = "";
-    private static final String ARG_PARAM2 = "";
+    private static final String ARG_PARAM1 = "1";
+    private static final String ARG_PARAM2 = "2";
 
 
     private String mParam1;
