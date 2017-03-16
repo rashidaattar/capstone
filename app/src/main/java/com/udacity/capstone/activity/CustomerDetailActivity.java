@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.udacity.capstone.database.InventoryProvider;
 import com.udacity.capstone.database.PersonTable;
 import com.udacity.capstone.util.Constants;
 import com.udacity.capstone.util.Utility;
+
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +77,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
                 updateUI();
             }
         }
-        toolbar_customer.inflateMenu(R.menu.call_email_contextmenu);
+       /* toolbar_customer.inflateMenu(R.menu.call_email_contextmenu);
         toolbar_customer.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -91,7 +94,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
                         return false;
                 }
             }
-        });
+        });*/
 
         toolbar_adress.inflateMenu(R.menu.maps_menu);
         toolbar_adress.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -112,11 +115,18 @@ public class CustomerDetailActivity extends AppCompatActivity {
     private void updateUI() {
 
             if(mCursor.moveToNext()){
+                Pattern numberPattern = Pattern.compile("\\b[0-9]+\\b");
                 //   name.setText(mCursor.getString(mCursor.getColumnIndex(PersonTable.PERSON_NAME)));
-                if(mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO))!=null)
-                    mobile.setText(getString(R.string.mobile_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
-                if(mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL))!=null)
-                    email.setText(getString(R.string.email_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
+                if(mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO))!=null){
+                    mobile.setText(getString(R.string.mobile_label)+" : "
+                            +mCursor.getString(mCursor.getColumnIndex(PersonTable.CONTACT_NO)));
+                    Linkify.addLinks(mobile,Linkify.PHONE_NUMBERS);
+                }
+                if(mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL))!=null){
+                    email.setText(getString(R.string.email_label)+" : "+
+                            mCursor.getString(mCursor.getColumnIndex(PersonTable.EMAIL)));
+                    Linkify.addLinks(email,Linkify.EMAIL_ADDRESSES);
+                }
                 if(mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME))!=null)
                     company_name.setText(getString(R.string.companyname_label)+" : "+mCursor.getString(mCursor.getColumnIndex(PersonTable.COMPANY_NAME)));
                 if(mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1))!=null)
@@ -126,11 +136,16 @@ public class CustomerDetailActivity extends AppCompatActivity {
                 if(mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY))!=null)
                     city.setText(getString(R.string.city_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CITY)));
                 if(mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE))!=null)
-                    state.setText(getString(R.string.state_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
+                    state.setText(getString(R.string.state_label)+" : "+
+                            mCursor.getString(mCursor.getColumnIndex(AddressTable.STATE)));
                 if(mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE))!=null)
                     pincode.setText(getString(R.string.pincode_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE)));
-                if(mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO))!=null)
-                    company_number.setText(getString(R.string.contact_label)+" : "+mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
+                if(mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO))!=null){
+                    company_number.setText(getString(R.string.contact_label)+" : "+
+                            mCursor.getString(mCursor.getColumnIndex(AddressTable.CONTACT_NO)));
+                    Linkify.addLinks(company_number,Linkify.PHONE_NUMBERS);
+                }
+
                 // locationString = mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE1))+" , "+ mCursor.getString(mCursor.getColumnIndex(AddressTable.ADDRESS_LINE2));
                 locationString = mCursor.getString(mCursor.getColumnIndex(AddressTable.PINCODE));
             }
